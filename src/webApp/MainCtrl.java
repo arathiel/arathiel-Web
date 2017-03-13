@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class MainCtrl 
  * Controleur Principal de l'appli Arathiel.
  * redirection vers chaque Fonctionnalité
- * @Author OlivB
+ * @Author Groupe
  */
 @WebServlet(
 		name = "MainCtrl", 
