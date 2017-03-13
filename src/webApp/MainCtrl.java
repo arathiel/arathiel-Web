@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MainCtrl
+ * Servlet implementation class MainCtrl 
  * Controleur Principal de l'appli Arathiel.
  * redirection vers chaque Fonctionnalité
+ * @Author OlivB
  */
 @WebServlet(
 		name = "MainCtrl", 
