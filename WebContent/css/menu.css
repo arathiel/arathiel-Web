@@ -1,0 +1,93 @@
+/* Fiche de style pour le menu Groupe */
+
+#menu_accordeon {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+  width : 150px;
+  float: left;
+  margin-right: 50px;
+  font-weight : bold;
+  font-family : Lucida, sans-serif;
+  font-size : 15px;
+
+}
+
+/* Ajustement des puces générales */
+#menu_accordeon ul {
+  padding:0;
+  margin:0;
+  list-style:none;
+  text-align: center;
+}
+
+#menu_accordeon li {
+   background-color:070707; 
+   background-image:-webkit-linear-gradient(top, #000 0%, #555 100%);
+   background-image: linear-gradient(to bottom, #000 0%, #555  100%);
+   border-radius: 6px;
+   margin-bottom:2px;
+   box-shadow: 3px 3px 3px #999;
+   border:solid 1px #79453a;
+}
+
+/* Pour le sous menu */
+#menu_accordeon li li {
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #000;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+
+/* Pour les sous-sous menu */
+#menu_accordeon li ul ul{
+   max-height:0;
+   overflow: hidden;
+   transition: all .5s;
+   border-radius:0;
+   background: #000;
+   box-shadow: none;
+   border:none;
+   margin:0
+}
+
+/* Pour les liens */
+#menu_accordeon a {
+  display:block;
+  text-decoration: none;
+  color: #c9aa79;
+  padding: 8px 0;
+  font-family : Lucida, sans-serif;
+  font-size:1.2em
+}
+
+/* Quand la souris passe sur les liens */
+#menu_accordeon ul li a, #menu_accordeon li:hover li a {
+  font-size:1em
+}
+
+#menu_accordeon li:hover {
+	color: #070707;
+    background: #e07433; 	
+	box-shadow: 0px 0px 15px #ffc47e;
+}
+
+#menu_accordeon li li:hover {
+	color: #070707;
+    background: #e07433;
+	box-shadow: 0px 0px 15px #ffc47e;
+}
+
+/* pour dérouler le menu */
+#menu_accordeon li:hover li {
+  max-height: 15em;
+}
+
+#menu_accordeon li ul:hover li ul{
+  max-height: 15em;
+}
