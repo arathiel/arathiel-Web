@@ -7,6 +7,7 @@
 <title>Armurerie</title>
 </head>
 <body>
+	<%@ include file="/../WEB-INF/include/menu.jsp" %>
 	<h1>Armurerie</h1>
 	<a href="<%=request.getContextPath()%>/armurerie/arme"><input type="button" name="btnArme" class="btnArmurerie" value="Arme"/></a>
 	<a href="<%=request.getContextPath()%>/armurerie/armure"><input type="button" name="btnArmure" class="btnArmurerie" value="Armure"/></a>
