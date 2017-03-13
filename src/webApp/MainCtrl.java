@@ -55,7 +55,7 @@ public class MainCtrl extends HttpServlet {
 		doGet(request, response);
 	}
 	private void afficheAccueil(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		disp = request.getRequestDispatcher("#");
+		disp = request.getRequestDispatcher("/index.jsp");
 		disp.forward(request, response);
 	}
 	private void sendArmurerie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
