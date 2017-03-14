@@ -1,0 +1,87 @@
+@CHARSET "ISO-8859-1";
+
+#headerMenu {
+	position: fixed;
+	display: block;
+	 float: top;
+	top: 0px;
+	left: 0px;
+	margin-top: 0px;
+	width: 100%;
+	z-index: 99;
+	font-weight: bold;
+	font-family: Lucida, sans-serif;
+	font-size: 15px;
+}
+
+#headerMenu ul {
+	list-style: none;
+	position: relative;
+	float: left;
+	display: block;
+	/* top right bottom left */
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+	background-color: #000;
+	width: 100%;
+	z-index: 99;
+}
+
+#headerMenu ul a {
+	display: block;
+	color: #c9aa79;
+	text-decoration: none;
+}
+
+#headerMenu ul li {
+	position: relative;
+	float: left;
+	padding: 14px 16px;
+}
+
+#headerMenu ul li.current-menu-item {
+	background: #000;
+}
+
+#headerMenu ul li.last-menu-item {
+	float: right;
+	background: #000;
+}
+
+#headerMenu ul a.last-menu-item {
+	float: right;
+	background: #000;
+}
+
+#headerMenu ul ul {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 282px;
+	background-color: #000;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	padding: 0;
+}
+
+#headerMenu ul ul li {
+	float: none;
+	width: 250px;
+	padding: 12px 16px;
+}
+
+#headerMenu ul ul a {
+	line-height: 120%;
+	padding: 12px 16px;
+	width: 250px;
+	color: #c9aa79;
+}
+
+#headerMenu ul li:hover>ul {
+	display: block;
+}
+
+.img-header {
+	margin-left: 45%;
+	margin-right: 50%;
+}
