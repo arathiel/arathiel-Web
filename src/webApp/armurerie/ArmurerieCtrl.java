@@ -1,6 +1,9 @@
 package webApp.armurerie;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 		)
 public class ArmurerieCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private RequestDispatcher disp;
+    private ServletContext servletContexte;
+    private String path;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,14 +35,15 @@ public class ArmurerieCtrl extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = request.getPathInfo();
+		path = request.getPathInfo();
 		if (path == null || path.equals("/")) {
 			afficheArmurerie(request, response);
 		}
 	}
-
-	private void afficheArmurerie(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+// méthode d'affichage de la page principale de l'Armurerie
+	private void afficheArmurerie(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		disp = request.getRequestDispatcher("/WEB-INF/vue/armurerie/Armurerie.jsp");
+		disp.forward(request, response);
 		
 	}
 
@@ -45,8 +51,20 @@ public class ArmurerieCtrl extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		path = request.getPathInfo();
+		if (path == null || path.equals("/")) {
+			afficheArmurerie(request, response);
+		}
+		else if (path.equals("/creation/*")){
+			sendToCtrlCreation(request, response);		
+		}
+	}
+
+	private void sendToCtrlCreation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		servletContexte = getServletContext();
+		disp = servletContexte.getNamedDispatcher("/ArmurerieCreation");
+		disp.forward(request, response);
+		
 	}
 
 }
