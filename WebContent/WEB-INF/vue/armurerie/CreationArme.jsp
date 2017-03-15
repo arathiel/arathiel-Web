@@ -11,7 +11,7 @@
 	<br/>
 	<br/>
 	
-	<form name="creationArme" method="post" action="<%= request.getContextPath() %>/royaume/armurerie/creation?choix=arme">
+	<form name="creationArme" method="post" action="<%= request.getContextPath() %>/royaume/armurerie/creation/arme">
 		<label class="lblNomArme">Nom de l'arme :
 			<input type="text" class="txtNomArme" name="nomArme"/>
 		</label>
