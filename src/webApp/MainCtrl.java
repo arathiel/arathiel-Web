@@ -42,7 +42,7 @@ public class MainCtrl extends HttpServlet {
 		if (path == null || path.equals("/")) {
 			afficheAccueil(request, response);
 		}
-		else if (path.equals("armurerie")){
+		else if (path.equals("/armurerie")){
 			sendArmurerie(request, response);
 		}
 	}
