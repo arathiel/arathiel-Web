@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC 
+"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+ 	<constant name="struts.devMode" value="true" />
+ 	<!-- <constant name="struts.ui.theme" value="simple" /> -->
+	
+	<package name="default" extends="struts-default">
+		<default-action-ref name="index" />
+
+	<!-- Page d'Index -->
+		
+		<action name="index">
+			<result>/WEB-INF/vue/accueilAdmin.jsp</result>
+		</action>
+
+	<!-- CSS MENU et MENU HEADER -->
+	
+		<action name="cssHeader">
+			<result>css/header.css</result>
+		</action>
+	
+		<action name="cssMenu">
+			<result>css/menu.css</result>
+		</action>
+	
+	</package>
+
+	<include file="trait.xml" />
+	
+</struts>
