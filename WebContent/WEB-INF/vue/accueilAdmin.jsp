@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE >
 <html>
 <head>
 <link rel="stylesheet" href="../css/Arathiel.css" />
-<link rel="stylesheet" href="../css/header.css" />
-<link rel="stylesheet" href="../css/menu.css" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Les Royaumes d'Arathiel - Panneau d'administration</title>
 </head>

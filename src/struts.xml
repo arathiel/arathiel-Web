@@ -32,5 +32,6 @@
 	</package>
 
 	<include file="trait.xml" />
+	<include file="race.xml" />
 	
 </struts>
