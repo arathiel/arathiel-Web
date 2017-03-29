@@ -16,6 +16,26 @@
 
 
 		<h1> Page de Listing des Races</h1>
+		<div id="listeRaceDiv">
+			<table>
+				<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Dispo</th>
+				</tr>
+				<s:iterator value="listeRace">
+				<tr>
+					<s:a namespace="/race" action="choix">
+						<td><s:property value="id"/></td>
+						<td><s:property value="nom"/></td>
+						<td><s:property value="dispo"/></td>
+					</s:a>
+				</tr>
+				</s:iterator>	
+	
+			</table>
+			
+		</div>
 
 
 </body>
