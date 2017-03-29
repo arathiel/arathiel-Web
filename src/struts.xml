@@ -36,6 +36,9 @@
 	
 	</package>
 
+
+	<!-- Liste des includes -->
+
 	<include file="trait.xml" />
 	<include file="race.xml" />
 	
