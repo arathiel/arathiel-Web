@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<package name="trait" namespace="/trait" extends="struts-default">
+
+					<!-- ************ TRAIT ************ -->
+		
+		<!-- Administration Trait ================================= -->
+		<action name="frmAdd">
+			<result>/WEB-INF/vue/trait/admin/frmAdd.jsp</result>
+		</action>
+		
+		<!-- Consultation Trait ================================= -->
+		<action name="*ConsultTrait" method="{1}">
+
+		</action>
+		
+		
+					<!-- ************ COMPORTEMENT ************ -->
+		
+		<!-- Administration Comportement ================================= -->
+		<action name="*AdminComp" method="{1}">
+
+		</action>
+	
+	<!-- Consultation Comportement ================================= -->		
+		<action name="*ConsultComp" method="{1}">
+
+		</action>
+	</package>
+	
+</struts>
