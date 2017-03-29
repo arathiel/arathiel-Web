@@ -9,48 +9,84 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Arathiel - Consultation</title>
-	
-	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
+
+	<link rel="stylesheet" href="<s:url namespace="" 	action="cssArathiel" />"  />	
 </head>
 
 <body>
 
 	<!-- Include du Header -->
-	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/include/header"></jsp:include>
+	<jsp:include page="/WEB-INF/include/header.jsp"></jsp:include>
 
 	<!-- Include du menu -->
-	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/include/menu"></jsp:include>
-		
-		
-	<h2 id="titre"><s:text name="Consultation des traits"/></h2>
-	
-	<br/>
-	<br/>
-	
-	<div>
-		<s:textfield 
-			label	="Nom du trait"
-			id		="saisie"/>
-			
-		<s:select
-            label		="type"
-            id			="seltype"
-            list		="{'Technique', 'Roleplay'}"
-            headerKey	="None"
-            headerValue	="Choisissez un type de trait"/>
-	
-	</div>
-		
-	<br/>
-	<br/>
-		
-	<hr/>
-	
-	<br/>
-	<br/>
+	<jsp:include page="/WEB-INF/include/menu.jsp"></jsp:include>
 
-	<div id="response"></div>
-	
+
+	<!-- Zone de recherche -->
+	<br />
+	<br />
+
+	<div class="mainbloc">
+
+		<div id="searchbloc">
+
+			<div class="titre">
+				<h2>
+					<s:text name="Consultation des traits" />
+				</h2>
+			</div>
+
+			<br />
+			<br />
+
+			<div id="formbloc">
+				<s:form>
+					<s:textfield
+						id="saisieNom"
+						label="Nom du trait"/>
+
+					<s:select 
+						id="seltype"
+						label="type" 
+						list="{'Technique', 'Roleplay'}" 
+						headerKey="None"
+						headerValue="Type de trait"/>
+
+				</s:form>
+
+			</div>
+
+		</div>
+
+		<br />
+		<br />
+		<hr width="80" />
+		<br />
+		<br />
+
+		<!-- Zone d'affichage dynamyque -->
+
+		<div id="listbloc">
+
+			<div class="titre">
+				<h2>
+					<s:text name="Liste des traits disponibles" />
+				</h2>
+			</div>
+
+			<br />
+			<br />
+
+			<div id="resultbloc"></div>
+
+		</div>
+
+	</div>
+
+	<!-- JavaScript -->
+	<script type="" src="<s:url namespace="/trait" 	action="jsAdmin" />"></script>
+	<script type="" src="<s:url namespace="" 		action="jsAdmin" />"></script>
+
 </body>
 
 
