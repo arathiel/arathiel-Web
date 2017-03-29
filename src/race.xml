@@ -12,7 +12,7 @@
  		<action name="pageEditer">
  			<result>/WEB-INF/vue/race/editerRace.jsp</result>
  		</action>
- 		<action name="pageLister">
+ 		<action name="pageLister" class="beanAction.races.ActionsRace">
  			<result>/WEB-INF/vue/race/listerRace.jsp</result>
  		</action>
  		 		

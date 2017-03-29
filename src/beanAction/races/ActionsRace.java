@@ -27,9 +27,19 @@ public class ActionsRace extends ApplicationSupport{
 		InitialContext ctx = new InitialContext();
 		fService = (IFacadeService)  ctx.lookup("ejb:/arathiel-EJB/FacadeService!clientServeur.IFacadeService");
 		
-		listeRace= fService.listeToutesRaces();
+		setListeRace(fService.listeToutesRaces());
 		
 		return SUCCESS;	
+	}
+
+
+	public ArrayList<Race> getListeRace() {
+		return listeRace;
+	}
+
+
+	public void setListeRace(ArrayList<Race> listeRace) {
+		this.listeRace = listeRace;
 	}
 
 }
