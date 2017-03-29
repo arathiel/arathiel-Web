@@ -44,5 +44,5 @@ public abstract class Bonus implements Serializable {
 		this.coutXp = 0;
 	}
 	
-	
+
 }

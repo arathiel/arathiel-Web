@@ -13,7 +13,9 @@
  			<result>/WEB-INF/vue/race/editerRace.jsp</result>
  		</action>
  		<action name="page*" method="{1}" class="beanAction.races.ActionsRace">
- 			<result>/WEB-INF/vue/race/listerRace.jsp</result>
+ 			
+ 			<result>/WEB-INF/vue/race/{1}Race.jsp</result>
+ 			
  			<allowed-methods>lister</allowed-methods>
  		</action>
  		 		
