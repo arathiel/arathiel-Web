@@ -16,8 +16,8 @@
    		</li>
    		<li><a href="#">Race</a>
       		<ul>
-         		<li><s:a namespace="/race" action="pageCreer" >Creer			</s:a></li>
-         		<li><s:a namespace="/race" action="pageEditer">Editer			</s:a></li>
+         		<li><s:a namespace="/race" action="pagecreer" >Creer			</s:a></li>
+         		<li><s:a namespace="/race" action="pageediter">Editer			</s:a></li>
          		<li><s:a namespace="/race" action="pagelister">Liste des Races	</s:a></li>
       		</ul>
    		</li>
