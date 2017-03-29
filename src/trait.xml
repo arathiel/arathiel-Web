@@ -12,13 +12,13 @@
 		
 		<!-- Administration Trait ================================= -->
 		<action name="frmAdd">
-			<result>WEB-INF/vue/trait/admin/frmAddTrait.jsp</result>
+			<result>/WEB-INF/vue/trait/admin/frmAddTrait.jsp</result>
 		</action>
 		
 		
 		<!-- Consultation Trait =================================== -->
 		<action name="frmList">
-			<result>WEB-INF/vue/trait/admin/frmListTrait.jsp</result>
+			<result>/WEB-INF/vue/trait/consult/frmListTrait.jsp</result>
 		</action>
 		
 		

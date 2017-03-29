@@ -1,6 +1,7 @@
 <!-- Menu MJ -->
 
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
 <link rel="stylesheet" href="<s:url namespace="" action="cssMenu" />" />
 
 <nav id="menu_accordeon"> 
@@ -50,8 +51,8 @@
    		</li>
    		<li><a href="#">Trait</a>
       		<ul>
-         		<li><s:a namespace="/trait" action="frmAdd">Ajouter</s:a></li>
-         		<li><s:a namespace="/trait" action="frmList">Consulter</s:a></li>
+         		<li><s:a namespace="/trait" action="frmAdd" >Ajouter	</s:a></li>
+         		<li><s:a namespace="/trait" action="frmList">Consulter	</s:a></li>
 				<li><a href="#">Comportement</a>
 					<ul>
 						<li><a href="#">Ajouter</a></li>

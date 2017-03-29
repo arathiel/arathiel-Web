@@ -35,7 +35,7 @@
 		<s:select
             label		="type"
             id			="seltype"
-            list		="{'technique', 'Roleplay'}"
+            list		="{'Technique', 'Roleplay'}"
             headerKey	="None"
             headerValue	="Choisissez un type de trait"/>
 	
