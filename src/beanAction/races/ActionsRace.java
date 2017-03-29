@@ -3,6 +3,7 @@ package beanAction.races;
 import java.util.ArrayList;
 
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
@@ -20,19 +21,34 @@ public class ActionsRace extends ApplicationSupport{
 	private static IFacadeService fService;
 	
 	private ArrayList<Race> listeRace = new ArrayList<Race>();
-
+	
+	public void init() {
+		InitialContext ctx;
+		try {
+			ctx = new InitialContext();
+			fService = (IFacadeService)  ctx.lookup("ejb:/arathiel-EJB/FacadeService!clientServeur.IFacadeService");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	@Override
-	public String execute() throws Exception {
-		InitialContext ctx = new InitialContext();
-		fService = (IFacadeService)  ctx.lookup("ejb:/arathiel-EJB/FacadeService!clientServeur.IFacadeService");
-		
-		setListeRace(fService.listeToutesRaces());
-		
-		return SUCCESS;	
+	public String execute() {
+		return SUCCESS;
 	}
 
-
+	
+	public String lister() {
+		init();
+		setListeRace(fService.listeToutesRaces());		
+		return SUCCESS;
+	}
+	
+	
+	
+	
 	public ArrayList<Race> getListeRace() {
 		return listeRace;
 	}

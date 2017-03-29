@@ -19,12 +19,9 @@ public class Race implements IPackable, Serializable {
 	
 	private int id;
 	
-	
 	private String nom;
-	
 
 	private boolean dispo = false;
-	
 
 	private int coutXp = ParamIPackable.COUT_XP_RACE;
 

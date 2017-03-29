@@ -12,8 +12,9 @@
  		<action name="pageEditer">
  			<result>/WEB-INF/vue/race/editerRace.jsp</result>
  		</action>
- 		<action name="pageLister" class="beanAction.races.ActionsRace">
+ 		<action name="page*" method="{1}" class="beanAction.races.ActionsRace">
  			<result>/WEB-INF/vue/race/listerRace.jsp</result>
+ 			<allowed-methods>lister</allowed-methods>
  		</action>
  		 		
  	</package>	
