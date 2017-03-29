@@ -4,7 +4,7 @@
 <!DOCTYPE >
 <html>
 <head>
-<link rel="stylesheet" href="../css/Arathiel.css" />
+<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Les Royaumes d'Arathiel - Panneau d'administration</title>

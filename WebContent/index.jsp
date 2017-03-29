@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
 <link rel="stylesheet" href="./css/index.css" />
-<link rel="stylesheet" href="./css/Arathiel.css" />
 <title>Les Royaumes d'Arathiel</title>
 </head>
 <body>
