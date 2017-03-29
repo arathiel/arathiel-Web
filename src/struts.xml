@@ -20,7 +20,7 @@
 		</action>
 
 
-	<!-- CSS -->
+	<!-- ************ CSS ************ -->
 	
 		<action name="cssHeader">
 			<result>css/header.css</result>
@@ -32,6 +32,12 @@
 		
 		<action name="cssArathiel">
 			<result>css/arathiel.css</result>
+		</action>
+
+		
+	<!-- ************ JavaScript ************ -->
+		<action name="jQuery">
+			<result>jquery-3.2.0.min.js</result>
 		</action>
 	
 	</package>
