@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link rel="stylesheet" href="./css/index.css" />
-	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
-	<title>Les Royaumes d'Arathiel</title>
+<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
+<link rel="stylesheet" href="./css/index.css" />
+<title>Les Royaumes d'Arathiel</title>
 </head>
 <body>
 	<img class="img-header" src="<%=request.getContextPath()%>/img/bannerRA.jpg" alt="LogoArathiel" />

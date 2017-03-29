@@ -19,7 +19,8 @@
 			<result>/WEB-INF/vue/accueilAdmin.jsp</result>
 		</action>
 
-	<!-- CSS MENU et MENU HEADER -->
+
+	<!-- CSS -->
 	
 		<action name="cssHeader">
 			<result>css/header.css</result>
@@ -34,6 +35,9 @@
 		</action>
 	
 	</package>
+
+
+	<!-- Liste des includes -->
 
 	<include file="trait.xml" />
 	<include file="race.xml" />

@@ -12,26 +12,23 @@
 		
 		<!-- Administration Trait ================================= -->
 		<action name="frmAdd">
-			<result>/WEB-INF/vue/trait/admin/frmAdd.jsp</result>
+			<result>WEB-INF/vue/trait/admin/frmAddTrait.jsp</result>
 		</action>
 		
-		<!-- Consultation Trait ================================= -->
-		<action name="*ConsultTrait" method="{1}">
-
+		
+		<!-- Consultation Trait =================================== -->
+		<action name="frmList">
+			<result>WEB-INF/vue/trait/admin/frmListTrait.jsp</result>
 		</action>
 		
 		
 					<!-- ************ COMPORTEMENT ************ -->
 		
 		<!-- Administration Comportement ================================= -->
-		<action name="*AdminComp" method="{1}">
-
-		</action>
+		
 	
-	<!-- Consultation Comportement ================================= -->		
-		<action name="*ConsultComp" method="{1}">
-
-		</action>
+		<!-- Consultation Comportement =================================== -->		
+		
 	</package>
 	
 </struts>
