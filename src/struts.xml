@@ -28,6 +28,10 @@
 		<action name="cssMenu">
 			<result>css/menu.css</result>
 		</action>
+		
+		<action name="cssArathiel">
+			<result>css/arathiel.css</result>
+		</action>
 	
 	</package>
 
