@@ -22,14 +22,19 @@
 				<th>Id</th>
 				<th>Nom</th>
 				<th>Dispo</th>
+				<th>Xp Rendue</th>
 			</tr>
 			<s:iterator value="listeRace">
+			
+			
 			<tr>
-				<s:a namespace="/race" action="choix">
-					<td><s:property value="id"/></td>
-					<td><s:property value="nom"/></td>
-					<td><s:property value="dispo"/></td>
-				</s:a>
+				<td><s:property value="id"/></td>
+				<td><s:a namespace="/race" action="choix">
+					<s:property value="nom"/>
+					</s:a>
+				</td>
+				<td><s:property value="dispo"/></td>
+				<td><s:property value="calculRenduXp()"/></td>				
 			</tr>
 			</s:iterator>	
 	

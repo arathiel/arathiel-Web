@@ -21,6 +21,9 @@ public class ActionsRace extends ApplicationSupport{
 	private static IFacadeService fService;
 	
 	private ArrayList<Race> listeRace = new ArrayList<Race>();
+
+
+	
 	
 	public void init() {
 		InitialContext ctx;
@@ -42,9 +45,24 @@ public class ActionsRace extends ApplicationSupport{
 	
 	public String lister() {
 		init();
+		
 		setListeRace(fService.listeToutesRaces());		
 		return SUCCESS;
 	}
+	
+	
+	public String creer() {
+		//TODO
+		return SUCCESS;
+	}
+	
+	
+	
+	public String editer() {
+		//TODO
+		return SUCCESS;
+	}
+	
 	
 	
 	
@@ -57,5 +75,7 @@ public class ActionsRace extends ApplicationSupport{
 	public void setListeRace(ArrayList<Race> listeRace) {
 		this.listeRace = listeRace;
 	}
+
+
 
 }

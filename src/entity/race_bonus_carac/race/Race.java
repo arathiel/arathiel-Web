@@ -31,8 +31,8 @@ public class Race implements IPackable, Serializable {
 	public Race(){
 	}
 	
-	//Constructeur positionné en private car il ne va servir que pour reconstruire les objets provenant d'hibernate (donc appelé par la methode interne dto())
-	private Race (int id, String nom, boolean dispo) {
+	
+	public Race (int id, String nom, boolean dispo) {
 		this.id = id;
 		this.nom = nom;
 		this.dispo = dispo;
@@ -101,6 +101,7 @@ public class Race implements IPackable, Serializable {
 		int renduXp = this.getCoutXp();
 		
 		for (Bonus b: this.getListeBonus()){
+			System.out.println(b.getCoutXp());
 			renduXp = renduXp - b.getCoutXp();
 		}
 		return renduXp;
@@ -121,21 +122,4 @@ public class Race implements IPackable, Serializable {
 		return ("Id: "+this.getId()+" Nom: "+this.getNom());
 	}
 	
-	
-	//Methode qui reconstruit un objet à partir d'un objet hibernate
-	public Race dto() {
-		
-		Race raceDto = new Race(this.getId(), this.getNom(), this.getDispo());
-	
-		//On ajoute les bonus à la raceDto
-		if (this.getListeBonus() != null) {
-			ArrayList<Bonus> listeDto = new ArrayList<Bonus>();
-			for (Bonus bonus : this.getListeBonus()) {
-				listeDto.add(bonus);
-			}
-			raceDto.setListeBonus(listeDto);
-		}
-		return raceDto;
-	}
-
 }
