@@ -18,7 +18,7 @@
 	<jsp:include page="../../include/menu.jsp"></jsp:include>
 		
 		
-	<h1> Page d'édition des Races</h1>
+	<h1> Page de création des Races</h1>
 	<div id="divGeneral">	
 		<div id="selections">
 			
@@ -67,7 +67,7 @@
 		</div>
 		
 		<div id="resume">
-			<s:form namespace="/race" action="creerRace">
+			<form >
 				<div id="identRace">
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
@@ -78,10 +78,11 @@
 				</div>
 				
 				<div id="bouton">
-					<s:submit	value="Creer" 		id="enregistrer"></s:submit>	
-				</div>
-			
-			</s:form>
+<%-- 					<s:submit	value="Creer" 		id="enregistrer"></s:submit>	 --%>
+				</div>		
+				<button type="button" id="enregistrer">Creer</button>
+			</form>
+				
 			
 		</div>
 	</div>
