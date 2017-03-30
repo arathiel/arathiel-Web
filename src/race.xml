@@ -9,7 +9,12 @@
 			<result>/css/race/raceEdition.css</result>
 		</action>
 	
-		<action name="page*" method="{1}" class="beanAction.races.ActionsRace">
+		<action name="*Race" method="{1}" class="beanAction.races.ActionsRaceGestion">
+			<result></result>
+			<allowed-methods>creer, modifier, supprimer</allowed-methods>
+		</action>
+	
+		<action name="page*" method="{1}" class="beanAction.races.ActionsRacePages">
  			
  			<result>/WEB-INF/vue/race/{1}Race.jsp</result>
  			

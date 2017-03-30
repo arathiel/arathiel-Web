@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<%-- 	<link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" /> --%>
+	<link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" />
 	<link rel="stylesheet" href="<s:url namespace="/race" 	action="cssRaceEdit" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Page d'édition des races</title>
@@ -30,7 +30,7 @@
 							listValue="nomCarac"
 							headerKey="0"
 							headerValue="Choisissez..."
-							label="Ajouter une Caractéristique "/>
+							label="Ajouter une Caracteristique "/>
 							
 				<s:submit	value="+" 	id="caracPlus"></s:submit>	
 				<s:submit	value="-"	id="caracMoins"></s:submit>
@@ -43,20 +43,22 @@
 							listValue="libelle"
 							headerKey="0"
 							headerValue="Choisissez..."
-							label="Ajouter un trait "/>	
+							label="Ajouter un Trait "
+							/>	
 							
 				<s:submit	value="+" id="traitPlus"></s:submit>	
 				<s:submit	value="-" id="traitMoins"></s:submit>
 			</div>
 				
-			<div id="comp" >		
+			<div id="comp" >	
 				<s:select 	list="listeComp" 
 							name="selectComp"
 							listKey="id"
 							listValue="nom"
 							headerKey="0"
 							headerValue="Choisissez..."
-							label="Ajouter une Compétence "/>	
+							label="Ajouter une compétence " 
+							/>	
 							
 				<s:submit	value="+" id="compPlus"></s:submit>	
 				<s:submit	value="-" id="compMoins"></s:submit>
@@ -65,22 +67,24 @@
 		</div>
 		
 		<div id="resume">
-		
-			<div id="identRace">
 			<s:form >
-				<s:textfield name="idRace" 		label="Id"></s:textfield>
-				<s:textfield name="nomRace" 	label="Nom"></s:textfield>
-				<s:textfield name="xpRendue" 	label="Xp Rendue"></s:textfield>
+				<div id="identRace">
+		
+					<s:textfield name="idRace" 		label="Id"></s:textfield>
+					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
+					<s:textfield name="xpRendue" 	label="Xp Rendue"></s:textfield>
+				</div>
 				
 				<div id="bonus">
 <!-- 		 ici seront créés des bonus à la volée chacun remplissant une balise div pendant la mise à jour  -->
-				
 				</div>
 				
-				<s:submit	value="Modifier" 	id="modif"></s:submit>	
-				<s:submit	value="Supprimer" 	id="suppr"></s:submit>
+				<div id="bouton">
+					<s:submit	value="Modifier" 	id="enregistrer"></s:submit>	
+					<s:submit	value="Supprimer" 	id="suppr"></s:submit>
+				</div>
+			
 			</s:form>
-			</div>
 			
 		</div>
 	</div>

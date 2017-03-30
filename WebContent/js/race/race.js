@@ -13,7 +13,7 @@ function initAll() {
 	document.querySelector('#traitMoins').onclick = traitMoins;
 	document.querySelector('#compPlus').onclick = compPlus;	
 	document.querySelector('#compMoins').onclick = compMoins;
-	document.querySelector('#acad').onclick = acad;
+	document.querySelector('#enregistrer').onclick = enregistrer;
 }	
 	
 /**
@@ -245,6 +245,13 @@ function compMoins(){
 	}
 }
 
-function acad() {
-	console.log("acad");
+
+/** 
+ * Methode qui recupère les données du fomrulaire 
+ * et les envoi vers le beanAction ActionsRacesGestion
+ *  
+ * @returns
+ */
+function enregistrer() {
+	console.log("enregistrer");
 }
