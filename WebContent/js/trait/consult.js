@@ -20,17 +20,17 @@ function dynamicSearch() {
 	console.log("Entrée dans dynamicSearch")
 	
 	$.ajax({
-		url			: 'erreur',
+		url			: 'searchTr',
 		type 		: 'GET',
 		data 		: 'saisieNom=' + $('#saisieNom').val(),
 		dataType	: 'HTML',
 		
 		success : function(code_html, statut){ 
-			console.log("Entrée dans success : resultat = "+code_html + 'statut = '+statut)
+			
 		},
 		
 		error : function(resultat, statut, erreur){
-			console.log("Entrée dans error : resultat = "+resultat + ', statut = '+statut + ', erreur = ' + erreur)
+//			console.log("Entrée dans error : resultat = "+resultat + ', statut = '+statut + ', erreur = ' + erreur)
 		},
 		
 		complete : function(resultat, statut){

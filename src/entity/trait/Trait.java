@@ -1,8 +1,6 @@
 package entity.trait;
 
 import java.io.Serializable;
-import java.util.Collection;
-
 
 import entity.trait.comportement.Comportement;
 import technic.trait.Comportements;
@@ -22,29 +20,16 @@ public class Trait implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 
-
+	//Attributs de classe
 	private int				id;
-	
-
 	private	String			libelle;
-	
-	
 	private boolean 		visiPublic;
-	
-
 	private boolean			dispoCrea;
-	
-
 	private boolean			malus;
-	
-			
-	private Collection<Comportement> listComp = new Comportements();
-	
-	
+	private Comportements 	listComp;
 	private Description 	description;
 	
 	// Constructeurs
-	
 	
 	/**
 	 * Constructeur par défaut pour fonctionnement de la persistance
@@ -63,7 +48,7 @@ public class Trait implements Serializable{
 	 * @param description
 	 */
 	public Trait(int id, String libelle, boolean visiPublic, boolean dispoCrea, boolean malus,
-			Collection<Comportement> listComp, Description description) {
+			Comportements listComp, Description description) {
 		super();
 		this.id = id;
 		this.libelle = libelle;
@@ -84,7 +69,7 @@ public class Trait implements Serializable{
 	 * @param description
 	 */
 	public Trait(String libelle, boolean visiPublic, boolean dispoCrea, boolean malus,
-			Collection<Comportement> listComp, Description description) {
+			Comportements listComp, Description description) {
 		super();
 		this.libelle = libelle;
 		this.visiPublic = visiPublic;
@@ -120,7 +105,7 @@ public class Trait implements Serializable{
 	 * @param listComp
 	 */
 	public Trait(String libelle, boolean visiPublic, boolean dispoCrea, boolean malus,
-			Collection<Comportement> listComp) {
+			Comportements listComp) {
 		this.libelle = libelle;
 		this.visiPublic = visiPublic;
 		this.dispoCrea = dispoCrea;
@@ -243,7 +228,7 @@ public class Trait implements Serializable{
 	 * Retourne la liste des comportements du trait
 	 * @return
 	 */
-	public Collection<Comportement> getListComp() {
+	public Comportements getListComp() {
 		return listComp;
 	}
 
@@ -251,7 +236,7 @@ public class Trait implements Serializable{
 	 * Modifie la liste de comportement du trait
 	 * @param listComp
 	 */
-	public void setListComp(Collection<Comportement> listComp) {
+	public void setListComp(Comportements listComp) {
 		this.listComp = listComp;
 	}
 

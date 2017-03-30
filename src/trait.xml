@@ -6,22 +6,28 @@
 
 <struts>
 
-	<package name="trait" namespace="/trait" extends="struts-default">
+					<!-- ******************************* -->
+					<!-- *			  HTML			   * -->
+					<!-- ******************************* -->
+
+	<package name="traitHTML" namespace="/trait" extends="struts-default">
 
 
-					<!-- ************ TRAIT ************ -->
+		<!-- ************ TRAIT ************ -->
+
 		
+		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">
 		<!-- Administration Trait ================================= -->
-		<action name="frmAdd">
-			<result>/WEB-INF/vue/trait/admin/frmAddTrait.jsp</result>
-		</action>
-			
+			<result name="frmAdd"  > /WEB-INF/vue/trait/consult/frmListTrait.jsp   </result>
+		
 		<!-- Consultation Trait =================================== -->
-		<action name="*Consult" class="beanAction.trait.consultation.Consult" method="{1}">
-			<result name="list">/WEB-INF/vue/trait/consult/frmListTrait.jsp</result>
+			<result name="list"  > /WEB-INF/vue/trait/consult/frmListTrait.jsp   </result>
+			<result name="detail"> /WEB-INF/vue/trait/consult/frmDetailTrait.jsp </result>
 			
+	
 			<allowed-methods>
-				list
+				list,
+				detail
 			</allowed-methods>
 		</action>
 		
@@ -48,6 +54,27 @@
 			<result>js/trait/consult.js</result>
 		</action>
 		
+	</package>
+	
+	
+					<!-- ******************************* -->
+					<!-- *			  JSON			   * -->
+					<!-- ******************************* -->
+					
+	<package name="traitJson" namespace="/traitjson" extends="json-default">
+
+		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">
+			
+			<result name="search" type="json">
+				<!--<param name="contentType">text/json</param>-->
+				<!--<param name="inputName"	 >lib </param>-->
+			</result>
+		
+			<allowed-methods>
+				search
+			</allowed-methods>
+		</action>
+
 	</package>
 	
 </struts>

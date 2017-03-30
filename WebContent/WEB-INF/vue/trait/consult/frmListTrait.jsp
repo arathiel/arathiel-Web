@@ -31,26 +31,19 @@
 		<div id="searchbloc">
 
 			<div class="titre">
-				<h2>"Consultation des traits"</h2>
+				<h2>Consultation des traits</h2>
 			</div>
 
-			<br />
-			<br />
+			<br /> <br />
 
 			<div id="formbloc">
 				<s:form>
-				<input type="text" id="saisieNom" /> 
 
-<%-- 					<s:textfield --%>
-<%-- 						id="saisieNom" --%>
-<%-- 						label="Nom du trait"/> --%>
+					<s:textfield id="saisieNom" label="Nom du trait" />
 
-					<s:select 
-						id="seltype"
-						label="type" 
-						list="{'Technique', 'Roleplay'}" 
-						headerKey="None"
-						headerValue="Type de trait"/>
+					<s:select id="seltype" label="type"
+						list="{'Technique', 'Roleplay'}" headerKey="None"
+						headerValue="Type de trait" />
 
 				</s:form>
 
@@ -58,11 +51,9 @@
 
 		</div>
 
-		<br />
-		<br />
+		<br /> <br />
 		<hr width="80" />
-		<br />
-		<br />
+		<br /> <br />
 
 		<!-- Zone d'affichage dynamyque -->
 
@@ -72,10 +63,44 @@
 				<h2>Liste des traits disponibles</h2>
 			</div>
 
-			<br />
-			<br />
+			<br /> <br />
 
-			<div id="resultbloc"></div>
+			<s:if test="%{listTrait != null}">
+			<s:if test="%{listTrait.size()>0}">
+				<table border="1">
+					<thead>
+						<tr>
+							<th><s:text name="Nom" 	 /></th>
+							<th><s:text name="Effet" /></th>
+						</tr>
+					</thead>
+
+					<s:iterator value="listTrait">
+						<br />
+
+						<s:url namespace="/trait" action="detailTr" var="detailTr">
+							<s:param name="idTrait">
+								<s:property value="id" />
+							</s:param>
+						</s:url>
+
+						<tbody>
+							<tr>
+								<th align="left"><a href="${detailTr}"> <s:property value="libelle"/></a></th>					
+								<th align="left"><s:property value="malus" /></th>
+							</tr>
+						</tbody>
+					</s:iterator>
+
+				</table>
+			</s:if>
+			</s:if>
+			
+			<s:else>
+				<div id="noresult">
+					<p> Aucun Trait d'enregistré. </p>
+				</div>
+			</s:else>
 
 		</div>
 
