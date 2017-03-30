@@ -5,6 +5,9 @@
 
 <struts>
 	<package name="race" namespace="/race" extends="struts-default">
+		<action name="cssRaceEdit">
+			<result>css/race/raceEdition.css</result>
+		</action>
 	
 		<action name="page*" method="{1}" class="beanAction.races.ActionsRace">
  			

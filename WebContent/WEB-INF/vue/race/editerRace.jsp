@@ -4,7 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
+	<link rel="stylesheet" href="<s:url namespace="" 	action="cssArathiel" />" />
+	<link rel="stylesheet" href="<s:url namespace="/race" action="cssRaceEdit" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Page d'édition des races</title>
 <%-- 	<script type="text/javascript" src="../../../js/race/race.js"></script> --%>
@@ -17,9 +18,9 @@
 	<jsp:include page="../../include/menu.jsp"></jsp:include>
 		
 		
-		<h1> Page d'édition des Races</h1>
-		
-		<div class="selections">
+	<h1> Page d'édition des Races</h1>
+	<div id="divGeneral">	
+		<div id="selections">
 			
 			<div id="carac">
 				<s:select 	id="selectCarac"
@@ -39,7 +40,7 @@
 				<s:select 	list="listeTrait" 
 							name="selectTrait"
 							listKey="id"
-							listValue="nom"
+							listValue="libelle"
 							headerKey="0"
 							headerValue="Choisissez..."
 							label="Ajouter un trait "/>	
@@ -59,7 +60,7 @@
 							
 				<s:submit	value="+" id="compPlus"></s:submit>	
 				<s:submit	value="-" id="compMoins"></s:submit>
-				<s:checkbox id="acad" name="chkAca" label="Académique "></s:checkbox>
+<%-- 				<s:checkbox id="acad" name="chkAca" label="Académique "></s:checkbox> --%>
 			</div>
 		</div>
 		
@@ -72,16 +73,16 @@
 				<s:textfield name="xpRendue" 	label="Xp Rendue"></s:textfield>
 				
 				<div id="bonus">
-					
+<!-- 		 ici seront créés des bonus à la volée chacun remplissant une balise div pendant la mise à jour  -->
 				
 				</div>
 				
 				<s:submit	value="Modifier" 	id="modif"></s:submit>	
 				<s:submit	value="Supprimer" 	id="suppr"></s:submit>
 			</s:form>
-			
 			</div>
 			
 		</div>
+	</div>
 </body>
 </html>

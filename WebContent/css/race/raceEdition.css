@@ -1,0 +1,24 @@
+@CHARSET "ISO-8859-1";
+
+#divGeneral {
+	display: flex;
+	border: 1px, solid, red;	
+}
+
+#selections {
+	display: flex;
+	border: 1px, solid, purple;	
+}
+
+#resume {
+	display: flex;
+	border: 1px, solid, purple;	
+}
+
+#carac, #trait, #comp {	
+	border: 1px, solid, yellow;	
+}
+
+#identRace, #bonus {	
+	border: 1px, solid, yellow;	
+}
