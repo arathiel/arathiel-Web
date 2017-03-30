@@ -5,18 +5,20 @@
 
 <struts>
 	<package name="race" namespace="/race" extends="struts-default">
+		<action name="cssRaceEdit">
+			<result>/css/race/raceEdition.css</result>
+		</action>
 	
-		<action name="pageCreer" >
- 			<result>/WEB-INF/vue/race/creerRace.jsp</result>
- 		</action>
- 		<action name="pageEditer">
- 			<result>/WEB-INF/vue/race/editerRace.jsp</result>
- 		</action>
- 		<action name="page*" method="{1}" class="beanAction.races.ActionsRace">
+		<action name="*Race" method="{1}" class="beanAction.races.ActionsRaceGestion">
+			<result></result>
+			<allowed-methods>creer, modifier, supprimer</allowed-methods>
+		</action>
+	
+		<action name="page*" method="{1}" class="beanAction.races.ActionsRacePages">
  			
  			<result>/WEB-INF/vue/race/{1}Race.jsp</result>
  			
- 			<allowed-methods>lister</allowed-methods>
+ 			<allowed-methods>lister, creer, editer</allowed-methods>
  		</action>
  		 		
  	</package>	
