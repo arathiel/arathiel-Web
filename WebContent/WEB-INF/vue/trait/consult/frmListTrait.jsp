@@ -31,9 +31,7 @@
 		<div id="searchbloc">
 
 			<div class="titre">
-				<h2>
-					<s:text name="Consultation des traits" />
-				</h2>
+				<h2>"Consultation des traits"</h2>
 			</div>
 
 			<br />
@@ -41,9 +39,11 @@
 
 			<div id="formbloc">
 				<s:form>
-					<s:textfield
-						id="saisieNom"
-						label="Nom du trait"/>
+				<input type="text" id="saisieNom" /> 
+
+<%-- 					<s:textfield --%>
+<%-- 						id="saisieNom" --%>
+<%-- 						label="Nom du trait"/> --%>
 
 					<s:select 
 						id="seltype"
@@ -69,9 +69,7 @@
 		<div id="listbloc">
 
 			<div class="titre">
-				<h2>
-					<s:text name="Liste des traits disponibles" />
-				</h2>
+				<h2>Liste des traits disponibles</h2>
 			</div>
 
 			<br />
@@ -84,8 +82,8 @@
 	</div>
 
 	<!-- JavaScript -->
-	<script type="" src="<s:url namespace="/trait" 	action="jsAdmin" />"></script>
-	<script type="" src="<s:url namespace="" 		action="jsAdmin" />"></script>
+	<script src="${pageContext.request.contextPath}/js/trait/consult.js"> 	 </script>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.2.0.min.js"> </script>
 
 </body>
 

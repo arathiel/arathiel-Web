@@ -17,8 +17,12 @@
 		</action>
 			
 		<!-- Consultation Trait =================================== -->
-		<action name="frmList">
-			<result>/WEB-INF/vue/trait/consult/frmListTrait.jsp</result>
+		<action name="*Consult" class="beanAction.trait.consultation.Consult" method="{1}">
+			<result name="list">/WEB-INF/vue/trait/consult/frmListTrait.jsp</result>
+			
+			<allowed-methods>
+				list
+			</allowed-methods>
 		</action>
 		
 		
@@ -41,7 +45,7 @@
 					<!-- ************ JS ************ -->
 		
 		<action name="jsConsult">
-			<result>js/trait/consult</result>
+			<result>js/trait/consult.js</result>
 		</action>
 		
 	</package>

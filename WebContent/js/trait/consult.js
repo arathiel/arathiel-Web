@@ -7,45 +7,43 @@ window.onload = listenerSaisie;
  * @returns
  */
 function listenerSaisie() {
-	var saisie = document.querySelector ('#lettres');
-	saisie.onkeyup = dynamicSearch;
+	console.log('Dans listenerSaisie');
+	
+	$('#saisieNom').bind('keyup', dynamicSearch);
 }
 
 /**
- * Récupère la saisie et l'envoie à la servlet puis retourne la liste des clients
+ * Récupère la saisie et l'envoie à la servlet puis retourne la liste des traits
  * @returns
  */
 function dynamicSearch() {
-	var xhr = null;
+	console.log("Entrée dans dynamicSearch")
 	
-	xhr = initConnect();
-	
-	console.log("1-xhr : "+xhr)
-	
-	// Requète
-	
-	xhr.open("GET", "../RechercheClient?saisie=" + document.querySelector ('#lettres').value, true);
-	console.log("2-xhr : "+xhr)
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState==4)
-		document.querySelector('#response').innerHTML = xhr.responseText;
+	$.ajax({
+		url			: 'erreur',
+		type 		: 'GET',
+		data 		: 'saisieNom=' + $('#saisieNom').val(),
+		dataType	: 'HTML',
+		
+		success : function(code_html, statut){ 
+			console.log("Entrée dans success : resultat = "+code_html + 'statut = '+statut)
+		},
+		
+		error : function(resultat, statut, erreur){
+			console.log("Entrée dans error : resultat = "+resultat + ', statut = '+statut + ', erreur = ' + erreur)
+		},
+		
+		complete : function(resultat, statut){
+			console.log("Entrée dans complete : resultat = "+resultat + ', statut = '+statut)
 		}
+	})
 	
-	xhr.send(null);
-	console.log("3-xhr : "+xhr)
+	console.log('Fin de dynamicSearch')
 }
 
-/**
- * Initialise l'objet XMLHttpRequest
- * @returns
- */
-function initConnect() {
-	var xhr = null;
-	
-	if (window.XMLHttpRequest) xhr = new XMLHttpRequest();
-	else if (window.ActiveXObject) { // Internet Explorer
-	try { xhr = new ActiveXObject("Msxml2.XMLHTTP"); }
-	catch (e) { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-	}
-	return xhr;
-}
+
+
+
+
+
+
