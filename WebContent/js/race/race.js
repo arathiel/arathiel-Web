@@ -106,7 +106,7 @@ function traitPlus(){
 	
 	if (idTrait != "0") {
 		
-		var divBonusExistant = document.getElementById(idTrait);			//on teste si un paragraph avec cette carac existe déjà...
+		var divBonusExistant = document.getElementById(idTrait);			//on teste si un div avec ce trait existe déjà...
 		console.log(divBonusExistant);
 		
 		if (divBonusExistant==null){										//si absent on le crée
@@ -147,7 +147,7 @@ function traitMoins(){
 	console.log(valTrait);
 	
 	if (idTrait != "0") {	
-		var divBonusExistant = document.getElementById(idTrait);			//on teste si un paragraph avec cette carac existe déjà...
+		var divBonusExistant = document.getElementById(idTrait);			//on teste si un div avec ce trait existe déjà...
 		console.log(divBonusExistant);
 		
 		if (divBonusExistant!=null){										//si il n'est pas absent on recupère sa valeur																		//s'il existe on récupère sa valeur
@@ -179,26 +179,28 @@ function compPlus(){
 	
 	if (idComp != "0") {
 		
-		var divBonusExistant = document.getElementById(idComp);			//on teste si un paragraph avec cette carac existe déjà...
+		var idCompBonus = "Comp"+idComp;
+		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
 		console.log(divBonusExistant);
 		
 		if (divBonusExistant==null){										//si absent on le crée
 			var divBonus = document.createElement('div');
-			divBonus.setAttribute("id", idComp);	
+			divBonus.setAttribute("id", idCompBonus);	
 			divBonus.innerHTML = valComp;
 			document.querySelector('#bonus').appendChild(divBonus);	
 			
 			var valeur = document.createElement('p');
 			valeur.setAttribute("class", "valeur");
 			valeur.innerHTML = "1"											//avec une valeur =1
-			document.getElementById(idComp).appendChild(valeur);
+			document.getElementById(idCompBonus).appendChild(valeur);
 			
-			var acadChk = document.createElement('checkbox');				//On ajoute une checkbox pour pourvoir modifier le statut "Académique" de la compétence
-			acadChk.setAttribute("class", "chkAcad");
-			document.getElementById(idComp).appendChild(acadChk);
+			var acadChk = document.createElement("INPUT");					//On ajoute une checkbox pour pouvoir modifier le statut "Académique" de la compétence
+			acadChk.setAttribute("type", "checkbox");
+			acadChk.setAttribute("name", "chkAcad");
+			document.getElementById(idCompBonus).appendChild(acadChk);
 			
 		} else {															//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idComp).children[0];
+			var valBonus = document.getElementById(idCompBonus).children[0];
 			var valInt = parseInt(valBonus.innerHTML);	
 			
 			if (valInt < 5) {												//si la valeur est <5 on l'augmente
@@ -220,23 +222,24 @@ function compMoins(){
 	var select = document.querySelector('#selectComp');
 	var idComp = select.options[select.selectedIndex].value;
 	var valComp = select.options[select.selectedIndex].innerHTML;
-
+	var idCompBonus = "Comp"+idComp;
+	
 	console.log(idComp);
 	console.log(valComp);
 	
 	if (idComp != "0") {	
-		var divBonusExistant = document.getElementById(idComp);			//on teste si un paragraph avec cette carac existe déjà...
+		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
 		console.log(divBonusExistant);
 		
 		if (divBonusExistant!=null){										//si il n'est pas absent on recupère sa valeur																		//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idComp).children[0];
+			var valBonus = document.getElementById(idCompBonus).children[0];
 			var valInt = parseInt(valBonus.innerHTML);	
 			
 			if (valInt >1) {												//si la valeur est >1 on la diminue
 				valInt--;
 				valBonus.innerHTML = valInt;
-			} else if (valInt==1) {											//si la valeur =1 on supprimer le div
-				document.getElementById(idComp).remove();
+			} else if (valInt==1) {											//si la valeur =1 on supprime le div
+				document.getElementById(idCompBonus).remove();
 			}		
 		}
 	}

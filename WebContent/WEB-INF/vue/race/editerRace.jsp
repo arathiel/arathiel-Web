@@ -4,8 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<link rel="stylesheet" href="<s:url namespace="" 	action="cssArathiel" />" />
-	<link rel="stylesheet" href="<s:url namespace="/race" action="cssRaceEdit" />" />
+<%-- 	<link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" /> --%>
+	<link rel="stylesheet" href="<s:url namespace="/race" 	action="cssRaceEdit" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Page d'édition des races</title>
 <%-- 	<script type="text/javascript" src="../../../js/race/race.js"></script> --%>
@@ -49,7 +49,7 @@
 				<s:submit	value="-" id="traitMoins"></s:submit>
 			</div>
 				
-			<div id="comp">		
+			<div id="comp" >		
 				<s:select 	list="listeComp" 
 							name="selectComp"
 							listKey="id"
@@ -67,7 +67,7 @@
 		<div id="resume">
 		
 			<div id="identRace">
-			<s:form>
+			<s:form >
 				<s:textfield name="idRace" 		label="Id"></s:textfield>
 				<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 				<s:textfield name="xpRendue" 	label="Xp Rendue"></s:textfield>

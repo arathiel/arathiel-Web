@@ -52,8 +52,7 @@ public class ActionsRace extends ApplicationSupport{
 
 	
 	public String lister() {
-		init();
-		
+		init();		
 		setListeRace(fService.listeToutesRaces());		
 		return SUCCESS;
 	}
@@ -61,7 +60,11 @@ public class ActionsRace extends ApplicationSupport{
 	
 	public String creer() {
 		init();
-		//TODO
+		
+		setListeCarac(fService.listeCarac());
+		setListeTrait(fService.consulterListTrait());
+		setListeComp(fService.listeToutesComp());
+		
 		return SUCCESS;
 	}
 	
@@ -72,7 +75,7 @@ public class ActionsRace extends ApplicationSupport{
 		
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
-	
+		setListeComp(fService.listeToutesComp());
 		
 		return SUCCESS;
 	}
