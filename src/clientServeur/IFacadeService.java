@@ -86,6 +86,12 @@ public interface IFacadeService {
 	 */
 	public Traits consulterListTrait	();
 	
+	/**
+	 * Retourne la liste des trait d'après libellé
+	 * @return
+	 */
+	public Traits consulterListTraitByLib(String libelle);
+	
 	
 	/* ========================================== */ 
 	/*  			COMPORTEMENT				  */
