@@ -23,13 +23,13 @@
 }
 
 #menu_accordeon li {
-   background-color:070707; 
+   background-color: #070707; 
    background-image:-webkit-linear-gradient(top, #000 0%, #555 100%);
    background-image: linear-gradient(to bottom, #000 0%, #555  100%);
    border-radius: 6px;
    margin-bottom:2px;
    box-shadow: 3px 3px 3px #999;
-   border:solid 1px 070707;
+   border:solid 1px #070707;
 }
 
 /* Pour le sous menu */
