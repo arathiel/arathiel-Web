@@ -13,7 +13,7 @@ import entity.race_bonus_carac.race.Race;
 import entity.trait.Trait;
 
 
-public class ActionsRacePages extends ApplicationSupport{
+public class ActionsRaceGestion extends ApplicationSupport{
 
 	/**
 	 * 
@@ -31,8 +31,6 @@ public class ActionsRacePages extends ApplicationSupport{
 	private String selectTrait;
 	private String selectComp;
 	private String chkAcad;
-	private String nomRace;
-	
 	
 	
 	public void init() {
@@ -53,36 +51,26 @@ public class ActionsRacePages extends ApplicationSupport{
 	}
 
 	
-	public String lister() {
-		init();		
-		setListeRace(fService.listeToutesRaces());		
-		return SUCCESS;
-	}
-	
 	
 	public String creer() {
 		init();
 		
-		setListeCarac(fService.listeCarac());
-		setListeTrait(fService.consulterListTrait());
-		setListeComp(fService.listeToutesComp());
-		
 		return SUCCESS;
 	}
 	
 	
 	
-	public String editer() {
+	public String modifier() {
 		init();
-		
-		setListeCarac(fService.listeCarac());
-		setListeTrait(fService.consulterListTrait());
-		setListeComp(fService.listeToutesComp());
-		
+	//TODO
 		return SUCCESS;
 	}
 	
-
+	public String supprimer() {
+		init();
+	//TODO
+		return SUCCESS;
+	}
 	
 	public ArrayList<Race> getListeRace() {
 		return listeRace;
