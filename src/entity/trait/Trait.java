@@ -1,6 +1,8 @@
 package entity.trait;
 
 import java.io.Serializable;
+import java.util.Collection;
+
 
 import entity.trait.comportement.Comportement;
 import technic.trait.Comportements;
@@ -10,35 +12,32 @@ import technic.trait.Comportements;
  * @author Jonathan Fuentes
  *
  */
-
 public class Trait implements Serializable{
 	
 	/**
 	 * 
 	 */
-
 	private static final long serialVersionUID = 1L;
 
-
-	//Attributs de classe
-	private int				id;
-	private	String			libelle;
-	private boolean 		visiPublic;
-	private boolean			dispoCrea;
-	private boolean			malus;
-	private Comportements 	listComp;
-	private Description 	description;
+	// Attributs de classe
+	private int					id;
+	private	String				libelle;
+	private boolean 			visiPublic;
+	private boolean				dispoCrea;
+	private boolean				malus;			
+	private Comportements		listComp;
+	private Description 		description;
 	
 	// Constructeurs
 	
 	/**
-	 * Constructeur par défaut pour fonctionnement de la persistance
+	 * Constructeur par défaut
 	 */
 	public Trait () {
 	}
 	
 	/**
-	 * Constructeur complet avec Id pour manipulation en sorti de BDD
+	 * Constructeur avec Id pour manipulation en sorti de BDD
 	 * @param id
 	 * @param libelle
 	 * @param visiPublic
@@ -60,7 +59,7 @@ public class Trait implements Serializable{
 	}
 
 	/**
-	 * Constructeur complet de persistance complet sans ID (Id auto généré par Hibernate)
+	 * Constructeur de persistance complet sans ID (Id auto généré par Hibernate)
 	 * @param libelle
 	 * @param visiPublic
 	 * @param dispoCrea
@@ -106,6 +105,7 @@ public class Trait implements Serializable{
 	 */
 	public Trait(String libelle, boolean visiPublic, boolean dispoCrea, boolean malus,
 			Comportements listComp) {
+		super();
 		this.libelle = libelle;
 		this.visiPublic = visiPublic;
 		this.dispoCrea = dispoCrea;
@@ -119,6 +119,7 @@ public class Trait implements Serializable{
 	 * @param visiPublic
 	 * @param dispoCrea
 	 * @param malus
+	 * @param listComp
 	 */
 	public Trait(String libelle, boolean visiPublic, boolean dispoCrea, boolean malus) {
 		super();
@@ -128,6 +129,7 @@ public class Trait implements Serializable{
 		this.malus = malus;
 	}
 	
+
 	/**
 	 * Permet d'enrichir la liste de comportement du trait
 	 * @param comportement
@@ -135,21 +137,6 @@ public class Trait implements Serializable{
 	public void addComp(Comportement comportement) {
 		this.listComp.add(comportement);
 	}
-	
-	public Trait getDto () {
-		Trait traitDto = new Trait(this.id, this.libelle, this.visiPublic, this.dispoCrea, this.malus, this.listComp, this.description);
-
-		// on ajoute les comportements du persistantBag dans le nouveau docDto
-		if (this.getListComp() != null) {
-			Comportements listeDto = new Comportements();
-			for (Comportement c : this.getListComp()) {
-				listeDto.add(c);
-			}
-			traitDto.setListComp(listeDto);
-		}
-		return traitDto;
-	}
-	
 	
 	// Getters & Setters
 	/**

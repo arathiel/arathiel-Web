@@ -2,21 +2,15 @@ package entity.trait;
 
 import java.io.Serializable;
 
-
-
 /**
  * Classe de persistance de Description associée à Trait
  * @author Jonathan Fuentes
  *
  */
-
 public class Description implements Serializable{
 
 	// Attributs de classe
-	
 	private static final long serialVersionUID = 1L;
-	
-	
 	private String 	contenu;
 
 	// Constructeur
