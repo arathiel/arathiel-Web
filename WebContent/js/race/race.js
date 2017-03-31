@@ -24,32 +24,30 @@ function initAll() {
 function caracPlus(){
 	var select = document.querySelector('#selectCarac');
 	var idCarac = select.options[select.selectedIndex].value;
-	var valCarac = select.options[select.selectedIndex].innerHTML+"  +";
+	var nomCarac = select.options[select.selectedIndex].innerHTML;
 
 	console.log(idCarac);
-	console.log(valCarac);
+	console.log(nomCarac);
 	
 	if (idCarac != "0") {
 		var idCaracBonus = "Car"+idCarac;
-		var divBonusExistant = document.getElementById(idCaracBonus);			//on teste si un paragraph avec cette carac existe déjà...
+		var divBonusExistant = document.getElementById(idCaracBonus);			//on teste si une ligne du tableau bonus avec cette carac existe déjà...
 		console.log(divBonusExistant);
 		
-		if (divBonusExistant==null){										//si absent on le crée
-			var divBonus = document.createElement('div');
-			divBonus.setAttribute("id", idCaracBonus);	
-			divBonus.innerHTML = valCarac;
-			document.querySelector('#bonus').appendChild(divBonus);	
+		if (divBonusExistant==null){											//si absent on la créee...
+			var divBonus = document.querySelector('#tableBonus');
+			var ligne = divBonus.insertRow();									//On crée la ligne
+			ligne.setAttribute("id", idCaracBonus);
+			var cel1 = ligne.insertCell(0);										//On y insère des cellules avec la nom de la carac...
+			cel1.innerHTML = nomCarac;
+			var cel2 = ligne.insertCell(1);										//...et une valeur =1
+			cel2.innerHTML="1"													
 			
-			var valeur = document.createElement('p');
-			valeur.setAttribute("class", "valeur");
-			valeur.innerHTML = "1"											//avec une valeur =1
-			document.getElementById(idCaracBonus).appendChild(valeur);
-			
-		} else {															//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idCaracBonus).children[0];
+		} else {																
+			var valBonus = divBonusExistant.getElementsByTagName('td')[1];		//si elle existe déjà on récupère sa valeur
 			var valInt = parseInt(valBonus.innerHTML);	
 			
-			if (valInt < 5) {												//si la valeur est <5 on l'augmente
+			if (valInt < 5) {													//si la valeur est <5 on l'augmente
 				valInt++;
 				valBonus.innerHTML = valInt;
 			}
@@ -67,25 +65,26 @@ function caracMoins(){
 	
 	var select = document.querySelector('#selectCarac');
 	var idCarac = select.options[select.selectedIndex].value;
-	var valCarac = select.options[select.selectedIndex].innerHTML;
+	var nomCarac = select.options[select.selectedIndex].innerHTML;
 
 	console.log(idCarac);
-	console.log(valCarac);
+	console.log(nomCarac);
 	
 	if (idCarac != "0") {	
 		var idCaracBonus = "Car"+idCarac;
-		var divBonusExistant = document.getElementById(idCaracBonus);			//on teste si un paragraph avec cette carac existe déjà...
+		var divBonusExistant = document.getElementById(idCaracBonus);		//on teste si une ligne du tableau bonus avec cette carac existe déjà...
 		console.log(divBonusExistant);
 		
-		if (divBonusExistant!=null){										//si il n'est pas absent on recupère sa valeur																		//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idCaracBonus).children[0];
+		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur																		//s'il existe on récupère sa valeur
+			var valBonus = divBonusExistant.getElementsByTagName('td')[1];
 			var valInt = parseInt(valBonus.innerHTML);	
 			
 			if (valInt >1) {												//si la valeur est >1 on la diminue
 				valInt--;
 				valBonus.innerHTML = valInt;
-			} else if (valInt==1) {											//si la valeur =1 on supprimer le div
-				document.getElementById(idCaracBonus).remove();
+			} else if (valInt==1) {											//si la valeur =1 on supprime la ligne
+				var ligne = document.getElementById(idCaracBonus);
+				ligne.parentNode.removeChild(ligne);
 			}		
 		}
 	}	
@@ -100,32 +99,30 @@ function caracMoins(){
 function traitPlus(){
 	var select = document.querySelector('#selectTrait');
 	var idTrait = select.options[select.selectedIndex].value;
-	var valTrait = select.options[select.selectedIndex].innerHTML+"  +";
+	var nomTrait = select.options[select.selectedIndex].innerHTML;
 
 	console.log(idTrait);
-	console.log(valTrait);
+	console.log(nomTrait);
 	
 	if (idTrait != "0") {
 		var idTraitBonus = "Trait"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);			//on teste si un div avec ce trait existe déjà...
 		console.log(divBonusExistant);
 		
-		if (divBonusExistant==null){										//si absent on le crée
-			var divBonus = document.createElement('div');
-			divBonus.setAttribute("id", idTraitBonus);	
-			divBonus.innerHTML = valTrait;
-			document.querySelector('#bonus').appendChild(divBonus);	
+		if (divBonusExistant==null){											//si absent on la créee...
+			var divBonus = document.querySelector('#tableBonus');
+			var ligne = divBonus.insertRow();									//On crée la ligne
+			ligne.setAttribute("id", idTraitBonus);
+			var cel1 = ligne.insertCell(0);										//On y insère des cellules avec la nom du trait...
+			cel1.innerHTML = nomTrait;
+			var cel2 = ligne.insertCell(1);										//...et une valeur =0 (un trait peu avoir une valeur nulle)
+			cel2.innerHTML="0";
 			
-			var valeur = document.createElement('p');
-			valeur.setAttribute("class", "valeur");
-			valeur.innerHTML = "0"											//avec une valeur =0
-			document.getElementById(idTraitBonus).appendChild(valeur);
-			
-		} else {															//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idTraitBonus).children[0];
+		} else {																
+			var valBonus = divBonusExistant.getElementsByTagName('td')[1];		//si elle existe déjà on récupère sa valeur
 			var valInt = parseInt(valBonus.innerHTML);	
 			
-			if (valInt < 5) {												//si la valeur est <5 on l'augmente
+			if (valInt < 5) {													//si la valeur est <5 on l'augmente
 				valInt++;
 				valBonus.innerHTML = valInt;
 			}
@@ -142,25 +139,26 @@ function traitMoins(){
 	
 	var select = document.querySelector('#selectTrait');
 	var idTrait = select.options[select.selectedIndex].value;
-	var valTrait = select.options[select.selectedIndex].innerHTML;
+	var nomTrait = select.options[select.selectedIndex].innerHTML;
 
 	console.log(idTrait);
-	console.log(valTrait);
+	console.log(nomTrait);
 	
 	if (idTrait != "0") {
 		var idTraitBonus = "Trait"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);		//on teste si un div avec ce trait existe déjà...
 		console.log(divBonusExistant);
 		
-		if (divBonusExistant!=null){										//si il n'est pas absent on recupère sa valeur																		//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idTraitBonus).children[0];
+		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur																		//s'il existe on récupère sa valeur
+			var valBonus = divBonusExistant.getElementsByTagName('td')[1];
 			var valInt = parseInt(valBonus.innerHTML);	
 			
 			if (valInt >0) {												//si la valeur est >0 on la diminue
 				valInt--;
 				valBonus.innerHTML = valInt;
-			} else if (valInt==0) {											//si la valeur =0 on supprimer le div
-				document.getElementById(idTraitBonus).remove();
+			} else if (valInt==0) {											//si la valeur =0 on supprime la ligne
+				var ligne = document.getElementById(idTraitBonus);
+				ligne.parentNode.removeChild(ligne);
 			}		
 		}
 	}
@@ -174,10 +172,10 @@ function traitMoins(){
 function compPlus(){
 	var select = document.querySelector('#selectComp');
 	var idComp = select.options[select.selectedIndex].value;
-	var valComp = select.options[select.selectedIndex].innerHTML+"  +";
+	var nomComp = select.options[select.selectedIndex].innerHTML;
 
 	console.log(idComp);
-	console.log(valComp);
+	console.log(nomComp);
 	
 	if (idComp != "0") {
 		
@@ -185,27 +183,26 @@ function compPlus(){
 		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
 		console.log(divBonusExistant);
 		
-		if (divBonusExistant==null){										//si absent on le crée
-			var divBonus = document.createElement('div');
-			divBonus.setAttribute("id", idCompBonus);	
-			divBonus.innerHTML = valComp;
-			document.querySelector('#bonus').appendChild(divBonus);	
-			
-			var valeur = document.createElement('p');
-			valeur.setAttribute("class", "valeur");
-			valeur.innerHTML = "1"											//avec une valeur =1
-			document.getElementById(idCompBonus).appendChild(valeur);
-			
-			var acadChk = document.createElement("INPUT");					//On ajoute une checkbox pour pouvoir modifier le statut "Académique" de la compétence
+		if (divBonusExistant==null){											//si absent on la créee...
+			var divBonus = document.querySelector('#tableBonus');
+			var ligne = divBonus.insertRow();									//On crée la ligne
+			ligne.setAttribute("id", idCompBonus);
+			var cel1 = ligne.insertCell(0);										//On y insère des cellules avec la nom de la carac...
+			cel1.innerHTML = nomComp;
+			var cel2 = ligne.insertCell(1);										//...et une valeur =1
+			cel2.innerHTML="1"
+			var cel3 = ligne.insertCell(2);
+			cel3.setAttribute("id", "chk");
+			var acadChk = document.createElement("INPUT");						//On ajoute une checkbox pour pouvoir modifier le statut "Académique" de la compétence
 			acadChk.setAttribute("type", "checkbox");
 			acadChk.setAttribute("name", "chkAcad");
-			document.getElementById(idCompBonus).appendChild(acadChk);
+			cel3.appendChild(acadChk);
 			
-		} else {															//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idCompBonus).children[0];
+		} else {																
+			var valBonus = divBonusExistant.getElementsByTagName('td')[1];		//si elle existe déjà on récupère sa valeur
 			var valInt = parseInt(valBonus.innerHTML);	
 			
-			if (valInt < 5) {												//si la valeur est <5 on l'augmente
+			if (valInt < 5) {													//si la valeur est <5 on l'augmente
 				valInt++;
 				valBonus.innerHTML = valInt;
 			}
@@ -223,25 +220,26 @@ function compMoins(){
 	
 	var select = document.querySelector('#selectComp');
 	var idComp = select.options[select.selectedIndex].value;
-	var valComp = select.options[select.selectedIndex].innerHTML;
+	var nomComp = select.options[select.selectedIndex].innerHTML;
 	var idCompBonus = "Comp"+idComp;
 	
 	console.log(idComp);
-	console.log(valComp);
+	console.log(nomComp);
 	
 	if (idComp != "0") {	
 		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
 		console.log(divBonusExistant);
 		
-		if (divBonusExistant!=null){										//si il n'est pas absent on recupère sa valeur																		//s'il existe on récupère sa valeur
-			var valBonus = document.getElementById(idCompBonus).children[0];
+		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur																		//s'il existe on récupère sa valeur
+			var valBonus = divBonusExistant.getElementsByTagName('td')[1];
 			var valInt = parseInt(valBonus.innerHTML);	
 			
 			if (valInt >1) {												//si la valeur est >1 on la diminue
 				valInt--;
 				valBonus.innerHTML = valInt;
-			} else if (valInt==1) {											//si la valeur =1 on supprime le div
-				document.getElementById(idCompBonus).remove();
+			} else if (valInt==1) {											//si la valeur =1 on supprime la ligne
+				var ligne = document.getElementById(idCompBonus);
+				ligne.parentNode.removeChild(ligne);
 			}		
 		}
 	}
@@ -258,17 +256,20 @@ function enregistrer() {
 	console.log("enregistrer");
 	var divBonus = document.getElementById("bonus");
 	var listeBonus = new Array;
-	listeBonus = divBonus.children;
+	listeBonus = document.getElementsByTagName('tr');
 	
 	if (listeBonus != null){
 		console.log(listeBonus.length);
-		for (i=0; i<listeBonus.length; i++){
+		for (i=1; i<listeBonus.length; i++){
 			var dataBonus = listeBonus[i].children;
-			var valeur = dataBonus[0].innerHTML;
-			var acad = dataBonus[1];
+			var idBonus = listeBonus[i].getAttribute('id');
+			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
+			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
+			
 			
 			if (acad != undefined) {
-				console.log(listeBonus[i].getAttribute('id')+"  "+valeur+"  "+acad.checked);
+				var chk	= acad.firstChild;
+				console.log(listeBonus[i].getAttribute('id')+"  "+valeur+"  "+chk.checked);
 			} else {
 				console.log(listeBonus[i].getAttribute('id')+"  "+valeur);
 			}
