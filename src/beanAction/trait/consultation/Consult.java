@@ -9,6 +9,7 @@ import clientServeur.exception.UserException;
 import clientServeur.trait.EnrichisseurRP;
 import entity.trait.Trait;
 import entity.trait.comportement.Comportement;
+import technic.trait.Comportements;
 import technic.trait.Traits;
 import util.trait.MethodReturn;
 import util.trait.Parameter;
@@ -36,9 +37,6 @@ public class Consult extends ApplicationSupport{
 	private Trait	trait;
 	private Traits 	listTrait;
 	private String 	saisieNom;
-	private	String	retour;
-	private String	lib;
-	private Comportement comp;
 	
 
 
@@ -87,17 +85,7 @@ public class Consult extends ApplicationSupport{
 		listTrait = null;
 		
 		//Initialisatino des variables
-
-		System.out.println("saisieNom 		: "+saisieNom);
-		
-		try {
-			comp = service.consulterCompById(1);
-		} catch (UserException e) {
-			System.out.println(e.getMessage());
-		}
-		
-//		Trait tr = new Trait("le trait", true, true, true);
-//		trait = tr;
+		listTrait = service.consulterListTraitByLib(saisieNom);
 		
 //		listTrait = service.consulterListTraitByLib(saisieNom);
 		
@@ -153,14 +141,8 @@ public class Consult extends ApplicationSupport{
 	
 	
 	
-	public Comportement getComp() {
-		return comp;
-	}
 
 
-	public void setComp(Comportement comp) {
-		this.comp = comp;
-	}
 
 
 	public Trait getTrait() {
@@ -170,16 +152,6 @@ public class Consult extends ApplicationSupport{
 
 	public void setTrait(Trait trait) {
 		this.trait = trait;
-	}
-
-
-	public String getLib() {
-		return lib;
-	}
-
-
-	public void setLib(String lib) {
-		this.lib = lib;
 	}
 	
 }
