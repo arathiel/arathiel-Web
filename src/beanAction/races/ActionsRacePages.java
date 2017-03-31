@@ -7,7 +7,9 @@ import javax.naming.NamingException;
 
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
+import clientServeur.race_bonus_carac.userException.UserExceptionRBC;
 import entity.competence.Competence;
+import entity.race_bonus_carac.bonus.Bonus;
 import entity.race_bonus_carac.caracteristique.Caracteristique;
 import entity.race_bonus_carac.race.Race;
 import entity.trait.Trait;
@@ -27,11 +29,13 @@ public class ActionsRacePages extends ApplicationSupport{
 	private ArrayList<Caracteristique> listeCarac= new ArrayList<Caracteristique>();
 	private ArrayList<Competence> listeComp= new ArrayList<Competence>();
 	private ArrayList<Trait> listeTrait= new ArrayList<Trait>();
+	private ArrayList<Bonus> listeBonus = new ArrayList<Bonus>();
 	private String selectCarac;
 	private String selectTrait;
 	private String selectComp;
 	private String chkAcad;
 	private String nomRace;
+	private String idRace;
 	
 	
 	
@@ -62,10 +66,11 @@ public class ActionsRacePages extends ApplicationSupport{
 	
 	public String creer() {
 		init();
-		
+	
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
+		
 		
 		return SUCCESS;
 	}
@@ -78,6 +83,22 @@ public class ActionsRacePages extends ApplicationSupport{
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
+		
+		Race race;
+		System.out.println("Race reçue en param : "+this.nomRace);
+		
+		if (this.nomRace != null) {
+			try {
+				race  = fService.RechRaceParNom(this.nomRace);
+				this.listeBonus = (ArrayList<Bonus>) race.getListeBonus();
+				this.idRace = String.valueOf(race.getId());
+			} catch (UserExceptionRBC e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 		
 		return SUCCESS;
 	}
@@ -161,6 +182,36 @@ public class ActionsRacePages extends ApplicationSupport{
 
 	public void setChkAcad(String chkAcad) {
 		this.chkAcad = chkAcad;
+	}
+
+
+	public ArrayList<Bonus> getListeBonus() {
+		return listeBonus;
+	}
+
+
+	public void setListeBonus(ArrayList<Bonus> listeBonus) {
+		this.listeBonus = listeBonus;
+	}
+
+
+	public String getNomRace() {
+		return nomRace;
+	}
+
+
+	public void setNomRace(String nomRace) {
+		this.nomRace = nomRace;
+	}
+
+
+	public String getIdRace() {
+		return idRace;
+	}
+
+
+	public void setIdRace(String idRace) {
+		this.idRace = idRace;
 	}
 
 

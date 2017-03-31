@@ -274,6 +274,8 @@ function enregistrer() {
 				console.log(listeBonus[i].getAttribute('id')+"  "+valeur);
 			}
 		}
+		
+		
 	}	
 	
 }

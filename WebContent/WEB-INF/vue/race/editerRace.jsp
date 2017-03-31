@@ -67,16 +67,34 @@
 		</div>
 		
 		<div id="resume">
-			<s:form >
-				<div id="identRace">
-		
-					<s:textfield name="idRace" 		label="Id"></s:textfield>
+			<form >
+				<div id="identRace">	
+					<s:textfield name="idRace" 		label="Id" 	readonly="true"></s:textfield>
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue"></s:textfield>
 				</div>
 				
 				<div id="bonus">
-<!-- 		 ici seront créés des bonus à la volée chacun remplissant une balise div pendant la mise à jour  -->
+					<table id="tableBonus">
+						<tr>
+							<th>Nom</th>
+							<th>Valeur</th>
+							<th>Académique</th>
+						</tr>	
+						
+						<s:iterator value="listeBonus" var="bonus">
+							<tr>
+								<td>
+									<s:if test="%{#bonus instanceof entity.race_bonus_carac.bonus.BonusCarac}">
+										<s:property value="#bonus.getCaracAssociee().getNomCarac()"/>
+									</s:if>
+								</td>
+								<td><s:property value="valeurBonus"/></td>
+							</tr>
+						</s:iterator>
+						<!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->			
+					</table>
+
 				</div>
 				
 				<div id="bouton">
@@ -84,7 +102,7 @@
 					<s:submit	value="Supprimer" 	id="suppr"></s:submit>
 				</div>
 			
-			</s:form>
+			</form>
 			
 		</div>
 	</div>
