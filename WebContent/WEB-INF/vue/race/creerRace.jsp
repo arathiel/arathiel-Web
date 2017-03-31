@@ -74,6 +74,13 @@
 				</div>
 				
 				<div id="bonus">
+					<table id="tableBonus">
+						<tr>
+							<th>Nom</th>
+							<th>Valeur</th>
+							<th>Académique</th>
+						</tr>				
+					</table>
 <!-- 		 ici seront créés des bonus à la volée chacun remplissant une balise div pendant la mise à jour  -->
 				</div>
 				
