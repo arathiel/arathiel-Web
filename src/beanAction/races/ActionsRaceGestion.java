@@ -31,6 +31,8 @@ public class ActionsRaceGestion extends ApplicationSupport{
 	private String selectTrait;
 	private String selectComp;
 	private String chkAcad;
+	private String nomRace;
+
 	
 	
 	public void init() {
@@ -149,6 +151,16 @@ public class ActionsRaceGestion extends ApplicationSupport{
 
 	public void setChkAcad(String chkAcad) {
 		this.chkAcad = chkAcad;
+	}
+
+
+	public String getNomRace() {
+		return nomRace;
+	}
+
+
+	public void setNomRace(String nomRace) {
+		this.nomRace = nomRace;
 	}
 
 

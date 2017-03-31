@@ -19,22 +19,26 @@
 	<div id="listeRaceDiv">
 		<table>
 			<tr>
-				<th>Id</th>
 				<th>Nom</th>
 				<th>Dispo</th>
 				<th>Xp Rendue</th>
 			</tr>
+			
+			
 			<s:iterator value="listeRace">
-			
-			
 			<tr>
-				<td><s:property value="id"/></td>
-				<td><s:a namespace="/race" action="choix">
-					<s:property value="nom"/>
-					</s:a>
-				</td>
-				<td><s:property value="dispo"/></td>
-				<td><s:property value="calculRenduXp()"/></td>				
+
+					<td><s:url namespace="/race" action="pageediter" var="raceURL">
+							<s:param name="nomRace"><s:property value="nom"/></s:param>
+						</s:url>
+					
+						<a href="${raceURL}">					
+							<s:property value="nom"/>
+						</a>
+					</td>
+					<td><s:property value="dispo"/></td>
+					<td><s:property value="calculRenduXp()"/></td>
+			
 			</tr>
 			</s:iterator>	
 	

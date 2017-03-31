@@ -62,7 +62,6 @@
 							
 				<s:submit	value="+" id="compPlus"></s:submit>	
 				<s:submit	value="-" id="compMoins"></s:submit>
-<%-- 				<s:checkbox id="acad" name="chkAca" label="Académique "></s:checkbox> --%>
 			</div>
 		</div>
 		
@@ -79,9 +78,11 @@
 							<th>Nom</th>
 							<th>Valeur</th>
 							<th>Académique</th>
-						</tr>				
+						</tr>	
+						
+						<!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->			
 					</table>
-<!-- 		 ici seront créés des bonus à la volée chacun remplissant une balise div pendant la mise à jour  -->
+
 				</div>
 				
 				<div id="bouton">
