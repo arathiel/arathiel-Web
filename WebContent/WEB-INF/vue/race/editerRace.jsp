@@ -76,6 +76,7 @@
 				
 				<div id="bonus">
 					<table id="tableBonus">
+<!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->
 						<tr>
 							<th>Nom</th>
 							<th>Valeur</th>
@@ -83,16 +84,42 @@
 						</tr>	
 						
 						<s:iterator value="listeBonus" var="bonus">
-							<tr>
-								<td>
-									<s:if test="%{#bonus instanceof entity.race_bonus_carac.bonus.BonusCarac}">
-										<s:property value="#bonus.getCaracAssociee().getNomCarac()"/>
-									</s:if>
-								</td>
-								<td><s:property value="valeurBonus"/></td>
-							</tr>
-						</s:iterator>
-						<!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->			
+							<s:if test="%{#bonus instanceof entity.race_bonus_carac.bonus.BonusCarac}">
+								<s:set var ="idLigne" value ="'Car'+#bonus.getCaracAssociee().getIdCarac()" ></s:set>
+								<tr id= "<s:property value="#idLigne"/>">
+									<td>
+											<s:property value="#bonus.getCaracAssociee().getNomCarac()"/>
+									</td>
+									<td><s:property value="valeurBonus"/></td>
+								</tr>
+							</s:if>
+								
+							<s:if test="%{#bonus instanceof entity.race_bonus_carac.bonus.BonusTrait}">
+								<s:set var ="idLigne" value ="'Trait'+#bonus.getTraitAssocie().getId()" ></s:set>
+								<tr id= "<s:property value="#idLigne"/>">
+									<td>
+											<s:property value="#bonus.getTraitAssocie().getLibelle()"/>
+									</td>
+									<td><s:property value="valeurBonus"/></td>
+								</tr>
+							</s:if>
+							
+							<s:if test="%{#bonus instanceof entity.race_bonus_carac.bonus.BonusCompetence}">
+								<s:set var ="idLigne" value ="'Comp'+#bonus.getCompAssociee().getId()" ></s:set>
+								<tr id= "<s:property value="#idLigne"/>">
+									<td>
+											<s:property value="#bonus.getCompAssociee().getNom()"/>
+									</td>
+									<td><s:property value="valeurBonus"/></td>
+									<td> <input type = "checkbox"
+											<s:if test="%{#bonus.isAcademique()}">
+											checked = "checked"
+											</s:if>
+										/> 
+									</td>
+								</tr>	
+							</s:if>
+						</s:iterator>			
 					</table>
 
 				</div>

@@ -192,7 +192,6 @@ function compPlus(){
 			var cel2 = ligne.insertCell(1);										//...et une valeur =1
 			cel2.innerHTML="1"
 			var cel3 = ligne.insertCell(2);
-			cel3.setAttribute("id", "chk");
 			var acadChk = document.createElement("INPUT");						//On ajoute une checkbox pour pouvoir modifier le statut "Académique" de la compétence
 			acadChk.setAttribute("type", "checkbox");
 			acadChk.setAttribute("name", "chkAcad");
