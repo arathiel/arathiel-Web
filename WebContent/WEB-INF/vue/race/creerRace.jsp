@@ -66,7 +66,7 @@
 		</div>
 		
 		<div id="resume">
-			<form >
+			<form accept-charset=utf-8 action="#" onsubmit="return false" >
 				<div id="identRace">
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
@@ -86,9 +86,10 @@
 				</div>
 				
 				<div id="bouton">
-<%-- 					<s:submit	value="Creer" 		id="enregistrer"></s:submit>	 --%>
+					<button  id="enregistrer">Creer</button>
+					<button  id="reset">Annuler</button>
 				</div>		
-				<button type="button" id="enregistrer">Creer</button>
+				
 			</form>
 				
 			

@@ -92,6 +92,10 @@ public class ActionsRacePages extends ApplicationSupport{
 				race  = fService.RechRaceParNom(this.nomRace);
 				this.listeBonus = (ArrayList<Bonus>) race.getListeBonus();
 				this.idRace = String.valueOf(race.getId());
+				
+				for (Bonus b : race.getListeBonus()) {
+					System.out.println(b.getIdBonus()+ " " + b.getValeurBonus());
+				}
 			} catch (UserExceptionRBC e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
