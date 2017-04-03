@@ -75,7 +75,7 @@ function caracMoins(){
 		var divBonusExistant = document.getElementById(idCaracBonus);		//on teste si une ligne du tableau bonus avec cette carac existe déjà...
 		console.log(divBonusExistant);
 		
-		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur																		//s'il existe on récupère sa valeur
+		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur					
 			var valBonus = divBonusExistant.getElementsByTagName('td')[1];
 			var valInt = parseInt(valBonus.innerHTML);	
 			
@@ -194,7 +194,7 @@ function compPlus(){
 			var cel3 = ligne.insertCell(2);
 			var acadChk = document.createElement("INPUT");						//On ajoute une checkbox pour pouvoir modifier le statut "Académique" de la compétence
 			acadChk.setAttribute("type", "checkbox");
-			acadChk.setAttribute("name", "chkAcad");
+			acadChk.setAttribute("class", "chkAcad");
 			cel3.appendChild(acadChk);
 			
 		} else {																
@@ -254,27 +254,45 @@ function compMoins(){
 function enregistrer() {
 	console.log("enregistrer");
 	var divBonus = document.getElementById("bonus");
-	var listeBonus = new Array;
-	listeBonus = document.getElementsByTagName('tr');
+	var idRaceElt = document.getElementById("idRace");
+	var idRace = 0;
+	if (idRaceElt != null) {
+		idRace = parseInt(idRaceElt.value);
+	}	
 	
-	if (listeBonus != null){
-		console.log(listeBonus.length);
-		for (i=1; i<listeBonus.length; i++){
-			var dataBonus = listeBonus[i].children;
-			var idBonus = listeBonus[i].getAttribute('id');
+	var race = { 	"idRace":	idRace,
+					"nom" : 	document.getElementById("nomRace").value
+				};
+
+	var rowBonus = new Array;
+	var listeBonus = new Array;
+	rowBonus = document.getElementsByTagName('tr');
+
+	
+	if (rowBonus != null){
+		console.log(race.nom);
+		
+		for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
+			var dataBonus = rowBonus[i].children;
+			var idBonus = rowBonus[i].getAttribute('id');
 			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
 			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
-			
+			var bonus = {	"idBonus" : idBonus,
+							"valeurBonus" : valeur};
 			
 			if (acad != undefined) {
-				var chk	= acad.firstChild;
-				console.log(listeBonus[i].getAttribute('id')+"  "+valeur+"  "+chk.checked);
-			} else {
-				console.log(listeBonus[i].getAttribute('id')+"  "+valeur);
-			}
+				var chk	= acad.children[0];				
+				console.log(idBonus+"  "+valeur+"  "+chk.checked);
+				bonus.acad = chk.checked;
+			}	
+			
+			listeBonus.push(bonus);
+			console.log(listeBonus.length);
+			console.log(bonus);			
 		}
 		
-		
+	race.listeBonus = listeBonus;	
+	console.log(race);		
 	}	
 	
 }
