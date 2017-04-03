@@ -36,7 +36,7 @@ public class Consult extends ApplicationSupport{
 	//Attribut de manipulation d'information
 	private Trait	trait;
 	private Traits 	listTrait;
-	private String 	saisieNom;
+	private String 	libSaisie;
 	
 
 
@@ -63,14 +63,7 @@ public class Consult extends ApplicationSupport{
 	 * @return
 	 */
 	public String list() {
-		// Initialisation de la connexion au service
-		this.initConn();
-		
-		//Initialisation de la liste de trait
-		listTrait 	= null;
 
-		//Instanciation de la liste depuis une requète BDD
-		listTrait = service.consulterListTrait();
 		
 		return MethodReturn.LIST;
 	}
@@ -84,10 +77,12 @@ public class Consult extends ApplicationSupport{
 		this.initConn();
 		listTrait = null;
 		
-		//Initialisatino des variables
-		listTrait = service.consulterListTraitByLib(saisieNom);
+		System.out.println("le libSaisie est : "+libSaisie);
 		
-//		listTrait = service.consulterListTraitByLib(saisieNom);
+		//Initialisation des variables
+		listTrait = service.consulterListTraitByLib(libSaisie);
+		
+		System.out.println("La listTrait est : "+ listTrait);
 		
 		return MethodReturn.SEARCH;	
 	}
@@ -121,37 +116,15 @@ public class Consult extends ApplicationSupport{
 		this.listTrait = listTrait;
 	}
 
-	/**
-	 * Retourne les caractères saisies dans la frmListTrait
-	 * @return
-	 */
-	public String getSaisieNom() {
-		return saisieNom;
-	}
 
-	/**
-	 * Modifie saisieNom
-	 * @param saisieNom
-	 */
-	public void setSaisieNom(String saisieNom) {
-		this.saisieNom = saisieNom;
-	}
-	
-	
-	
-	
-	
-
-
-
-
-	public Trait getTrait() {
-		return trait;
+	public String getLibSaisie() {
+		return libSaisie;
 	}
 
 
-	public void setTrait(Trait trait) {
-		this.trait = trait;
+	public void setLibSaisie(String libSaisie) {
+		this.libSaisie = libSaisie;
 	}
+	
 	
 }

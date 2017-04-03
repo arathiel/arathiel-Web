@@ -37,7 +37,11 @@
 		
 	<!-- ************ JavaScript ************ -->
 		<action name="jQuery">
-			<result>jquery-3.2.0.min.js</result>
+			<result>https://code.jquery.com/jquery-3.2.1.min.js</result>
+		</action>
+		
+		<action name="angularjs">
+			<result>https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js</result>
 		</action>
 	
 	</package>

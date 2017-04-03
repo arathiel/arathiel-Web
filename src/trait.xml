@@ -66,8 +66,7 @@
 		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">
 			
 			<result name="search" type="json">
-				<!--<param name="contentType">text/json</param>-->
-				<!--<param name="inputName"	 >lib </param>-->
+				<param name="excludeProperties">libSaisie</param>
 			</result>
 		
 			<allowed-methods>
