@@ -5,11 +5,6 @@ import javax.naming.NamingException;
 
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
-import clientServeur.exception.UserException;
-import clientServeur.trait.EnrichisseurRP;
-import entity.trait.Trait;
-import entity.trait.comportement.Comportement;
-import technic.trait.Comportements;
 import technic.trait.Traits;
 import util.trait.MethodReturn;
 import util.trait.Parameter;
@@ -31,12 +26,10 @@ public class Consult extends ApplicationSupport{
 	//Attributs service
 	private InitialContext	initialContext;
 	private IFacadeService	service;
-	private EnrichisseurRP	fabriqueTrait;
 	
 	//Attribut de manipulation d'information
-	private Trait	trait;
 	private Traits 	listTrait;
-	private String 	libSaisie;
+	private String 	libelle;
 	
 
 
@@ -50,7 +43,6 @@ public class Consult extends ApplicationSupport{
 		try {
 			initialContext 	= new InitialContext();
 			service 		= (IFacadeService) initialContext.lookup(Parameter.SERVICE_ARATHIEL);
-			fabriqueTrait 	= (EnrichisseurRP) initialContext.lookup(Parameter.ENRICHISSEUR_ARA);
 		} 
 		catch (NamingException e) {
 			e.printStackTrace();
@@ -63,7 +55,7 @@ public class Consult extends ApplicationSupport{
 	 * @return
 	 */
 	public String list() {
-
+		System.out.println("Affichage de la page de recherche");
 		
 		return MethodReturn.LIST;
 	}
@@ -75,12 +67,12 @@ public class Consult extends ApplicationSupport{
 	public String search() {
 		// Initialisation de la connexion au service
 		this.initConn();
-		listTrait = null;
+		listTrait 	= null;
 		
-		System.out.println("le libSaisie est : "+libSaisie);
+		System.out.println("le libSaisie est : "+libelle);
 		
 		//Initialisation des variables
-		listTrait = service.consulterListTraitByLib(libSaisie);
+		listTrait = service.consulterListTraitByLib(libelle);
 		
 		System.out.println("La listTrait est : "+ listTrait);
 		
@@ -117,14 +109,16 @@ public class Consult extends ApplicationSupport{
 	}
 
 
-	public String getLibSaisie() {
-		return libSaisie;
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 
 
-	public void setLibSaisie(String libSaisie) {
-		this.libSaisie = libSaisie;
-	}
+
 	
 	
 }

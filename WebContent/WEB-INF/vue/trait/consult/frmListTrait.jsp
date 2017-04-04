@@ -9,11 +9,18 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Arathiel - Consultation</title>
+	
+	<!-- JQuery et AngularJs -->
+  	<script src="<s:url namespace="" 	action="jQuery" />"> 	</script>
+	<script src="<s:url namespace="" 	action="angularjs" />">	</script>
+	
+	<!-- JavaScript -->
+	<script src="<s:url namespace="/trait" 	action="jsConsult" />" > </script>
 
 	<link rel="stylesheet" href="<s:url namespace="" 	action="cssArathiel" />"  />	
 </head>
 
-<body ng-app="">
+<body ng-app="trait">
 
 	<!-- Include du Header -->
 	<jsp:include page="/WEB-INF/include/header.jsp"></jsp:include>
@@ -26,7 +33,7 @@
 	<br />
 	<br />
 
-	<div class="mainbloc" ng-controller="searchCtrl">
+	<div ng-controller="searchCtrl" class="mainbloc">
 
 		<div id="searchbloc">
 
@@ -40,8 +47,8 @@
 				<s:form>
 					<s:textfield 
 						label="Nom du trait"
-						ng-model="saisie.libSaisie" 
-						ng-keyup="dynamicSearch()" />						
+						ng-model="saisie.libelle"
+						ng-keyup="dynamicSearch()"/>						
 				</s:form>
 
 			</div>
@@ -57,33 +64,32 @@
 			<table border="1">
 				<thead>
 					<tr>
-						<th><s:text name="Nom" /></th>
-						<th><s:text name="Effet" /></th>
-						<th><s:text name="Dispo Création" /></th>
-						<th><s:text name="Visi publique" /></th>
+						<th>Nom				</th>
+						<th>Effet			</th>
+						<th>Disponibilité	</th>
+						<th>Visibilité		</th>
+						<th>Description		</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="trait in reponse ">
-						<td align="left">{{trait.libelle}}</td>
-						<td align="left">{{trait.malus}}</td>
-						<td align="left">{{trait.dispoCrea}}</td>
-						<td align="left">{{trait.visiPublic}}</td>
+					<tr ng-repeat="trait in listeTrait">
+						<td align="left"><s:a namespace="/trait" action="detailTr">{{trait.libelle}}</s:a>																					</td>
+						
+						<!-- Essai de différentes technique pour l'affichage des booléens et de la description -->
+						<td ng-if="trait.malus"	>Malus																						</td>
+ 						<td ng-if="!trait.malus">Bonus																						</td>
+						<td align="left">{{trait.dispoCrea  ? 'A la création' 	: 'Toujours' }}												</td>
+						<td align="left">{{trait.visiPublic ? 'Publique' 		: 'Maître du jeu' }}										</td>
+						
+						<!-- Limite l'affichage à 50 caractères, si plus grand, affiche '...' à la suite. -->
+						<td align="left">{{trait.description.contenu | limitTo: 50 }}{{trait.description.contenu.length > 20 ? '...' : ''}}	</td>
 					</tr>
 				</tbody>
-
 			</table>
-
 		</div>
-
 	</div>
-
-	<!-- JavaScript -->
-	<script src="<s:url namespace="/trait" 	action="jsConsult" />"   	 ></script>
-	<script src="<s:url namespace="" 	   	action="jQuery.action" />"   ></script>
-	<script src="<s:url namespace="" 		action="angularjs.action" />"></script>
-
+	
 </body>
 
 
