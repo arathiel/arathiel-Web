@@ -14,6 +14,7 @@ function initAll() {
 	document.querySelector('#compPlus').onclick = compPlus;	
 	document.querySelector('#compMoins').onclick = compMoins;
 	document.querySelector('#enregistrer').onclick = enregistrer;
+	document.querySelector('#reset').onclick = reset;
 }	
 	
 /**
@@ -260,8 +261,8 @@ function enregistrer() {
 		idRace = parseInt(idRaceElt.value);
 	}	
 	
-	var race = { 	"idRace":	idRace,
-					"nom" : 	document.getElementById("nomRace").value
+	var race = { 	"idRace":		idRace,
+					"nomRace" : 	document.getElementById("nomRace").value
 				};
 
 	var rowBonus = new Array;
@@ -277,22 +278,86 @@ function enregistrer() {
 			var idBonus = rowBonus[i].getAttribute('id');
 			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
 			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
-			var bonus = {	"idBonus" : idBonus,
-							"valeurBonus" : valeur};
+			
+			var newBonus = {	"idBonus" : idBonus,
+								"valeurBonus" : valeur,
+								"acad":	"false"};
 			
 			if (acad != undefined) {
 				var chk	= acad.children[0];				
 				console.log(idBonus+"  "+valeur+"  "+chk.checked);
-				bonus.acad = chk.checked;
+				newBonus.acad = chk.checked;
 			}	
 			
-			listeBonus.push(bonus);
+			listeBonus.push(newBonus);
 			console.log(listeBonus.length);
 			console.log(bonus);			
 		}
-		
-	race.listeBonus = listeBonus;	
-	console.log(race);		
+			
+	console.log(race);	
+	envoiAjax(race);
+	}		
+}
+
+
+/** 
+ * Methode qui reset la table des bonus
+ *  
+ */
+function reset() {
+	var row = document.getElementsByTagName('tr');
+	var nb= row.length;
+	console.log(row.length);
+	
+	for (i=nb-1; i>0; i--){
+		console.log(i);
+		console.log(row[i]);
+		row[i].parentNode.removeChild(row[i]);
+	}	
+}
+
+/**
+* Methode qui se charge de construire un objet Ajax avec les données récupérées 
+* et les envoie au beanAction
+*/
+function envoiAjax(raceAjax) {
+	var xhr = null;
+	
+	if (window.XMLHttpRequest){
+		xhr = new XMLHttpRequest();
+	} else if(window.ActiveXObject) {
+		try { xhr = new ActiveXObject("Msxml2.XHTTP");}
+		catch(e) {xhr = new ActiveXObject("Microsoft.XMLHTTP");}		
+	} else {
+		alert("Erreur de support de l'objet XMLHttpRequest");
 	}	
 	
+
+	
+	xhr.open("GET", "../race/creerRace?raceAjax="+raceAjax);
+	
+	xhr.setRequestHeader("content-type", "application/x-www-form-urlencoder");
+	
+	xhr.send(null);
+	
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState==4){
+			document.querySelector('#message').innerHTML=xhr.status;
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

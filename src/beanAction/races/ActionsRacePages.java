@@ -39,6 +39,7 @@ public class ActionsRacePages extends ApplicationSupport{
 	
 	
 	
+	
 	public void init() {
 		InitialContext ctx;
 		try {
@@ -217,6 +218,7 @@ public class ActionsRacePages extends ApplicationSupport{
 	public void setIdRace(String idRace) {
 		this.idRace = idRace;
 	}
+
 
 
 
