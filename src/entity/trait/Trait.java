@@ -1,8 +1,6 @@
 package entity.trait;
 
 import java.io.Serializable;
-import java.util.Collection;
-
 
 import entity.trait.comportement.Comportement;
 import technic.trait.Comportements;
@@ -241,6 +239,22 @@ public class Trait implements Serializable{
 	 */
 	public void setDescription(Description description) {
 		this.description = description;
+	}
+	
+	/**
+	 * Retourne le contenu de la description
+	 * @return
+	 */
+	public String getContenuDesc(){
+		return  (description != null ? description.getContenu() : "");
+	}
+	
+	/**
+	 * Modifie le contenue de la description
+	 * @param contenu
+	 */
+	public void setContDesc(String contenu) {
+		description.setContenu(contenu);
 	}
 
 	

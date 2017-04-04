@@ -47,7 +47,7 @@
 				<s:form>
 					<s:textfield 
 						label="Nom du trait"
-						ng-model="saisie.libelle"
+						ng-model="saisie.libSearch"
 						ng-keyup="dynamicSearch()"/>						
 				</s:form>
 
@@ -74,11 +74,14 @@
 
 				<tbody>
 					<tr ng-repeat="trait in listeTrait">
-						<td align="left"><s:a namespace="/trait" action="detailTr">{{trait.libelle}}</s:a>																					</td>
 						
-						<!-- Essai de différentes technique pour l'affichage des booléens et de la description -->
+						<!-- Struts2 interprétant en chaîne de caractère ce que je lui envoyais en paramètre, choix de ne pas l'utiliser -->
+						<td><a href="/arathiel-Web/trait/detailTr.action?selectId={{trait.id}}">{{trait.libelle}}</a>						</td>	
+					
+						<!-- Essais de différentes technique pour l'affichage des booléens et de la description -->
 						<td ng-if="trait.malus"	>Malus																						</td>
  						<td ng-if="!trait.malus">Bonus																						</td>
+						
 						<td align="left">{{trait.dispoCrea  ? 'A la création' 	: 'Toujours' }}												</td>
 						<td align="left">{{trait.visiPublic ? 'Publique' 		: 'Maître du jeu' }}										</td>
 						

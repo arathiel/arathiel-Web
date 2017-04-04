@@ -1,9 +1,3 @@
-window.onload = test;
-
-function test() {
-	console.log ('JS consult.js chargé')
-}
-
 /**
  * Application pour trait, regroupant les différents controlleurs
  */
@@ -15,39 +9,32 @@ var app = angular.module('trait', []);
  */
 app.controller('searchCtrl', function($scope, $http, $httpParamSerializer) {
 	//Initialisation de la variable
-	$scope.saisie 		= {'libelle':''};
+	$scope.saisie 		= {'libSearch':''};
+	$scope.listeTrait	= "";
+	
 	
 	//Fonction pour la recherche dynamique
 	$scope.dynamicSearch = function() {
 
 		//Initialisation des variables
-		$scope.reponse	 	= "";
 		$scope.listeTrait	= "";
-	
 	
 		//Requête + Retour
 		$http.post('http://localhost:8080/arathiel-Web/traitjson/searchTr.action', 
 					$httpParamSerializer($scope.saisie), 
 					{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 					.then(
-							function (response) {
-								console.log('Dans la function success')
-						
-								//Initialisation de la variable response			
-								$scope.status = response.status;
-								console.log($scope.status)
-								
-								$scope.reponse = response.data;
-								console.log($scope.reponse)
-								
+							function (response) {											//SUCESS
+								//Initialisation de la liste de trait avec le retour
 								$scope.listeTrait = response.data.listTrait;
-								console.log($scope.listeTrait)
-
-					}, 
+							}, 
 					
-					function (response) {
-						$scope.erreur = response.status;
-						$scope.reponse = "Oupps probleme de retour";
-					});
-     			}
+							function (response) {											//ERREUR
+								$scope.erreur = response.status;
+								$scope.reponse = "Oupps probleme de retour";
+							}
+					);// Fin .then
+		
+	}// Fin dynamicSearch()
+
 });// Fin searchCtrl 

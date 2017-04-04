@@ -67,10 +67,12 @@
 			
 			<result name="search" type="json">
 				<param name="excludeProperties">libelle</param>
+				<param name="excludeProperties">trait</param>
+				<param name="excludeProperties">selectId</param>
 			</result>
-		
+				
 			<allowed-methods>
-				search
+				search,
 			</allowed-methods>
 		</action>
 
