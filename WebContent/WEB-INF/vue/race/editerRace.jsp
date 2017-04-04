@@ -125,8 +125,9 @@
 				</div>
 				
 				<div id="bouton">
-					<button type="button" id="enregistrer">Creer</button>
+					<button type="button" id="modifier">Modifier</button>
 					<s:submit	value="Supprimer" 	id="suppr"></s:submit>
+					<input type="reset"  id="reset"/>
 				</div>
 			
 			</form>
