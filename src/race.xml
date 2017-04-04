@@ -10,7 +10,7 @@
 		</action>
 	
 		<action name="*Race" method="{1}" class="beanAction.races.ActionsRaceGestion">
-			<result></result>
+			<result>/WEB-INF/vue/race/{1}Race.jsp</result>
 			<allowed-methods>creer, modifier, supprimer</allowed-methods>
 		</action>
 	

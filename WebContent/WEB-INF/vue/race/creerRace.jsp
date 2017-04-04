@@ -87,12 +87,12 @@
 				
 				<div id="bouton">
 					<button  id="enregistrer">Creer</button>
-					<button  id="reset">Annuler</button>
+					<input type="reset"  id="reset"/>
 				</div>		
 				
 			</form>
 				
-			
+			<p id="message"></p>
 		</div>
 	</div>
 </body>
