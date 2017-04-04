@@ -10,6 +10,7 @@
 	<title>Page d'édition des races</title>
 <%-- 	<script type="text/javascript" src="../../../js/race/race.js"></script> --%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/race/race.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.0.min.js"></script>
 </head>
 <body>
 	<!-- HEADER -->

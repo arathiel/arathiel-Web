@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import com.sun.org.apache.bcel.internal.generic.GETFIELD;
+
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
+import clientServeur.race_bonus_carac.userException.UserExceptionRBC;
 import entity.competence.Competence;
 import entity.race_bonus_carac.caracteristique.Caracteristique;
 import entity.race_bonus_carac.race.Race;
@@ -33,9 +36,6 @@ public class ActionsRaceGestion extends ApplicationSupport{
 	private String chkAcad;
 	private String nomRace;
 	private String idRace;
-	private Object[] listeBonus;
-	private String raceAjax;
-
 
 	public void init() {
 		InitialContext ctx;
@@ -51,12 +51,23 @@ public class ActionsRaceGestion extends ApplicationSupport{
 	
 	public String creer() {
 		init();
-		System.out.println("incroyable on arrive dans creer race avec"+getNomRace()+getIdRace()+getRaceAjax());
-		System.out.println("les bonus:");
-		System.out.println("liste de :"+listeBonus.length+" bonus");
-		for (Object o : listeBonus){
-			System.out.println(o.toString());
+		System.out.println("incroyable on arrive dans creer race avec"+getNomRace()+getIdRace());
+		
+		Race race = new Race(this.nomRace, false);
+		
+		try {
+			fService.enregistrerRace(race);
+		} catch (UserExceptionRBC e) {
+			System.out.println("***********************BUG REC RACE **************************");
+			e.printStackTrace();
 		}
+		
+//		final Gson gson = new Gson();
+//
+//		final RaceAjax raceAjax = gson.fromJson(getRaceJson(), RaceAjax.class);
+//
+//		System.out.println(raceAjax);
+		
 		
 		return SUCCESS;
 	}
@@ -164,6 +175,7 @@ public class ActionsRaceGestion extends ApplicationSupport{
 		this.nomRace = nomRace;
 	}
 
+
 	public String getIdRace() {
 		return idRace;
 	}
@@ -174,23 +186,6 @@ public class ActionsRaceGestion extends ApplicationSupport{
 	}
 
 
-	public Object[] getListeBonus() {
-		return listeBonus;
-	}
-
-
-	public void setListeBonus(Object[] bonus) {
-		this.listeBonus = bonus;
-	}
-
-
-	public String getRaceAjax() {
-		return raceAjax;
-	}
-
-
-	public void setRaceAjax(String raceAjax) {
-		this.raceAjax = raceAjax;
-	}
+	
 
 }

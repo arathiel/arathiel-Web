@@ -6,21 +6,27 @@
 window.onload = initAll;
 
 function initAll() {
-	console.log("Coucou bande de noobs"+document.querySelector('#caracPlus')+document.querySelector('#caracMoins'));
+	console.log("Coucou bande de noobs"+document.querySelector('#enregistrer'));
 	document.querySelector('#caracPlus').onclick = caracPlus;	
 	document.querySelector('#caracMoins').onclick = caracMoins;
 	document.querySelector('#traitPlus').onclick = traitPlus;	
 	document.querySelector('#traitMoins').onclick = traitMoins;
 	document.querySelector('#compPlus').onclick = compPlus;	
-	document.querySelector('#compMoins').onclick = compMoins;
-	document.querySelector('#enregistrer').onclick = enregistrer;
+	document.querySelector('#compMoins').onclick = compMoins;	
+	
+	if (document.querySelector('#enregistrer') != null){
+		document.querySelector('#enregistrer').onclick = enregistrer;
+	}	
+	
+	if (document.querySelector('#modifier') != null){
+		document.querySelector('#modifier').onclick = modifier;
+	}	
 	document.querySelector('#reset').onclick = reset;
 }	
 	
 /**
  * Methode pour augmenter la valeur d'un bonus de caracteristique
  * 
- * @returns
  */
 function caracPlus(){
 	var select = document.querySelector('#selectCarac');
@@ -114,7 +120,7 @@ function traitPlus(){
 			var divBonus = document.querySelector('#tableBonus');
 			var ligne = divBonus.insertRow();									//On crée la ligne
 			ligne.setAttribute("id", idTraitBonus);
-			var cel1 = ligne.insertCell(0);										//On y insère des cellules avec la nom du trait...
+			var cel1 = ligne.insertCell(0);										//On y insère des cellules avec le nom du trait...
 			cel1.innerHTML = nomTrait;
 			var cel2 = ligne.insertCell(1);										//...et une valeur =0 (un trait peu avoir une valeur nulle)
 			cel2.innerHTML="0";
@@ -245,14 +251,26 @@ function compMoins(){
 	}
 }
 
-
-/** 
- * Methode qui recupère les données du formulaire 
- * et les envoi vers le beanAction ActionsRacesGestion
- *  
- * @returns
+/**
+ * Methode qui enrgistre une nouvelle race
+ * 
  */
 function enregistrer() {
+	var race = recupData();
+//	race.listeBonusRace = listeBonus;		
+	console.log(race);
+//	var racejson = JSON.stringify(race);
+//	console.log(racejson);
+	envoiAjax(race);
+}
+
+
+
+/** 
+ * Methode qui recupère les données des formulaires 
+ * 
+ */
+function recupData() {
 	console.log("enregistrer");
 	var divBonus = document.getElementById("bonus");
 	var idRaceElt = document.getElementById("idRace");
@@ -262,7 +280,7 @@ function enregistrer() {
 	}	
 	
 	var race = { 	"idRace":		idRace,
-					"nomRace" : 	document.getElementById("nomRace").value
+					"nomRace" : 	document.getElementById("nomRace").value					
 				};
 
 	var rowBonus = new Array;
@@ -281,7 +299,7 @@ function enregistrer() {
 			
 			var newBonus = {	"idBonus" : idBonus,
 								"valeurBonus" : valeur,
-								"acad":	"false"};
+								"acad":	"false"	};
 			
 			if (acad != undefined) {
 				var chk	= acad.children[0];				
@@ -293,10 +311,8 @@ function enregistrer() {
 			console.log(listeBonus.length);
 			console.log(bonus);			
 		}
-			
-	console.log(race);	
-	envoiAjax(race);
 	}		
+	return race;
 }
 
 
@@ -320,7 +336,7 @@ function reset() {
 * Methode qui se charge de construire un objet Ajax avec les données récupérées 
 * et les envoie au beanAction
 */
-function envoiAjax(raceAjax) {
+function envoiAjax(race) {
 	var xhr = null;
 	
 	if (window.XMLHttpRequest){
@@ -333,18 +349,40 @@ function envoiAjax(raceAjax) {
 	}	
 	
 
-	
-	xhr.open("GET", "../race/creerRace?raceAjax="+raceAjax);
+	console.log(race.idRace+race.nomRace);
+	xhr.open("GET", "../race/creerRace?nomRace="+race.nomRace+"&idRace="+race.idRace, true);
+	//xhr.open("POST", "../race/creerRace", true);
 	
 	xhr.setRequestHeader("content-type", "application/x-www-form-urlencoder");
 	
 	xhr.send(null);
+	//xhr.send("nomRace="+race.nomRace+"&idRace="+race.idRace);
 	
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState==4){
 			document.querySelector('#message').innerHTML=xhr.status;
 		}
 	}
+	
+//	$.ajax({
+//	    url        : "../race/creerRace",
+//	    dataType   : 'json',
+//	    contentType: 'application/json; charset=UTF-8', // This is the money shot
+//	    data       : raceJson,
+//	    type       : 'POST',
+//	    success 	: function(code_html, statut){ 				
+//	        console.log("success");
+//	    },
+//	    
+//	    error : function(resultat, statut, erreur){
+//	    	console.log("error")
+//    	},
+//
+//    	complete : function(resultat, statut){
+//    		console.log("complete")
+//    	}
+//     });
+	
 }
 
 
