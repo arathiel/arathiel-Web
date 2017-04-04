@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="<s:url namespace="" 	action="cssArathiel" />"  />	
 </head>
 
-<body>
+<body ng-app="">
 
 	<!-- Include du Header -->
 	<jsp:include page="/WEB-INF/include/header.jsp"></jsp:include>
@@ -26,7 +26,7 @@
 	<br />
 	<br />
 
-	<div class="mainbloc">
+	<div class="mainbloc" ng-controller="searchCtrl">
 
 		<div id="searchbloc">
 
@@ -38,77 +38,51 @@
 
 			<div id="formbloc">
 				<s:form>
-
-					<s:textfield id="saisieNom" label="Nom du trait" />
-
-					<s:select id="seltype" label="type"
-						list="{'Technique', 'Roleplay'}" headerKey="None"
-						headerValue="Type de trait" />
-
+					<s:textfield 
+						label="Nom du trait"
+						ng-model="saisie.libSaisie" 
+						ng-keyup="dynamicSearch()" />						
 				</s:form>
 
 			</div>
 
 		</div>
 
-		<br /> <br />
-		<hr width="80" />
-		<br /> <br />
-
 		<!-- Zone d'affichage dynamyque -->
 
 		<div id="listbloc">
 
-			<div class="titre">
-				<h2>Liste des traits disponibles</h2>
-			</div>
-
 			<br /> <br />
 
-			<s:if test="%{listTrait != null}">
-			<s:if test="%{listTrait.size()>0}">
-				<table border="1">
-					<thead>
-						<tr>
-							<th><s:text name="Nom" 	 /></th>
-							<th><s:text name="Effet" /></th>
-						</tr>
-					</thead>
+			<table border="1">
+				<thead>
+					<tr>
+						<th><s:text name="Nom" /></th>
+						<th><s:text name="Effet" /></th>
+						<th><s:text name="Dispo Création" /></th>
+						<th><s:text name="Visi publique" /></th>
+					</tr>
+				</thead>
 
-					<s:iterator value="listTrait">
-						<br />
+				<tbody>
+					<tr ng-repeat="trait in reponse ">
+						<td align="left">{{trait.libelle}}</td>
+						<td align="left">{{trait.malus}}</td>
+						<td align="left">{{trait.dispoCrea}}</td>
+						<td align="left">{{trait.visiPublic}}</td>
+					</tr>
+				</tbody>
 
-						<s:url namespace="/trait" action="detailTr" var="detailTr">
-							<s:param name="idTrait">
-								<s:property value="id" />
-							</s:param>
-						</s:url>
-
-						<tbody>
-							<tr>
-								<th align="left"><a href="${detailTr}"> <s:property value="libelle"/></a></th>					
-								<th align="left"><s:property value="malus" /></th>
-							</tr>
-						</tbody>
-					</s:iterator>
-
-				</table>
-			</s:if>
-			</s:if>
-			
-			<s:else>
-				<div id="noresult">
-					<p> Aucun Trait d'enregistré. </p>
-				</div>
-			</s:else>
+			</table>
 
 		</div>
 
 	</div>
 
 	<!-- JavaScript -->
-	<script src="${pageContext.request.contextPath}/js/trait/consult.js"> 	 </script>
-	<script src="${pageContext.request.contextPath}/js/jquery-3.2.0.min.js"> </script>
+	<script src="<s:url namespace="/trait" 	action="jsConsult" />"   	 ></script>
+	<script src="<s:url namespace="" 	   	action="jQuery.action" />"   ></script>
+	<script src="<s:url namespace="" 		action="angularjs.action" />"></script>
 
 </body>
 
