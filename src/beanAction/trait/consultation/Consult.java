@@ -5,12 +5,16 @@ import javax.naming.NamingException;
 
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
+import clientServeur.exception.UserException;
+import entity.trait.Trait;
+import entity.trait.comportement.Comportement;
+import technic.trait.Comportements;
 import technic.trait.Traits;
 import util.trait.MethodReturn;
 import util.trait.Parameter;
 
 /**
- * Classe d'actino pour la consultation de trait
+ * Classe d'action pour la consultation de trait
  * 
  * @author Jonathan Fuentes
  *
@@ -27,12 +31,24 @@ public class Consult extends ApplicationSupport{
 	private InitialContext	initialContext;
 	private IFacadeService	service;
 	
-	//Attribut de manipulation d'information
-	private Traits 	listTrait;
-	private String 	libelle;
+	//Attributs fonctionnels
+	private Traits 			listTrait;
+	private Trait			trait;
+	private Comportements 	listComp;
+	private Comportement	comp;
 	
-
-
+	private int				id;
+	private String			lib;
+	private String			visi;
+	private String			dispo;
+	private String			malus;
+	private String			nomCarac;
+	private String			typeComp;
+	private String			description;
+	
+	private String 			libSearch;
+	private int				selectId;
+		
 
 	/**
 	 * Initialisation des services
@@ -55,7 +71,10 @@ public class Consult extends ApplicationSupport{
 	 * @return
 	 */
 	public String list() {
-		System.out.println("Affichage de la page de recherche");
+		this.initConn();
+		listTrait = null;
+
+		//TODO AFFICHER LA LISTE COMPLETE ?
 		
 		return MethodReturn.LIST;
 	}
@@ -67,25 +86,73 @@ public class Consult extends ApplicationSupport{
 	public String search() {
 		// Initialisation de la connexion au service
 		this.initConn();
+		
+		//Initialisation de la variable
 		listTrait 	= null;
 		
-		System.out.println("le libSaisie est : "+libelle);
-		
 		//Initialisation des variables
-		listTrait = service.consulterListTraitByLib(libelle);
-		
-		System.out.println("La listTrait est : "+ listTrait);
+		listTrait = service.consulterListTraitByLib(libSearch);
 		
 		return MethodReturn.SEARCH;	
 	}
-	
-	
-	
+		
 	/**
 	 * Affiche la page frmDetailTrait
 	 * @return
 	 */
 	public String detail() {
+		// Initialisation de la connexion au service
+		this.initConn();
+		
+		//Initialisation de la variable
+		trait 		= null;
+		id			= 0;
+		lib			= null;
+		visi		= null;
+		dispo		= null;
+		malus		= null;
+		nomCarac	= null;
+		listComp	= new Comportements();
+		description = null;
+		
+		// Recherche du trait via ID
+		try {
+			trait = service.consulterTraitById(selectId);
+		} catch (UserException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		// Vérification de l'existence du trait
+		if (trait != null) {
+			
+			// S'il existe on récupère ses informations pour les afficher dans frmDetailTrait
+			if (trait.getId() != 0) 		id 	 = trait.getId();
+			if (trait.getLibelle() != null)	lib  = trait.getLibelle();
+			
+			if (trait.isVisiPublic())	visi = "Publique";
+			else {
+				visi = "Maître du jeu";
+			}
+			
+			if (trait.isDispoCrea())	dispo = "Création";
+			else {
+				dispo = "Toujours";
+			}
+			
+			if (trait.isMalus())	malus = "Malus";
+			else {
+				malus = "Bonus";
+			}
+			
+			if (trait.getListComp() != null){
+				if (!trait.getListComp().isEmpty()) 	listComp 	= trait.getListComp();
+			}
+				
+			if (trait.getDescription() != null) {
+				if (!trait.getContenuDesc().isEmpty()) 	description = trait.getContenuDesc();
+			}
+		}
+		
 		return MethodReturn.DETAIL;
 	}
 
@@ -108,17 +175,115 @@ public class Consult extends ApplicationSupport{
 		this.listTrait = listTrait;
 	}
 
-
-	public String getLibelle() {
-		return libelle;
+	/**
+	 * Retourne un trait
+	 * @return
+	 */
+	public Trait getTrait() {
+		return trait;
 	}
 
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+
+	/**
+	 * Modifie le trait
+	 * @param trait
+	 */
+	public void setTrait(Trait trait) {
+		this.trait = trait;
+	}
+
+	/**
+	 * Retourne le libellé saisie dasn frmlist.jsp
+	 * @return
+	 */
+	public String getlibSearch() {
+		return libSearch;
+	}
+
+	/**
+	 * Modifie le libellé de recherche
+	 * @param libelle
+	 */
+	public void setlibSearch(String libSearch) {
+		this.libSearch = libSearch;
+	}
+
+	/**
+	 * Retourne l'Id sélectionné
+	 * @return
+	 */
+	public int getSelectId() {
+		return selectId;
+	}
+
+	/**
+	 * Modifie l'id sélectionné
+	 * @param selectId
+	 */
+	public void setSelectId(int selectId) {
+		this.selectId = selectId;
 	}
 
 
+	public int getId() {
+		return id;
+	}
 
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getLib() {
+		return lib;
+	}
+
+
+	public void setLib(String lib) {
+		this.lib = lib;
+	}
+
+
+	public String getVisi() {
+		return visi;
+	}
+
+
+	public void setVisi(String visi) {
+		this.visi = visi;
+	}
+
+
+	public String getDispo() {
+		return dispo;
+	}
+
+
+	public void setDispo(String dispo) {
+		this.dispo = dispo;
+	}
+
+
+	public String getMalus() {
+		return malus;
+	}
+
+
+	public void setMalus(String malus) {
+		this.malus = malus;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	
 	
 }
