@@ -7,8 +7,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import clientServeur.IArme;
-import clientServeur.IFabrique;
 import clientServeur.IFacadeService;
+import clientServeur.IForge;
 import entity.armurerie.Arme;
 import entity.armurerie.ArmeJoueur;
 import entity.armurerie.Joueur;
@@ -23,7 +23,7 @@ import util.armurerie.ArmurerieParam;
 public class ManageArme {
 
 	private IFacadeService 	serviceArme;
-	private IFabrique 		forgeArme;
+	private IForge 			forgeArme;
 	private IArme 			arme;
 
 
@@ -37,7 +37,7 @@ public class ManageArme {
 		try {
 			context 	= new InitialContext();
 			serviceArme = (IFacadeService) 	context.lookup(ArmurerieParam.FACADE_SERVICE);
-			forgeArme 	= (IFabrique) 		context.lookup(ArmurerieParam.FORGE_SERVICE);
+			forgeArme 	= (IForge) 			context.lookup(ArmurerieParam.FORGE_SERVICE);
 		}
 		catch (NamingException e) { e.printStackTrace(); }
 	}
@@ -54,9 +54,10 @@ public class ManageArme {
 		return serviceArme.listerArmes();
 	}
 
-	public void createArme(Arme armeDto, List<String> raceArme) throws Exception {
+	public void createArme(Arme armeDto, List<String> raceArme) throws ServiceOlivBException {
 		init();
 		arme = forgeArme.creerArme(armeDto.getNom(), armeDto.getEncombrement(), armeDto.getPrix(), armeDto.getMonnaie());
+		System.out.println("**************************************************************");
 		serviceArme.createArme(arme, raceArme);	
 	}
 

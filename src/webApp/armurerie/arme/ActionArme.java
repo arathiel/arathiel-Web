@@ -28,6 +28,7 @@ public class ActionArme extends AppSupport{
 	private ArmeJoueur 		armeJoueurDto;
 	private ManageArme 		manArme;
 	private List<Race> 		races;	
+	private List<String>	nomRaces;
 	private List<String>	raceArme;	
 	private List<Arme>		armes;
 	private List<Joueur> 	joueurs;
@@ -93,6 +94,7 @@ public class ActionArme extends AppSupport{
 		if (validationArme(armeDto)) {
 			getTabRacesSelectedValues();
 			manArme = new ManageArme();
+			System.out.println(raceArme);
 			try {
 				manArme.createArme(armeDto, raceArme);
 			}
@@ -176,6 +178,14 @@ public class ActionArme extends AppSupport{
 		this.etat = etat;
 	}
 
+	public List<String> getNomRaces() {
+		return nomRaces;
+	}
+
+	public void setNomRaces(List<String> nomRaces) {
+		this.nomRaces = nomRaces;
+	}
+
 	//Méthode de recherche liste des Armes pour affichage dans les jsp modificationArme et suppressionArme
 	private List<Arme> afficheListeArme() 	throws ServiceOlivBException {
 		manArme = new ManageArme();
@@ -185,11 +195,15 @@ public class ActionArme extends AppSupport{
 	}
 
 	//Méthode de recherche liste de races pour la CheckBoxList
-	private List<Race> afficheRace() 		throws ServiceOlivBException {
+	private List<String> afficheRace() 		throws ServiceOlivBException {
 		manArme = new ManageArme();
 		races = new ArrayList<Race>();
 		races = manArme.afficheRaces();
-		return races;
+		nomRaces = new ArrayList<String>();
+		for (Race race : races) {
+			nomRaces.add(race.getNom());	
+		}
+		return nomRaces;
 
 	}
 
@@ -298,5 +312,6 @@ public class ActionArme extends AppSupport{
 	public void setJoueurId(int joueurId) {
 		this.joueurId = joueurId;
 	}
+
 
 }

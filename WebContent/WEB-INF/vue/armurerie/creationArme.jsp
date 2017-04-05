@@ -26,7 +26,7 @@
 	</s:if>
 	<s:form namespace="/armurerie" 	action="creationArmeValide" 	method="post">
 		<p>Nom : <s:textfield 		name="armeDto.nom"/></p>	
-		<p>Races : <s:checkboxlist 	name="tabRaces" 				list="races" 		listValue="nom" accesskey="id" /></p>								
+		<p>Races : <s:checkboxlist 	name="tabRaces" 				list="nomRaces"  accesskey="id" /></p>								
 		<p>Encombrement : <select 	name="armeDto.encombrement"		type="number"  >
 				<option></option>
 				<option>1</option>
