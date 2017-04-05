@@ -36,6 +36,7 @@ public class ActionsRacePages extends ApplicationSupport{
 	private String chkAcad;
 	private String nomRace;
 	private String idRace;
+	private Race race;
 	
 	
 	
@@ -84,15 +85,16 @@ public class ActionsRacePages extends ApplicationSupport{
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
-		
-		Race race;
-		System.out.println("Race reçue en param : "+this.nomRace);
+
+		System.out.println("Nom reçu en param : "+this.nomRace);
 		
 		if (this.nomRace != null) {
 			try {
-				race  = fService.RechRaceParNom(this.nomRace);
+				setRace(fService.RechRaceParNom(this.nomRace));
 				this.listeBonus = (ArrayList<Bonus>) race.getListeBonus();
 				this.idRace = String.valueOf(race.getId());
+				this.chkAcad = String.valueOf(race.isDispo());
+				
 				
 				for (Bonus b : race.getListeBonus()) {
 					System.out.println(b.getIdBonus()+ " " + b.getValeurBonus());
@@ -217,6 +219,16 @@ public class ActionsRacePages extends ApplicationSupport{
 
 	public void setIdRace(String idRace) {
 		this.idRace = idRace;
+	}
+
+
+	public Race getRace() {
+		return race;
+	}
+
+
+	public void setRace(Race race) {
+		this.race = race;
 	}
 
 

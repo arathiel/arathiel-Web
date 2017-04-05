@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="<s:url namespace="/race" 	action="cssRaceEdit" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Page d'édition des races</title>
-<%-- 	<script type="text/javascript" src="../../../js/race/race.js"></script> --%>
+
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/race/race.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.0.min.js"></script>
 </head>
@@ -71,7 +71,7 @@
 				<div id="identRace">
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
-					<s:checkbox  name="dispo"		label="Disponible:"></s:checkbox>
+					<s:checkbox  name="dispo"		label="Disponible:" ></s:checkbox>
 				</div>
 				
 				<div id="bonus">

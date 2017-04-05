@@ -12,9 +12,9 @@ import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
 import clientServeur.exception.UserException;
 import clientServeur.race_bonus_carac.interfaces.IFabriqueBonus;
+import clientServeur.race_bonus_carac.userException.UserExceptionRBC;
 import entity.competence.Competence;
 import entity.race_bonus_carac.bonus.Bonus;
-import entity.race_bonus_carac.bonus.BonusCompetence;
 import entity.race_bonus_carac.caracteristique.Caracteristique;
 import entity.race_bonus_carac.race.Race;
 import entity.trait.Trait;
@@ -31,19 +31,19 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	private static IFacadeService fService;
 	private static IFabriqueBonus fabBonus;
 	
-	private ArrayList<Race> listeRace = new ArrayList<Race>();
+//	private ArrayList<Race> listeRace = new ArrayList<Race>();
 	private ArrayList<Caracteristique> listeCarac= new ArrayList<Caracteristique>();
 	private ArrayList<Competence> listeComp= new ArrayList<Competence>();
 	private ArrayList<Trait> listeTrait= new ArrayList<Trait>();
-	private String selectCarac;
-	private String selectTrait;
-	private String selectComp;
-	private String chkAcad;
+	private Race race;
+//	private String selectCarac;
+//	private String selectTrait;
+//	private String selectComp;
+//	private String chkAcad;
 	private String nomRace;
 	private String idRace;
 	private String dispo;
-	private String raceAjax;
-
+	
 
 	private HttpServletRequest request;
 	
@@ -62,17 +62,50 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	}
 	
 	/**
-	 * Methode qui recupère les données de la page creerRace.jsp,
-	 * recrée une race et l'envoie pour insertion
+	 * Methode qui envoie la propriété race de ce bean pour insertion
 	 * 
 	 */
 	public String creer() {
 		init();
+		construireRace();
+		System.out.println("on revient dans creer avec " + race.toString());
+		
+		try {
+			fService.enregistrerRace(race);
+		} catch (UserExceptionRBC e) {
+			e.printStackTrace();
+			return ERROR;			
+		}
+		
+		return SUCCESS;
+	}
+	
+	
+	
+	public String modifier() {
+		init();
+	//TODO
+		return SUCCESS;
+	}
+	
+	public String supprimer() {
+		init();
+	//TODO
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * Methode qui recupère les données du flux pour
+	 * recréer une race et la set dans la propriété race de ce bean
+	 * 
+	 */
+	public void construireRace(){
 		System.out.println("incroyable on arrive dans creer race avec"+this.nomRace+this.idRace+this.dispo);
 		Race race = new Race(this.nomRace, false);
 		
-		
-		
+		if ((this.dispo).equals("true")) {race.setDispo(true);}
+				
 		Map<String, String[]> map = request.getParameterMap();
 		System.out.println("request :"+ map.size());
 
@@ -154,33 +187,19 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		}
 	
 		System.out.println("Race crée : "+race.toString());
-		return SUCCESS;
+		this.race = race;
 	}
 	
-	
-	
-	public String modifier() {
-		init();
-	//TODO
-		return SUCCESS;
-	}
-	
-	public String supprimer() {
-		init();
-	//TODO
-		return SUCCESS;
-	}
-	
-	public ArrayList<Race> getListeRace() {
-		return listeRace;
-	}
-
-
-	public void setListeRace(ArrayList<Race> listeRace) {
-		this.listeRace = listeRace;
-	}
-
-
+//	public ArrayList<Race> getListeRace() {
+//		return listeRace;
+//	}
+//
+//
+//	public void setListeRace(ArrayList<Race> listeRace) {
+//		this.listeRace = listeRace;
+//	}
+//
+//
 	public ArrayList<Caracteristique> getListeCarac() {
 		return listeCarac;
 	}
@@ -209,46 +228,46 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	public void setListeTrait(ArrayList<Trait> listeTrait) {
 		this.listeTrait = listeTrait;
 	}
-
-
-	public String getSelectCarac() {
-		return selectCarac;
-	}
-
-
-	public void setSelectCarac(String selectCarac) {
-		this.selectCarac = selectCarac;
-	}
-
-
-	public String getSelectTrait() {
-		return selectTrait;
-	}
-
-
-	public void setSelectTrait(String selectTrait) {
-		this.selectTrait = selectTrait;
-	}
-
-
-	public String getSelectComp() {
-		return selectComp;
-	}
-
-
-	public void setSelectComp(String selectComp) {
-		this.selectComp = selectComp;
-	}
-
-
-	public String getChkAcad() {
-		return chkAcad;
-	}
-
-
-	public void setChkAcad(String chkAcad) {
-		this.chkAcad = chkAcad;
-	}
+//
+//
+//	public String getSelectCarac() {
+//		return selectCarac;
+//	}
+//
+//
+//	public void setSelectCarac(String selectCarac) {
+//		this.selectCarac = selectCarac;
+//	}
+//
+//
+//	public String getSelectTrait() {
+//		return selectTrait;
+//	}
+//
+//
+//	public void setSelectTrait(String selectTrait) {
+//		this.selectTrait = selectTrait;
+//	}
+//
+//
+//	public String getSelectComp() {
+//		return selectComp;
+//	}
+//
+//
+//	public void setSelectComp(String selectComp) {
+//		this.selectComp = selectComp;
+//	}
+//
+//
+//	public String getChkAcad() {
+//		return chkAcad;
+//	}
+//
+//
+//	public void setChkAcad(String chkAcad) {
+//		this.chkAcad = chkAcad;
+//	}
 
 
 	public String getNomRace() {
@@ -270,17 +289,6 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		this.idRace = idRace;
 	}
 
-
-
-
-	public String getRaceAjax() {
-		return raceAjax;
-	}
-
-
-	public void setRaceAjax(String raceAjax) {
-		this.raceAjax = raceAjax;
-	}
 
 
 	@Override

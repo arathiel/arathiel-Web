@@ -6,7 +6,7 @@
 window.onload = initAll;
 
 function initAll() {
-	console.log("Coucou bande de noobs"+document.querySelector('#enregistrer'));
+	console.log("Coucou bande de noobs"+document.getElementById('dispo').checked);
 	document.querySelector('#caracPlus').onclick = caracPlus;	
 	document.querySelector('#caracMoins').onclick = caracMoins;
 	document.querySelector('#traitPlus').onclick = traitPlus;	
@@ -281,7 +281,7 @@ function recupData() {
 	
 	var race = { 	"idRace":		idRace,
 					"nomRace" : 	document.getElementById("nomRace").value,					
-					"dispo" : 		document.getElementById("dispo").value	
+					"dispo" : 		document.getElementById("dispo").checked	
 	};
 	return race;
 }

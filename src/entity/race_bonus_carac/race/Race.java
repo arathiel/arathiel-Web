@@ -119,7 +119,7 @@ public class Race implements IPackable, Serializable {
 	
 	@Override
 	public String toString() {
-		return ("Id: "+this.getId()+" Nom: "+this.getNom());
+		return ("Id: "+this.getId()+" Nom: "+this.getNom()+" Dispo: "+this.isDispo()+" Nb Bonus: "+this.getListeBonus().size());
 	}
 	
 }

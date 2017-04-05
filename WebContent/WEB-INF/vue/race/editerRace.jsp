@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="<s:url namespace="/race" 	action="cssRaceEdit" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Page d'édition des races</title>
-<%-- 	<script type="text/javascript" src="../../../js/race/race.js"></script> --%>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.0.min.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/race/race.js"></script>
 </head>
 <body>
@@ -62,16 +62,17 @@
 							
 				<s:submit	value="+" id="compPlus"></s:submit>	
 				<s:submit	value="-" id="compMoins"></s:submit>
-<%-- 				<s:checkbox id="acad" name="chkAca" label="Académique "></s:checkbox> --%>
+
 			</div>
 		</div>
 		
 		<div id="resume">
-			<form accept-charset=utf-8>
+			<form accept-charset=utf-8 action="#">
 				<div id="identRace">	
 					<s:textfield name="idRace" 		label="Id" 	readonly="true"></s:textfield>
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue"></s:textfield>
+					<input type="checkbox"  id="dispo" value="Disponible: "<s:if test="%{chkAcad=='true'}">checked = "checked"</s:if>/>
 				</div>
 				
 				<div id="bonus">
@@ -88,27 +89,27 @@
 								<s:set var ="idLigne" value ="'Car'+#bonus.getCaracAssociee().getIdCarac()" ></s:set>
 								<tr id= "<s:property value="#idLigne"/>">
 									<td>
-											<s:property value="#bonus.getCaracAssociee().getNomCarac()"/>
+										<s:property value="#bonus.getCaracAssociee().getNomCarac()"/>
 									</td>
 									<td><s:property value="valeurBonus"/></td>
 								</tr>
 							</s:if>
 								
 							<s:if test="%{#bonus instanceof entity.race_bonus_carac.bonus.BonusTrait}">
-								<s:set var ="idLigne" value ="'Trait'+#bonus.getTraitAssocie().getId()" ></s:set>
+								<s:set var ="idLigne" value ="'Tra'+#bonus.getTraitAssocie().getId()" ></s:set>
 								<tr id= "<s:property value="#idLigne"/>">
 									<td>
-											<s:property value="#bonus.getTraitAssocie().getLibelle()"/>
+										<s:property value="#bonus.getTraitAssocie().getLibelle()"/>
 									</td>
 									<td><s:property value="valeurBonus"/></td>
 								</tr>
 							</s:if>
 							
 							<s:if test="%{#bonus instanceof entity.race_bonus_carac.bonus.BonusCompetence}">
-								<s:set var ="idLigne" value ="'Comp'+#bonus.getCompAssociee().getId()" ></s:set>
+								<s:set var ="idLigne" value ="'Com'+#bonus.getCompAssociee().getId()" ></s:set>
 								<tr id= "<s:property value="#idLigne"/>">
 									<td>
-											<s:property value="#bonus.getCompAssociee().getNom()"/>
+										<s:property value="#bonus.getCompAssociee().getNom()"/>
 									</td>
 									<td><s:property value="valeurBonus"/></td>
 									<td> <input type = "checkbox"
