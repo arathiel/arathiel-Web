@@ -10,7 +10,7 @@
 			<result>/WEB-INF/vue/armurerie/armurerie.jsp</result>
 		</action>	
 		
-		<action name="*Arme*" method="{1}{2}" class="webApp.arme.ActionArme">
+		<action name="*Arme*" method="{1}{2}" class="webApp.armurerie.arme.ActionArme">
 			<interceptor-ref name="defaultStack" >
 				<param name="validation.excludeMethods">
 					creationAffiche,creationValide,modificationAffiche,modificationValide,suppressionAffiche,suppressionValide,
