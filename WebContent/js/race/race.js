@@ -260,7 +260,7 @@ function enregistrer() {
 	var listeBonus = recupBonus();
 
 	
-	console.log("race = "+race);
+	console.log("race dipso = "+race.dispo);
 	console.log("nb de bonus = "+listeBonus.length);
 	envoiAjax(race, listeBonus);
 }
@@ -273,7 +273,6 @@ function enregistrer() {
  */
 function recupData() {
 	console.log("enregistrer");
-	var divBonus = document.getElementById("bonus");
 	var idRaceElt = document.getElementById("idRace");
 	var idRace = 0;
 	if (idRaceElt != null) {
@@ -281,8 +280,9 @@ function recupData() {
 	}	
 	
 	var race = { 	"idRace":		idRace,
-					"nomRace" : 	document.getElementById("nomRace").value					
-				};
+					"nomRace" : 	document.getElementById("nomRace").value,					
+					"dispo" : 		document.getElementById("dispo").value	
+	};
 	return race;
 }
 
@@ -306,10 +306,6 @@ function recupBonus() {
 			var newBonus = {	"idBonus" : idBonus,
 								"valeurBonus" : valeur,
 								"acad":	"false"	};
-			
-//			var newBonus = {	"idBonus" : idBonus,
-//					"valeurBonus" : valeur,
-//					"acad":	"false"	};
 			
 			if (acad != undefined) {
 				var chk	= acad.children[0];				
@@ -347,53 +343,9 @@ function reset() {
 * et les envoie au beanAction
 */
 function envoiAjax(race, listebonus) {
-//	var xhr = null;
-//	
-//	if (window.XMLHttpRequest){
-//		xhr = new XMLHttpRequest();
-//	} else if(window.ActiveXObject) {
-//		try { xhr = new ActiveXObject("Msxml2.XHTTP");}
-//		catch(e) {xhr = new ActiveXObject("Microsoft.XMLHTTP");}		
-//	} else {
-//		alert("Erreur de support de l'objet XMLHttpRequest");
-//	}	
-//	
-//
-//	console.log(race.idRace+race.nomRace);
-//	xhr.open("GET", "../race/creerRace?nomRace="+race.nomRace+"&idRace="+race.idRace, true);
-//	//xhr.open("POST", "../race/creerRace", true);
-//	
-//	xhr.setRequestHeader("content-type", "application/x-www-form-urlencoder");
-//	
-//	xhr.send(null);
-//	//xhr.send("nomRace="+race.nomRace+"&idRace="+race.idRace);
-//	
-//	xhr.onreadystatechange = function() {
-//		if (xhr.readyState==4){
-//			document.querySelector('#message').innerHTML=xhr.status;
-//		}
-//	}
-	
-	
-//	var raceAjax = {nomRace:race.nomRace, idRace:race.idRace, listeBonus:[{id:race.listeBonus.idBonus}, {val:race.listeBonus.valeurBonus}]};
-	
-//	var raceAjax = JSON.stringify(race);
-//	console.log(raceAjax);
-	
-	var datageneric = {nomRace:race.nomRace, idRace:race.idRace};
-	//var liste =JSON.stringify(listebonus)
+	var datageneric = {nomRace:race.nomRace, idRace:race.idRace, dispo:race.dispo};
+
 	datageneric.listeBonus = listebonus;
-	
-//	for (i=0; i<listebonus.length; i++){
-//		console.log("Bonus: ");
-//		
-//		var index = "index"+i;
-//		datageneric.index="bonus n°"+i;
-//		
-//		console.log(datageneric);
-//	}
-	
-	
 	
 	$.ajax({
 	    url        : "../race/creerRace",

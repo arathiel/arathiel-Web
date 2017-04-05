@@ -14,13 +14,14 @@ public interface IPackable {
 	
 	public int getId();
 	public String getNom();
-	public boolean getDispo();
+	public boolean isDispo();
 	public int getCoutXp();
 	public Collection<Bonus> getListeBonus();
 	
 	public int calculRenduXp();
 	public void ajouterBonus(Bonus bonus);
 	public void enleverBonus(Bonus bonus);
+	
 	
 
 }

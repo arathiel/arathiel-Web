@@ -71,6 +71,7 @@
 				<div id="identRace">
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
+					<s:checkbox  name="dispo"		label="Disponible:"></s:checkbox>
 				</div>
 				
 				<div id="bonus">
