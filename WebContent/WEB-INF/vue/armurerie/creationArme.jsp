@@ -8,6 +8,12 @@
 <title>Création Arme</title>
 </head>
 <body>
+
+	<!-- Include du Header -->
+	<jsp:include page="/WEB-INF/include/header.jsp"></jsp:include>
+
+	<!-- Include du menu -->
+	<jsp:include page="/WEB-INF/include/menu.jsp"  ></jsp:include>
 	<h3>Création Arme</h3>
 	<br/>
 	<br/>
