@@ -74,7 +74,7 @@ public class ActionArme extends AppSupport{
 		afficheRace();
 		return "afficheOK";
 	}
-	
+
 	public String joueurAffiche() 		throws ServiceOlivBException {
 		afficheListeArme();
 		afficheListeJoueur();
@@ -128,12 +128,12 @@ public class ActionArme extends AppSupport{
 		}
 		return SUCCESS;
 	}
-	
+
 	public String joueurValide() throws ServiceOlivBException {
 		manArme = new ManageArme();
 		manArme.ajouteArmeJoueur(armeJoueurDto, joueurId, armeId, etat);
 		return SUCCESS;
-		
+
 	}
 	public String rechercheValide() {
 		//TODO
@@ -192,7 +192,7 @@ public class ActionArme extends AppSupport{
 		return races;
 
 	}
-	
+
 	private List<Joueur> afficheListeJoueur() throws ServiceOlivBException {
 		manArme = new ManageArme();
 		joueurs = new ArrayList<Joueur>();
