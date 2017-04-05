@@ -46,7 +46,7 @@ public class ManageArme {
 
 	public List<Race> afficheRaces() throws ServiceOlivBException {
 		init();
-		return serviceArme.listerRaces();
+		return serviceArme.listeToutesRaces();
 
 	}
 	public List<Arme> afficheArmes() throws ServiceOlivBException {
