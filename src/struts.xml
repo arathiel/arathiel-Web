@@ -51,6 +51,6 @@
 
 	<include file="trait.xml" />
 	<include file="race.xml" />
-	<include file="armurerie.xml"/>
+	<include file="armurerie.xml"/> <!-- olivB -->
 	
 </struts>
