@@ -1,11 +1,11 @@
 package util.armurerie;
 
 public enum Etat {
-	
-	NEUF ("neuf"),
-	USAGE ("usage"),
-	CASSE ("casse");
-	
+
+	NEUF 	("neuf"),
+	USAGE 	("usage"),
+	CASSE 	("casse");
+
 	private String etat;
 
 	private Etat(String etat) {
@@ -19,11 +19,11 @@ public enum Etat {
 	public void setEtat(String etat) {
 		this.etat = etat;
 	}
-	
+
 	public Etat convertEtat(String etat) {
 		Etat etatEtat = Etat.valueOf(etat);
 		return etatEtat;
 	}
-	
-	
+
+
 }
