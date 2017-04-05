@@ -5,7 +5,7 @@
 
 <struts>
 	
-	<package name="armurerie" namespace="/armurerie" extends="struts-default" strict-method-invocation="false">
+	<package name="armurerie" namespace="/armurerie" extends="struts-default">
 		<action name="accueil">
 			<result>/WEB-INF/vue/armurerie/armurerie.jsp</result>
 		</action>	
