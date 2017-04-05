@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
 import clientServeur.race_bonus_carac.userException.UserExceptionRBC;
@@ -85,8 +84,19 @@ public class ActionsRacePages extends ApplicationSupport{
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
+		
+
+		
+//		try {
+//			nom = URLDecoder.decode(this.nomRace, "UTF-8");
+//		} catch (UnsupportedEncodingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
 
 		System.out.println("Nom reçu en param : "+this.nomRace);
+	
 		
 		if (this.nomRace != null) {
 			try {
@@ -230,8 +240,5 @@ public class ActionsRacePages extends ApplicationSupport{
 	public void setRace(Race race) {
 		this.race = race;
 	}
-
-
-
 
 }

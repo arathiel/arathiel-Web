@@ -5,6 +5,8 @@
 
 window.onload = initAll;
 
+var urlEnvoi = "";
+
 function initAll() {
 	console.log("Coucou bande de noobs"+document.getElementById('dispo').checked);
 	document.querySelector('#caracPlus').onclick = caracPlus;	
@@ -13,15 +15,22 @@ function initAll() {
 	document.querySelector('#traitMoins').onclick = traitMoins;
 	document.querySelector('#compPlus').onclick = compPlus;	
 	document.querySelector('#compMoins').onclick = compMoins;	
+	document.querySelector('#reset').onclick = reset;
 	
 	if (document.querySelector('#enregistrer') != null){
 		document.querySelector('#enregistrer').onclick = enregistrer;
 	}	
 	
 	if (document.querySelector('#modifier') != null){
+		console.log("bouton modifier opérationnel");
 		document.querySelector('#modifier').onclick = modifier;
 	}	
-	document.querySelector('#reset').onclick = reset;
+	
+	if (document.querySelector('#supprimer') != null){
+		console.log("bouton supprimer opérationnel");
+		urlEnvoi = "../race/supprimerRace";
+		document.querySelector('#supprimer').onclick = supprimer;
+	}
 }	
 	
 /**
@@ -252,19 +261,101 @@ function compMoins(){
 }
 
 /**
- * Methode qui enrgistre une nouvelle race
+ * Methode qui enregistre une nouvelle race
  * 
  */
 function enregistrer() {
+	console.log("enregistrer");
+	urlEnvoi = "../race/creerRace";
 	var race = recupData();
 	var listeBonus = recupBonus();
 
-	
+	console.log("race id = "+race.idRace);
 	console.log("race dipso = "+race.dispo);
 	console.log("nb de bonus = "+listeBonus.length);
+	console.log("url d'envoi = "+urlEnvoi );
 	envoiAjax(race, listeBonus);
 }
 
+/**
+ * Methode qui modifie une race
+ * 
+ */
+function modifier() {
+	console.log("modifier");
+	urlEnvoi = "../race/modifierRace";
+	var race = recupData();
+	var listeBonus = recupBonus();
+	
+	console.log("race dipso = "+race.dispo);
+	console.log("nb de bonus = "+listeBonus.length);
+	console.log("url d'envoi = "+urlEnvoi );
+	envoiAjax(race, listeBonus);
+}
+
+/**
+ * Methode qui supprime une nouvelle race
+ * 
+ */
+function supprimer() {
+	console.log("supprimer");
+	urlEnvoi = "../race/supprimerRace";
+	traitementData();
+}
+
+
+/**
+ * Methode de reconstruction des données de la page 
+ * Puis envoi à la méthode envoiAjax
+ */
+function traitementData() {
+	//Recupération des données brutes del arace (id, nom et disponibilité)
+	console.log("recupRace");
+	var idRaceElt = document.getElementById("idRace");
+	var idRace = 0;
+	if (idRaceElt.value != "") {
+		idRace = parseInt(idRaceElt.value);
+		console.log("parse id"+idRace);
+	}	
+	
+	var race = { 	"idRace":		idRace,
+					"nomRace" : 	document.getElementById("nomRace").value,					
+					"dispo" : 		document.getElementById("dispo").checked	
+	};
+	
+	//Récupération des bonus
+	var rowBonus = new Array;
+	var listeBonus = new Array;
+	rowBonus = document.getElementsByTagName('tr');
+	
+	
+	if (rowBonus != null){
+			for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
+			var dataBonus = rowBonus[i].children;
+			var idBonus = rowBonus[i].getAttribute('id');
+			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
+			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
+			
+			var newBonus = {	"idBonus" : idBonus,
+								"valeurBonus" : valeur,
+								"acad":	"false"	};
+			
+			if (acad != undefined) {
+				var chk	= acad.children[0];				
+				console.log(idBonus+"  "+valeur+"  "+chk.checked);
+				newBonus.acad = chk.checked;
+			}	
+			
+			listeBonus.push(newBonus);
+			console.log(listeBonus.length);
+			console.log(bonus);			
+		}
+	}
+	console.log("race dipso = "+race.dispo);
+	console.log("nb de bonus = "+listeBonus.length);
+	console.log("url d'envoi = "+urlEnvoi );
+	envoiAjax(race, listeBonus);
+}
 
 
 /** 
@@ -272,11 +363,12 @@ function enregistrer() {
  * 
  */
 function recupData() {
-	console.log("enregistrer");
+	console.log("recupData");
 	var idRaceElt = document.getElementById("idRace");
 	var idRace = 0;
-	if (idRaceElt != null) {
+	if (idRaceElt.value != "") {
 		idRace = parseInt(idRaceElt.value);
+		console.log("parse id"+idRace);
 	}	
 	
 	var race = { 	"idRace":		idRace,
@@ -328,6 +420,9 @@ function recupBonus() {
  */
 function reset() {
 	var row = document.getElementsByTagName('tr');
+	var nom = document.getElementById('nomRace');
+	var id  = document.getElementById('idRace');
+	var chk= document.getElementById('dispo');
 	var nb= row.length;
 	console.log(row.length);
 	
@@ -336,6 +431,12 @@ function reset() {
 		console.log(row[i]);
 		row[i].parentNode.removeChild(row[i]);
 	}	
+	
+	console.log(nom.value);
+	nom.value="";
+	console.log("nom modifié="+nom.value);
+	id.value="";
+	chk.checked = false;
 }
 
 /**
@@ -348,9 +449,11 @@ function envoiAjax(race, listebonus) {
 	datageneric.listeBonus = listebonus;
 	
 	$.ajax({
-	    url        : "../race/creerRace",
+	    url        : urlEnvoi,
 //	    dataType   : 'json',
-//	    contentType: 'application/json; charset=UTF-8', 
+//	    contentType: 'application/json; charset=UTF-8',
+//	    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+	    contentType: 'text/html; charset=UTF-8',
 	    data       : datageneric,
 	    type       : 'POST',
 	    

@@ -1,25 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" />
 	<link rel="stylesheet" href="<s:url namespace="/race" 	action="cssRaceEdit" />" />
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Page d'édition des races</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Page d'Ã©dition des races</title>
 
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/race/race.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.0.min.js"></script>
 </head>
 <body>
 	<!-- HEADER -->
-	<!-- Menu en haut à droite et bannière -->
+	<!-- Menu en haut Ã  droite et banniÃ¨re -->
 	<jsp:include page="../../include/header.jsp" />
 	<jsp:include page="../../include/menu.jsp"></jsp:include>
 		
 		
-	<h1> Page de création des Races</h1>
+	<h1> Page de crÃ©ation des Races</h1>
 	<div id="divGeneral">	
 		<div id="selections">
 			
@@ -58,7 +57,7 @@
 							listValue="nom"
 							headerKey="0"
 							headerValue="Choisissez..."
-							label="Ajouter une compétence " 
+							label="Ajouter une compÃ©tence " 
 							/>	
 							
 				<s:submit	value="+" id="compPlus"></s:submit>	
@@ -69,6 +68,7 @@
 		<div id="resume">
 			<form accept-charset=utf-8 action="#" onsubmit="return false" >
 				<div id="identRace">
+					<s:textfield name="idRace" 		label="Id" 	readonly="true"></s:textfield>
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
 					<s:checkbox  name="dispo"		label="Disponible:" ></s:checkbox>
@@ -79,17 +79,17 @@
 						<tr>
 							<th>Nom</th>
 							<th>Valeur</th>
-							<th>Académique</th>
+							<th>AcadÃ©mique</th>
 						</tr>	
 						
-						<!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->			
+						<!-- 		dans ce tableau seront crÃ©Ã©s des bonus Ã  la volÃ©e chacun remplissant une ligne   -->			
 					</table>
 
 				</div>
 				
 				<div id="bouton">
 					<button  id="enregistrer">Creer</button>
-					<input type="reset"  id="reset"/>
+					<input   type="reset"  id="reset"/>
 				</div>		
 				
 			</form>
