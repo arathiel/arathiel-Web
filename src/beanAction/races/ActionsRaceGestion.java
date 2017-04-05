@@ -10,9 +10,11 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
+import clientServeur.exception.UserException;
 import clientServeur.race_bonus_carac.interfaces.IFabriqueBonus;
 import entity.competence.Competence;
 import entity.race_bonus_carac.bonus.Bonus;
+import entity.race_bonus_carac.bonus.BonusCompetence;
 import entity.race_bonus_carac.caracteristique.Caracteristique;
 import entity.race_bonus_carac.race.Race;
 import entity.trait.Trait;
@@ -51,7 +53,7 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		try {
 			ctx = new InitialContext();
 			fService = (IFacadeService)  ctx.lookup("ejb:/arathiel-EJB/FacadeService!clientServeur.IFacadeService");
-			fabBonus 	= (IFabriqueBonus) 	ctx.lookup("ejb:/ArathielFakeEJB/FabriqueBonus!clientServeur.race_bonus_carac.interfaces.IFabriqueBonus");
+			fabBonus 	= (IFabriqueBonus) 	ctx.lookup("ejb:/arathiel-EJB/FabriqueBonus!clientServeur.race_bonus_carac.interfaces.IFabriqueBonus");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -66,7 +68,8 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	public String creer() {
 		init();
 		System.out.println("incroyable on arrive dans creer race avec"+this.nomRace+this.idRace);
-		Race race = new Race();
+		Race race = new Race(this.nomRace, false);
+		
 		
 		
 		Map<String, String[]> map = request.getParameterMap();
@@ -74,31 +77,29 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 
 		for (int i=0; i<(map.size()-2)/3; i++){					//le nombre de bonus de la map sera le nombre total -2 (nom et id) et /3 (un bonus contient 3 clefs/valeurs)
 			System.out.println("bonus"+i);
+			int valeur = 0;
+			boolean acad = false;
+			Bonus bonus = null;
+			String typeBonus = "";
+			String idBonussable = "";
 			
 			for (String s : map.keySet()){						//On parcours la map par ses clefs
-				int valeur = 0;
-				boolean acad = false;
-				Bonus bonus = null;
 				
-				if (s.startsWith("listeBonus["+i+"]")) {					//on teste ce que représente la clef en cours
+				if (s.startsWith("listeBonus["+i+"]")) {					//on teste si la clef concerne le bonus en cours
 					//System.out.println("Key = "+ s + " Valeur = "+map.get(s)[0]);
 					
-					String sub = (s.substring(14, 17));
+					String sub = (s.substring(14, 17));						//Teste les caractères de la clef qui correspondent à id, valeur ou académique
 					
 					if (sub.equals("idB")) {								//si la clef concerne le bonus en cours...
-						String typeBonus = map.get(s)[0].substring(0, 3);	//on va chercher de quel type de bonus il s'agit et la valeur de l'id à rechercher
-						String idBonussable = map.get(s)[0].substring(3).trim();
+						String typeB = map.get(s)[0].substring(0, 3);		//on va chercher de quel type de bonus il s'agit et la valeur de l'id à rechercher
+						idBonussable = map.get(s)[0].substring(3).trim();
 								
-						if (typeBonus.equals("Com")) {						//c'est un bonus de competence
-							System.out.println("bonus comp d'Id="+idBonussable);
-						}
-						
-						if (typeBonus.equals("Car")) {						//c'est un bonus de caractéristique
-							System.out.println("bonus carac d'Id="+idBonussable);
-						}
-						
-						if (typeBonus.equals("Tra")) {						//c'est un bonus de trait
-							System.out.println("bonus trait d'Id="+idBonussable);
+						switch(typeB) {
+						case "Com" : typeBonus = "Comp";
+							break;
+						case "Tra" : typeBonus = "Trait";
+							break;
+						case "Car" : typeBonus = "Carac";	
 						}
 					}
 					
@@ -115,24 +116,42 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 					}
 				}
 			}
+			
+			
+			//On récupère toutes les données pour recreer un bonus avec la factory
+			if (typeBonus.equals("Comp")) {							//c'est un bonus de competence
+				Competence comp = fService.rechCompParId(Integer.parseInt(idBonussable));
+				bonus = fabBonus.creerBonus(comp, valeur, acad);
+				System.out.println("Compétence concernée = "+comp.getNom());
+			}
+			
+			if (typeBonus.equals("Carac")) {						//c'est un bonus de caractéristique
+				Caracteristique carac = fService.rechCaracParId(idBonussable);
+				bonus = fabBonus.creerBonus(carac, valeur);
+				System.out.println("Carac concernée = "+carac.getNomCarac());
+				
+			}
+			
+			if (typeBonus.equals("Trait")) {						//c'est un bonus de trait
+				Trait trait = null;
+				try {
+					trait = fService.consulterTraitById(Integer.parseInt(idBonussable));
+					bonus= fabBonus.creerBonus(trait, valeur);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				} catch (UserException e) {
+					e.printStackTrace();
+				}
+				
+				System.out.println("Trait concerné = "+trait.getLibelle());
+			}
+			
+			System.out.println("Bonus créé : "+bonus.toString());
+			//On ajoute le bonus à la liste des bonus de la race
+			race.ajouterBonus(bonus);			
 		}
-//		
-//		Race race = new Race(this.nomRace, false);
-//		
-//		try {
-//			fService.enregistrerRace(race);
-//		} catch (UserExceptionRBC e) {
-//			System.out.println("***********************BUG REC RACE **************************");
-//			e.printStackTrace();
-//		}
-		
-		//Gson gson = new Gson();
-		
-
-		//RaceAjax bonusAjax = gson.fromJson(getRaceAjax(), RaceAjax.class);
-
-		//System.out.println(bonusAjax);	
-		
+	
+		System.out.println("Race crée : "+race.getNom() + "  nb de bonus:  "+ race.getListeBonus().size());
 		return SUCCESS;
 	}
 	
