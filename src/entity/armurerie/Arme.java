@@ -16,24 +16,24 @@ public class Arme implements IArme, Serializable{
 
 
 	private static final long serialVersionUID = 1L;
-	
-	private int idArme;
-	private String nom;
-	private int encombrement;
-	private int prix;
-	private String monnaie;
-	private Collection<Race> races;
-	
-//Constructeurs de la classe	
+
+	private int 				idArme;
+	private String 				nom;
+	private int 				encombrement;
+	private int 				prix;
+	private String 				monnaie;
+	private Collection<Race> 	races;
+
+	//Constructeurs de la classe	
 	public Arme() {
 		super();
 	}
-	
+
 	public Arme(int idArme) {
 		super();
 		this.idArme = idArme;
 	}
-	
+
 	public Arme(int idArme, String nom) {
 		super();
 		this.idArme = idArme;
