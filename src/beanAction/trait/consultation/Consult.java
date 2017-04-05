@@ -35,16 +35,10 @@ public class Consult extends ApplicationSupport{
 	private Traits 			listTrait;
 	private Trait			trait;
 	private Comportements 	listComp;
-	private Comportement	comp;
-	
-	private int				id;
-	private String			lib;
+	private Comportement	comp;	
 	private String			visi;
 	private String			dispo;
 	private String			malus;
-	private String			nomCarac;
-	private String			typeComp;
-	private String			description;
 	
 	private String 			libSearch;
 	private int				selectId;
@@ -65,6 +59,10 @@ public class Consult extends ApplicationSupport{
 		}
 	}
 	
+	
+	/* ========================================== */ 
+	/*  				TRAIT					  */
+	/* ========================================== */
 	
 	/**
 	 * Récupère la liste de trait disponible de la BDD Pour la page frmListTrait
@@ -92,7 +90,7 @@ public class Consult extends ApplicationSupport{
 		
 		//Initialisation des variables
 		listTrait = service.consulterListTraitByLib(libSearch);
-		
+			
 		return MethodReturn.SEARCH;	
 	}
 		
@@ -106,29 +104,25 @@ public class Consult extends ApplicationSupport{
 		
 		//Initialisation de la variable
 		trait 		= null;
-		id			= 0;
-		lib			= null;
 		visi		= null;
 		dispo		= null;
 		malus		= null;
-		nomCarac	= null;
 		listComp	= new Comportements();
-		description = null;
 		
 		// Recherche du trait via ID
 		try {
 			trait = service.consulterTraitById(selectId);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			//TODO Message d'erreur
+			System.out.println("Erreur");
 		}
 		
 		// Vérification de l'existence du trait
 		if (trait != null) {
 			
-			// S'il existe on récupère ses informations pour les afficher dans frmDetailTrait
-			if (trait.getId() != 0) 		id 	 = trait.getId();
-			if (trait.getLibelle() != null)	lib  = trait.getLibelle();
+			// S'il existe on traite certaines de ses informations pour les afficher dans frmDetailTrait
 			
+			//Les booléens
 			if (trait.isVisiPublic())	visi = "Publique";
 			else {
 				visi = "Maître du jeu";
@@ -139,23 +133,34 @@ public class Consult extends ApplicationSupport{
 				dispo = "Toujours";
 			}
 			
-			if (trait.isMalus())	malus = "Malus";
+			if (trait.isMalus())		malus = "Malus";
 			else {
 				malus = "Bonus";
 			}
 			
+			//La liste de comportement
 			if (trait.getListComp() != null){
-				if (!trait.getListComp().isEmpty()) 	listComp 	= trait.getListComp();
-			}
-				
-			if (trait.getDescription() != null) {
-				if (!trait.getContenuDesc().isEmpty()) 	description = trait.getContenuDesc();
+				if (!trait.getListComp().isEmpty()) listComp = trait.getListComp();
 			}
 		}
 		
 		return MethodReturn.DETAIL;
 	}
+	
+	/* ========================================== */ 
+	/*  			COMPORTEMENT				  */
+	/* ========================================== */
 
+	
+	public String getListComp() {
+		// Initialisation des services
+		this.initConn();
+		
+		//Récupération des listes
+		
+		
+		return MethodReturn.LIST;
+	}
 
 	//Getters & Setters
 
@@ -196,7 +201,7 @@ public class Consult extends ApplicationSupport{
 	 * Retourne le libellé saisie dasn frmlist.jsp
 	 * @return
 	 */
-	public String getlibSearch() {
+	public String getLibSearch() {
 		return libSearch;
 	}
 
@@ -204,7 +209,7 @@ public class Consult extends ApplicationSupport{
 	 * Modifie le libellé de recherche
 	 * @param libelle
 	 */
-	public void setlibSearch(String libSearch) {
+	public void setLibSearch(String libSearch) {
 		this.libSearch = libSearch;
 	}
 
@@ -223,27 +228,6 @@ public class Consult extends ApplicationSupport{
 	public void setSelectId(int selectId) {
 		this.selectId = selectId;
 	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public String getLib() {
-		return lib;
-	}
-
-
-	public void setLib(String lib) {
-		this.lib = lib;
-	}
-
 
 	public String getVisi() {
 		return visi;
@@ -273,17 +257,5 @@ public class Consult extends ApplicationSupport{
 	public void setMalus(String malus) {
 		this.malus = malus;
 	}
-
-
-	public String getDescription() {
-		return description;
-	}
-
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	
 	
 }

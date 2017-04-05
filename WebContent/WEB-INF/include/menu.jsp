@@ -51,8 +51,8 @@
    		</li>
    		<li><a href="#">Trait</a>
       		<ul>
-         		<li><s:a namespace="/trait" action="frmAddTr" 	>Creer		</s:a></li>
-         		<li><s:a namespace="/trait" action="listTr">Consulter	</s:a></li>
+         		<li><s:a namespace="/trait" action="frmAddAdm" >Creer		</s:a></li>
+         		<li><s:a namespace="/trait" action="listTr" >Consulter	</s:a></li>
 				<li><a href="#">Comportement</a>
 					<ul>
 						<li><a href="#">Ajouter</a></li>

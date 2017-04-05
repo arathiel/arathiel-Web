@@ -37,7 +37,7 @@
 		
 	<!-- ************ JavaScript Utilitaires ************ -->
 		<action name="jQuery">
-			<result>https://code.jquery.com/jquery-3.2.1.min.js</result>
+			<result>js/jquery-3.2.0.min.js</result>
 		</action>
 		
 		<action name="angularjs">

@@ -15,16 +15,22 @@
 
 		<!-- ************ TRAIT ************ -->
 
-		
-		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">
 		<!-- Administration Trait ================================= -->
-			<result name="frmAdd"  > /WEB-INF/vue/trait/consult/frmListTrait.jsp   </result>
-		
+		<action name="*Adm" class="beanAction.trait.gestionnaire.Admin" method="{1}">
+			<result name="formAdd">/WEB-INF/vue/trait/admin/frmAddTrait.jsp  </result>
+			<result name="delete"> /WEB-INF/vue/trait/consult/frmListTrait.jsp </result>
+			
+			<allowed-methods>
+				frmAdd,
+				delete
+			</allowed-methods>			
+		</action>	
+			
 		<!-- Consultation Trait =================================== -->
+		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">		
 			<result name="list"  > /WEB-INF/vue/trait/consult/frmListTrait.jsp   </result>
 			<result name="detail"> /WEB-INF/vue/trait/consult/frmDetailTrait.jsp </result>
 			
-	
 			<allowed-methods>
 				list,
 				detail
@@ -50,8 +56,8 @@
 		
 					<!-- ************ JS ************ -->
 		
-		<action name="jsConsult">
-			<result>/js/trait/consult.js</result>
+		<action name="jsTrait">
+			<result>/js/trait/trait.js</result>
 		</action>
 		
 	</package>
@@ -63,19 +69,45 @@
 					
 	<package name="traitJson" namespace="/traitjson" extends="json-default">
 
+
+			<!-- ************ TRAIT ************ -->
+			
 		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">
 			
 			<result name="search" type="json">
-				<param name="excludeProperties">libelle</param>
 				<param name="excludeProperties">trait</param>
+				<param name="excludeProperties">listComp</param>
+				<param name="excludeProperties">comp</param>
 				<param name="excludeProperties">selectId</param>
+				<param name="excludeProperties">libSearch</param>
+				<param name="excludeProperties">visi</param>
+				<param name="excludeProperties">dispo</param>
+				<param name="excludeProperties">malus</param>			
 			</result>
 				
 			<allowed-methods>
 				search,
 			</allowed-methods>
 		</action>
-
+		
+			<!-- ************ COMPORTEMENT ************ -->
+		<action name="*Comp" class="beanAction.trait.consultation.Consult" method="{1}">
+			<result name="search" type="json">
+				<param name="excludeProperties">trait</param>
+				<param name="excludeProperties">listTrait</param>
+				<param name="excludeProperties">comp</param>
+				<param name="excludeProperties">selectId</param>
+				<param name="excludeProperties">libSearch</param>
+				<param name="excludeProperties">visi</param>
+				<param name="excludeProperties">dispo</param>
+				<param name="excludeProperties">malus</param>			
+			</result>
+			
+			<allowed-methods>
+				list,
+			</allowed-methods>
+		</action>
+		
 	</package>
 	
 </struts>

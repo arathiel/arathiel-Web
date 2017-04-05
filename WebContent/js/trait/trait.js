@@ -1,20 +1,24 @@
+/*****************************************************************/
+/* 							AngularJs							 */
+/*****************************************************************/
+
 /**
  * Application pour trait, regroupant les différents controlleurs
  */
-var app = angular.module('trait', []);
+var trait = angular.module('trait', []);
 
 
 /**
  * Mis en place du controller de saisie pour la recherche dynamique
  */
-app.controller('searchCtrl', function($scope, $http, $httpParamSerializer) {
+trait.controller('listCtrl', function($scope, $http, $httpParamSerializer) {
 	//Initialisation de la variable
 	$scope.saisie 		= {'libSearch':''};
 	$scope.listeTrait	= "";
 	
 	
 	//Fonction pour la recherche dynamique
-	$scope.dynamicSearch = function() {
+	$scope.dynamicSearchTr = function() {
 
 		//Initialisation des variables
 		$scope.listeTrait	= "";
@@ -37,4 +41,21 @@ app.controller('searchCtrl', function($scope, $http, $httpParamSerializer) {
 		
 	}// Fin dynamicSearch()
 
+	// Fonction pour l'affichage du formulaire de modification
+	$scope.frmUpdateTr = function() {
+		console.log('je suis là');
+	}// Fin frmUpdateTr
 });// Fin searchCtrl 
+
+
+/**
+ * Controleur pour la frmDetailTr
+ */
+trait.controller('detailCtrl', function($scope) {
+	
+	$scope.btnModifier = function() {
+		$('#listComp').remove();
+		$('.update').prop('disabled', false);
+	}
+	
+});// Fin detailCtrl 

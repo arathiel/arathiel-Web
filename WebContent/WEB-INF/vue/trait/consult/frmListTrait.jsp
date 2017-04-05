@@ -9,15 +9,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Arathiel - Consultation</title>
-	
-	<!-- JQuery et AngularJs -->
-  	<script src="<s:url namespace="" 	action="jQuery" />"> 	</script>
-	<script src="<s:url namespace="" 	action="angularjs" />">	</script>
-	
-	<!-- JavaScript -->
-	<script src="<s:url namespace="/trait" 	action="jsConsult" />" > </script>
 
-	<link rel="stylesheet" href="<s:url namespace="" 	action="cssArathiel" />"  />	
+	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />"  />	
 </head>
 
 <body ng-app="trait">
@@ -33,7 +26,7 @@
 	<br />
 	<br />
 
-	<div ng-controller="searchCtrl" class="mainbloc">
+	<div ng-controller="listCtrl" class="mainbloc">
 
 		<div id="searchbloc">
 
@@ -48,7 +41,7 @@
 					<s:textfield 
 						label="Nom du trait"
 						ng-model="saisie.libSearch"
-						ng-keyup="dynamicSearch()"/>						
+						ng-keyup="dynamicSearchTr()"/>						
 				</s:form>
 
 			</div>
@@ -75,7 +68,7 @@
 				<tbody>
 					<tr ng-repeat="trait in listeTrait">
 						
-						<!-- Struts2 interprétant en chaîne de caractère ce que je lui envoyais en paramètre, choix de ne pas l'utiliser -->
+						<!-- Struts2 interprétant en chaîne de caractère ce que je lui envoyais en paramètre, choix de ne pas l'utiliser mais pb de sécurité -->
 						<td><a href="/arathiel-Web/trait/detailTr.action?selectId={{trait.id}}">{{trait.libelle}}</a>						</td>	
 					
 						<!-- Essais de différentes technique pour l'affichage des booléens et de la description -->
@@ -93,6 +86,14 @@
 		</div>
 	</div>
 	
+	
+	
+	<!-- JQuery et AngularJs -->
+  	<script src="<s:url namespace="" 	action="jQuery" />"		 ></script>
+	<script src="<s:url namespace="" 	action="angularjs" />"	 ></script>
+	
+	<!-- JavaScript -->
+	<script src="<s:url namespace="/trait" 	action="jsTrait" />" ></script>
 </body>
 
 
