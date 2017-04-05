@@ -82,7 +82,7 @@ public class Race implements IPackable, Serializable {
 	}
 
 	@Override
-	public boolean getDispo() {
+	public boolean isDispo() {
 		return dispo;
 	}
 

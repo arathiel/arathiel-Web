@@ -41,6 +41,7 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	private String chkAcad;
 	private String nomRace;
 	private String idRace;
+	private String dispo;
 	private String raceAjax;
 
 
@@ -67,7 +68,7 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	 */
 	public String creer() {
 		init();
-		System.out.println("incroyable on arrive dans creer race avec"+this.nomRace+this.idRace);
+		System.out.println("incroyable on arrive dans creer race avec"+this.nomRace+this.idRace+this.dispo);
 		Race race = new Race(this.nomRace, false);
 		
 		
@@ -75,7 +76,8 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		Map<String, String[]> map = request.getParameterMap();
 		System.out.println("request :"+ map.size());
 
-		for (int i=0; i<(map.size()-2)/3; i++){					//le nombre de bonus de la map sera le nombre total -2 (nom et id) et /3 (un bonus contient 3 clefs/valeurs)
+		//le nombre de bonus de la map sera le nombre total -3 (id, nom et dispo) et /3 (un bonus contient 3 clefs/valeurs)
+		for (int i=0; i<(map.size()-3)/3; i++){					
 			System.out.println("bonus"+i);
 			int valeur = 0;
 			boolean acad = false;
@@ -151,7 +153,7 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 			race.ajouterBonus(bonus);			
 		}
 	
-		System.out.println("Race crée : "+race.getNom() + "  nb de bonus:  "+ race.getListeBonus().size());
+		System.out.println("Race crée : "+race.toString());
 		return SUCCESS;
 	}
 	
@@ -289,6 +291,14 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 
 	public HttpServletRequest getRequest() {
 		return request;
+	}
+
+	public String getDispo() {
+		return dispo;
+	}
+
+	public void setDispo(String dispo) {
+		this.dispo = dispo;
 	}
 
 
