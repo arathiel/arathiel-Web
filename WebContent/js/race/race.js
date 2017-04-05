@@ -112,7 +112,7 @@ function traitPlus(){
 	console.log(nomTrait);
 	
 	if (idTrait != "0") {
-		var idTraitBonus = "Trait"+idTrait;
+		var idTraitBonus = "Tra"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);			//on teste si un div avec ce trait existe déjà...
 		console.log(divBonusExistant);
 		
@@ -152,7 +152,7 @@ function traitMoins(){
 	console.log(nomTrait);
 	
 	if (idTrait != "0") {
-		var idTraitBonus = "Trait"+idTrait;
+		var idTraitBonus = "Tra"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);		//on teste si un div avec ce trait existe déjà...
 		console.log(divBonusExistant);
 		
@@ -186,7 +186,7 @@ function compPlus(){
 	
 	if (idComp != "0") {
 		
-		var idCompBonus = "Comp"+idComp;
+		var idCompBonus = "Com"+idComp;
 		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
 		console.log(divBonusExistant);
 		
@@ -227,7 +227,7 @@ function compMoins(){
 	var select = document.querySelector('#selectComp');
 	var idComp = select.options[select.selectedIndex].value;
 	var nomComp = select.options[select.selectedIndex].innerHTML;
-	var idCompBonus = "Comp"+idComp;
+	var idCompBonus = "Com"+idComp;
 	
 	console.log(idComp);
 	console.log(nomComp);
@@ -257,17 +257,18 @@ function compMoins(){
  */
 function enregistrer() {
 	var race = recupData();
-//	race.listeBonusRace = listeBonus;		
-	console.log(race);
-//	var racejson = JSON.stringify(race);
-//	console.log(racejson);
-	envoiAjax(race);
+	var listeBonus = recupBonus();
+
+	
+	console.log("race = "+race);
+	console.log("nb de bonus = "+listeBonus.length);
+	envoiAjax(race, listeBonus);
 }
 
 
 
 /** 
- * Methode qui recupère les données des formulaires 
+ * Methode qui recupère les données de base des races (nom + id)
  * 
  */
 function recupData() {
@@ -282,16 +283,21 @@ function recupData() {
 	var race = { 	"idRace":		idRace,
 					"nomRace" : 	document.getElementById("nomRace").value					
 				};
+	return race;
+}
 
+/** 
+ * Methode qui recupère les données des bonus
+ * 
+ */
+function recupBonus() {
 	var rowBonus = new Array;
 	var listeBonus = new Array;
 	rowBonus = document.getElementsByTagName('tr');
 
 	
 	if (rowBonus != null){
-		console.log(race.nom);
-		
-		for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
+			for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
 			var dataBonus = rowBonus[i].children;
 			var idBonus = rowBonus[i].getAttribute('id');
 			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
@@ -300,6 +306,10 @@ function recupData() {
 			var newBonus = {	"idBonus" : idBonus,
 								"valeurBonus" : valeur,
 								"acad":	"false"	};
+			
+//			var newBonus = {	"idBonus" : idBonus,
+//					"valeurBonus" : valeur,
+//					"acad":	"false"	};
 			
 			if (acad != undefined) {
 				var chk	= acad.children[0];				
@@ -311,8 +321,8 @@ function recupData() {
 			console.log(listeBonus.length);
 			console.log(bonus);			
 		}
-	}		
-	return race;
+	}
+	return listeBonus;	
 }
 
 
@@ -336,52 +346,74 @@ function reset() {
 * Methode qui se charge de construire un objet Ajax avec les données récupérées 
 * et les envoie au beanAction
 */
-function envoiAjax(race) {
-	var xhr = null;
-	
-	if (window.XMLHttpRequest){
-		xhr = new XMLHttpRequest();
-	} else if(window.ActiveXObject) {
-		try { xhr = new ActiveXObject("Msxml2.XHTTP");}
-		catch(e) {xhr = new ActiveXObject("Microsoft.XMLHTTP");}		
-	} else {
-		alert("Erreur de support de l'objet XMLHttpRequest");
-	}	
-	
-
-	console.log(race.idRace+race.nomRace);
-	xhr.open("GET", "../race/creerRace?nomRace="+race.nomRace+"&idRace="+race.idRace, true);
-	//xhr.open("POST", "../race/creerRace", true);
-	
-	xhr.setRequestHeader("content-type", "application/x-www-form-urlencoder");
-	
-	xhr.send(null);
-	//xhr.send("nomRace="+race.nomRace+"&idRace="+race.idRace);
-	
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState==4){
-			document.querySelector('#message').innerHTML=xhr.status;
-		}
-	}
-	
-//	$.ajax({
-//	    url        : "../race/creerRace",
-//	    dataType   : 'json',
-//	    contentType: 'application/json; charset=UTF-8', // This is the money shot
-//	    data       : raceJson,
-//	    type       : 'POST',
-//	    success 	: function(code_html, statut){ 				
-//	        console.log("success");
-//	    },
-//	    
-//	    error : function(resultat, statut, erreur){
-//	    	console.log("error")
-//    	},
+function envoiAjax(race, listebonus) {
+//	var xhr = null;
+//	
+//	if (window.XMLHttpRequest){
+//		xhr = new XMLHttpRequest();
+//	} else if(window.ActiveXObject) {
+//		try { xhr = new ActiveXObject("Msxml2.XHTTP");}
+//		catch(e) {xhr = new ActiveXObject("Microsoft.XMLHTTP");}		
+//	} else {
+//		alert("Erreur de support de l'objet XMLHttpRequest");
+//	}	
+//	
 //
-//    	complete : function(resultat, statut){
-//    		console.log("complete")
-//    	}
-//     });
+//	console.log(race.idRace+race.nomRace);
+//	xhr.open("GET", "../race/creerRace?nomRace="+race.nomRace+"&idRace="+race.idRace, true);
+//	//xhr.open("POST", "../race/creerRace", true);
+//	
+//	xhr.setRequestHeader("content-type", "application/x-www-form-urlencoder");
+//	
+//	xhr.send(null);
+//	//xhr.send("nomRace="+race.nomRace+"&idRace="+race.idRace);
+//	
+//	xhr.onreadystatechange = function() {
+//		if (xhr.readyState==4){
+//			document.querySelector('#message').innerHTML=xhr.status;
+//		}
+//	}
+	
+	
+//	var raceAjax = {nomRace:race.nomRace, idRace:race.idRace, listeBonus:[{id:race.listeBonus.idBonus}, {val:race.listeBonus.valeurBonus}]};
+	
+//	var raceAjax = JSON.stringify(race);
+//	console.log(raceAjax);
+	
+	var datageneric = {nomRace:race.nomRace, idRace:race.idRace};
+	//var liste =JSON.stringify(listebonus)
+	datageneric.listeBonus = listebonus;
+	
+//	for (i=0; i<listebonus.length; i++){
+//		console.log("Bonus: ");
+//		
+//		var index = "index"+i;
+//		datageneric.index="bonus n°"+i;
+//		
+//		console.log(datageneric);
+//	}
+	
+	
+	
+	$.ajax({
+	    url        : "../race/creerRace",
+//	    dataType   : 'json',
+//	    contentType: 'application/json; charset=UTF-8', 
+	    data       : datageneric,
+	    type       : 'POST',
+	    
+	    success 	: function(code_html, statut){ 				
+	        console.log("success");
+	    },
+	    
+	    error : function(resultat, statut, erreur){
+	    	console.log("error")
+    	},
+
+    	complete : function(resultat, statut){
+    		console.log("complete")
+    	}
+     });
 	
 }
 
