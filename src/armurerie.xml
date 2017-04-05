@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	
+	<package name="armurerie" namespace="/armurerie" extends="struts-default" strict-method-invocation="false">
+		<action name="accueil">
+			<result>/WEB-INF/vue/armurerie/armurerie.jsp</result>
+		</action>	
+		
+		<action name="*Arme*" method="{1}{2}" class="webApp.armurerie.arme.ActionArme">
+			<interceptor-ref name="defaultStack" >
+				<param name="validation.excludeMethods">
+					creationAffiche,creationValide,modificationAffiche,modificationValide,suppressionAffiche,suppressionValide,
+					rechercheAffiche,joueurAffiche,joueurValide
+				</param>
+			</interceptor-ref>
+			<result name="afficheOK">/WEB-INF/vue/armurerie/{1}Arme.jsp</result>
+			<result name="success">/WEB-INF/vue/armurerie/{1}Arme{2}.jsp</result>			
+		</action>	
+		
+		<action name="rechercheArme">
+			<result>/js/rechercheArme.js</result>
+		</action>
+		
+	</package>
+</struts>

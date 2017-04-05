@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
 import clientServeur.race_bonus_carac.userException.UserExceptionRBC;
@@ -36,6 +35,7 @@ public class ActionsRacePages extends ApplicationSupport{
 	private String chkAcad;
 	private String nomRace;
 	private String idRace;
+	private Race race;
 	
 	
 	
@@ -85,14 +85,26 @@ public class ActionsRacePages extends ApplicationSupport{
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
 		
-		Race race;
-		System.out.println("Race reçue en param : "+this.nomRace);
+
+		
+//		try {
+//			nom = URLDecoder.decode(this.nomRace, "UTF-8");
+//		} catch (UnsupportedEncodingException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+
+
+		System.out.println("Nom reçu en param : "+this.nomRace);
+	
 		
 		if (this.nomRace != null) {
 			try {
-				race  = fService.RechRaceParNom(this.nomRace);
+				setRace(fService.RechRaceParNom(this.nomRace));
 				this.listeBonus = (ArrayList<Bonus>) race.getListeBonus();
 				this.idRace = String.valueOf(race.getId());
+				this.chkAcad = String.valueOf(race.isDispo());
+				
 				
 				for (Bonus b : race.getListeBonus()) {
 					System.out.println(b.getIdBonus()+ " " + b.getValeurBonus());
@@ -220,6 +232,13 @@ public class ActionsRacePages extends ApplicationSupport{
 	}
 
 
+	public Race getRace() {
+		return race;
+	}
 
+
+	public void setRace(Race race) {
+		this.race = race;
+	}
 
 }
