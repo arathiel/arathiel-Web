@@ -63,7 +63,7 @@
    		</li>
    		<li><a href="#">Equipement</a>
       		<ul>
-         		<li><a href="<%=request.getContextPath()%>/armurerie">Armurerie</a></li>
+         		<li><s:a namespace="/armurerie" action="accueil">Armurerie</s:a></li>
          		<li><a href="#">Choix2</a></li>
          		<li><a href="#">Choix3</a></li>
       		</ul>
