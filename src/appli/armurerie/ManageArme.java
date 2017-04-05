@@ -21,17 +21,17 @@ import util.armurerie.ArmurerieParam;
  *
  */
 public class ManageArme {
-	
+
 	private IFacadeService 	serviceArme;
 	private IFabrique 		forgeArme;
 	private IArme 			arme;
-	
-	
-    public ManageArme() {
+
+
+	public ManageArme() {
 		super();
 	}
 
-//Méthode d'initialisation du contexte
+	//Méthode d'initialisation du contexte
 	public void init() {
 		Context context;
 		try {
@@ -42,8 +42,8 @@ public class ManageArme {
 		catch (NamingException e) { e.printStackTrace(); }
 	}
 
-//=================méthodes d'appel vers la couche service pour affichage==========================
-	
+	//=================méthodes d'appel vers la couche service pour affichage==========================
+
 	public List<Race> afficheRaces() throws ServiceOlivBException {
 		init();
 		return serviceArme.listerRaces();
@@ -64,7 +64,7 @@ public class ManageArme {
 		init();
 		arme = forgeArme.creerArme(armeDto.getIdArme(), armeDto.getNom(), armeDto.getEncombrement(), armeDto.getPrix(), armeDto.getMonnaie());
 		serviceArme.modifArme(arme, raceArme);
-		
+
 	}
 
 	public void suppr(Arme armeDto) throws ServiceOlivBException {
@@ -87,7 +87,7 @@ public class ManageArme {
 		init();
 		if ( armeJoueurDto == null) armeJoueurDto = new ArmeJoueur();
 		serviceArme.createArmeJoueur(armeJoueurDto, joueurId, armeId, etat);
-		
+
 	}
 
 }
