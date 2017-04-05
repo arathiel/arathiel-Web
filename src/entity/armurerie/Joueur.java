@@ -6,13 +6,13 @@ public class Joueur implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	private int idJoueur;
-	private String nomJoueur;
-	
+	private int 	idJoueur;
+	private String 	nomJoueur;
+
 	public Joueur() {
 		super();
 	}
-	
+
 	public Joueur(int idJoueur) {
 		super();
 		this.idJoueur = idJoueur;
