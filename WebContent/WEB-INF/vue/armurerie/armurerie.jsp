@@ -9,6 +9,14 @@
 <title>Armurerie</title>
 </head>
 <body>
+
+	<!-- Include du Header -->
+	<jsp:include page="/WEB-INF/include/header.jsp"></jsp:include>
+
+	<!-- Include du menu -->
+	<jsp:include page="/WEB-INF/include/menu.jsp"  ></jsp:include>
+	
+	
 	<h1>Armurerie</h1>
 	<div ng-controller="CtrlArmurerie">
 		<form>
@@ -87,6 +95,6 @@
 	</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-<script src="<%= request.getContextPath() %>/js/AngularArmurerie.js"></script>
+<script src="<%= request.getContextPath() %>/js/armurerie/AngularArmurerie.js"></script>
 </body>
 </html>
