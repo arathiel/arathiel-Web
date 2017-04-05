@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="fr" ng-app="appArmurerie">
 <head>
+	<link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="<s:url namespace="/armurerie" action="rechercheArme.action" />"></script>
 <title>Armurerie</title>
