@@ -157,6 +157,18 @@ public interface IFacadeService {
 	 * @return
 	 */
 	public Comportements consulterListComp	();
+	
+	/**
+	 * Retourne la liste complète des CompCaracteristique
+	 * @return
+	 */
+	public Comportements consulterListCompCar();
+	
+	/**
+	 * Retourne la liste complète des CompRoleplay
+	 * @return
+	 */
+	public Comportements consulterListCompRP();
 
 
 	//--------------------------------------------------------------------------------------------  Francois

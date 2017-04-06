@@ -11,14 +11,12 @@
 					<!-- ******************************* -->
 
 	<package name="traitHTML" namespace="/trait" extends="struts-default">
-
-
-		<!-- ************ TRAIT ************ -->
+	
 
 		<!-- Administration Trait ================================= -->
 		<action name="*Adm" class="beanAction.trait.gestionnaire.Admin" method="{1}">
 			<result name="formAdd">/WEB-INF/vue/trait/admin/frmAddTrait.jsp  </result>
-			<result name="delete"> /WEB-INF/vue/trait/consult/frmListTrait.jsp </result>
+			<result name="delete"> /WEB-INF/vue/trait/admin/frmListTrait.jsp </result>
 			
 			<allowed-methods>
 				frmAdd,
@@ -36,15 +34,6 @@
 				detail
 			</allowed-methods>
 		</action>
-		
-		
-		
-					<!-- ************ COMPORTEMENT ************ -->
-		
-		<!-- Administration Comportement ================================= -->
-		
-	
-		<!-- Consultation Comportement =================================== -->
 		
 		
 		
@@ -72,8 +61,7 @@
 
 			<!-- ************ TRAIT ************ -->
 			
-		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">
-			
+		<action name="*Tr" class="beanAction.trait.consultation.Consult" method="{1}">			
 			<result name="search" type="json">
 				<param name="excludeProperties">trait</param>
 				<param name="excludeProperties">listComp</param>
@@ -86,28 +74,21 @@
 			</result>
 				
 			<allowed-methods>
-				search,
+				search
 			</allowed-methods>
 		</action>
 		
-			<!-- ************ COMPORTEMENT ************ -->
-		<action name="*Comp" class="beanAction.trait.consultation.Consult" method="{1}">
-			<result name="search" type="json">
-				<param name="excludeProperties">trait</param>
-				<param name="excludeProperties">listTrait</param>
-				<param name="excludeProperties">comp</param>
-				<param name="excludeProperties">selectId</param>
-				<param name="excludeProperties">libSearch</param>
-				<param name="excludeProperties">visi</param>
-				<param name="excludeProperties">dispo</param>
-				<param name="excludeProperties">malus</param>			
+		<action name="*Comp" class="beanAction.trait.gestionnaire.Admin" method="{1}">
+			<result name="list" type="json">
+				<param name="excludeNullProperties"	>true</param>
+        		<param name="noCache"				>true</param>
 			</result>
-			
-			<allowed-methods>
-				list,
-			</allowed-methods>
-		</action>
 		
+			<allowed-methods>
+				dynamicSelect
+			</allowed-methods>
+		</action>	
+				
 	</package>
 	
 </struts>
