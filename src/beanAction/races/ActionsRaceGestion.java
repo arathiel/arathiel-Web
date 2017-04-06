@@ -35,6 +35,7 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	private ArrayList<Caracteristique> listeCarac= new ArrayList<Caracteristique>();
 	private ArrayList<Competence> listeComp= new ArrayList<Competence>();
 	private ArrayList<Trait> listeTrait= new ArrayList<Trait>();
+	private ArrayList<Bonus> listeBonus = new ArrayList<Bonus>();
 	private Race race;
 //	private String selectCarac;
 //	private String selectTrait;
@@ -43,6 +44,7 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	private String nomRace;
 	private String idRace;
 	private String dispo;
+	private String nomRech;
 	
 
 	private HttpServletRequest request;
@@ -60,6 +62,31 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		}
 		
 	}
+	
+	/**
+	 * Methode qui envoie la propriété race de ce bean pour insertion
+	 * 
+	 */
+	public String rech() {
+		init();
+System.out.println("on est dans recherche avec " + nomRech);
+		
+	
+		try {
+			this.race = fService.RechRaceParNom(nomRech);
+			idRace = String.valueOf(race.getId());
+			nomRace = race.getNom();
+			listeBonus = (ArrayList<Bonus>) race.getListeBonus();
+			
+		} catch (UserExceptionRBC e) {
+			e.printStackTrace();
+			return ERROR;			
+		}
+		
+		return "editer";
+	}
+	
+	
 	
 	/**
 	 * Methode qui envoie la propriété race de ce bean pour insertion
@@ -333,6 +360,22 @@ System.out.println("Race crée : "+race.toString());
 
 	public void setDispo(String dispo) {
 		this.dispo = dispo;
+	}
+
+	public String getNomRech() {
+		return nomRech;
+	}
+
+	public void setNomRech(String nomRech) {
+		this.nomRech = nomRech;
+	}
+
+	public ArrayList<Bonus> getListeBonus() {
+		return listeBonus;
+	}
+
+	public void setListeBonus(ArrayList<Bonus> listeBonus) {
+		this.listeBonus = listeBonus;
 	}
 
 

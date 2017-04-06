@@ -28,7 +28,6 @@ function initAll() {
 	
 	if (document.querySelector('#supprimer') != null){
 		console.log("bouton supprimer opérationnel");
-		urlEnvoi = "../race/supprimerRace";
 		document.querySelector('#supprimer').onclick = supprimer;
 	}
 }	
@@ -267,14 +266,7 @@ function compMoins(){
 function enregistrer() {
 	console.log("enregistrer");
 	urlEnvoi = "../race/creerRace";
-	var race = recupData();
-	var listeBonus = recupBonus();
-
-	console.log("race id = "+race.idRace);
-	console.log("race dipso = "+race.dispo);
-	console.log("nb de bonus = "+listeBonus.length);
-	console.log("url d'envoi = "+urlEnvoi );
-	envoiAjax(race, listeBonus);
+	traitementData();
 }
 
 /**
@@ -284,13 +276,7 @@ function enregistrer() {
 function modifier() {
 	console.log("modifier");
 	urlEnvoi = "../race/modifierRace";
-	var race = recupData();
-	var listeBonus = recupBonus();
-	
-	console.log("race dipso = "+race.dispo);
-	console.log("nb de bonus = "+listeBonus.length);
-	console.log("url d'envoi = "+urlEnvoi );
-	envoiAjax(race, listeBonus);
+	traitementData();
 }
 
 /**
@@ -324,14 +310,16 @@ function traitementData() {
 	};
 	
 	//Récupération des bonus
-	var rowBonus = new Array;
 	var listeBonus = new Array;
-	rowBonus = document.getElementsByTagName('tr');
-	
+	var rowBonus = $('#tableBonus > tbody > tr');
+	console.log('rowBonus ='+rowBonus.length);
+	console.log(rowBonus);
 	
 	if (rowBonus != null){
-			for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
+			for (i=1; i<rowBonus.length; i++){	//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
+			console.log(rowBonus[i]);
 			var dataBonus = rowBonus[i].children;
+			console.log('dataBonus = '+dataBonus.length);
 			var idBonus = rowBonus[i].getAttribute('id');
 			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
 			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
@@ -452,8 +440,7 @@ function envoiAjax(race, listebonus) {
 	    url        : urlEnvoi,
 //	    dataType   : 'json',
 //	    contentType: 'application/json; charset=UTF-8',
-//	    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-	    contentType: 'text/html; charset=UTF-8',
+	    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
 	    data       : datageneric,
 	    type       : 'POST',
 	    
