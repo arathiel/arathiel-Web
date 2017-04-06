@@ -84,16 +84,6 @@ public class ActionsRacePages extends ApplicationSupport{
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
-		
-
-		
-//		try {
-//			nom = URLDecoder.decode(this.nomRace, "UTF-8");
-//		} catch (UnsupportedEncodingException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-
 
 		System.out.println("Nom reçu en param : "+this.nomRace);
 	
@@ -116,8 +106,8 @@ public class ActionsRacePages extends ApplicationSupport{
 		}
 		
 		
-		
-		return SUCCESS;
+		System.out.println("données renseignées... envoi à la page editer");
+		return "editer";
 	}
 	
 

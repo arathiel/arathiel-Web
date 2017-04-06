@@ -19,8 +19,19 @@
 		
 	<h1> Page d'édition des Races</h1>
 	<div id="divGeneral">	
+	
+	<!-- 			Div permettant la recherche d'une race par nom -->
+		<div id="recherche">
+			<s:form action="../race/pageediter" theme="simple">
+				<label>Rechercher une Race par son nom :</label>
+				<s:textfield name="nomRace" label="Rechercher une Race"></s:textfield>
+				<s:submit value="Go!"></s:submit>
+			</s:form>
+		</div>
+	
+	
+<!-- 			Div permettant l'affichage des caracteristiques, compétences et traits pour construire les bonus -->
 		<div id="selections">
-			
 			<div id="carac">
 				<s:select 	id="selectCarac"
 							list="listeCarac" 
@@ -64,13 +75,15 @@
 
 			</div>
 		</div>
-		
+
+
+<!-- Div contenant toutes les infos qui seront utilisées pour la modification et la suppression des races  -->	
 		<div id="resume">
 			<form accept-charset=utf-8 action="#" onsubmit="return false">
 				<div id="identRace">	
 					<s:textfield name="idRace" 		label="Id" 	readonly="true"></s:textfield>
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
-					<s:textfield name="xpRendue" 	label="Xp Rendue"></s:textfield>
+					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
 					
 					<label>Disponible : </label>
 					<input type="checkbox"  id="dispo" <s:if test="%{chkAcad=='true'}">checked = "checked"</s:if>/>
@@ -81,9 +94,9 @@
 					<table id="tableBonus">
 <!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->
 						<tr>
-							<th>Nom</th>
-							<th>Valeur</th>
-							<th>Académique</th>
+							<th id="thNom">Nom</th>
+							<th id="thVal">Valeur</th>
+							<th id="thAcad">Académique</th>
 						</tr>	
 						
 						<s:iterator value="listeBonus" var="bonus">

@@ -68,7 +68,7 @@
 		<div id="resume">
 			<form accept-charset=utf-8 action="#" onsubmit="return false" >
 				<div id="identRace">
-					<s:textfield name="idRace" 		label="Id" 	readonly="true"></s:textfield>
+					<s:textfield  name="idRace" 		label="Id" 	readonly="true"></s:textfield>
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
 					<s:checkbox  name="dispo"		label="Disponible:" ></s:checkbox>
@@ -77,9 +77,9 @@
 				<div id="bonus">
 					<table id="tableBonus">
 						<tr>
-							<th>Nom</th>
-							<th>Valeur</th>
-							<th>Académique</th>
+							<th id="thNom">Nom</th>
+							<th id="thVal">Valeur</th>
+							<th id="thAcad">Académique</th>
 						</tr>	
 						
 						<!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->			

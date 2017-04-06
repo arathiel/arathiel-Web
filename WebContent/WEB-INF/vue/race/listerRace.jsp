@@ -5,6 +5,8 @@
 <head>
 	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/race/choixRace.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.0.min.js"></script>
 	<title>Page de listing des races</title>
 </head>
 <body>
@@ -21,24 +23,31 @@
 				<th>Nom</th>
 				<th>Dispo</th>
 				<th>Xp Rendue</th>
+				<th>Voir</th>
 			</tr>
 			
 			
 			<s:iterator value="listeRace">
 			<tr>
-
-					<td><s:url namespace="/race" action="pageediter" var="raceURL">
-							<s:param name="nomRace"><s:property value="nom"/></s:param>
-						</s:url>
+				<td><s:url namespace="/race" action="pageediter" var="raceURL">
+						<s:param name="nomRace"><s:property value="nom"/></s:param>
+					</s:url>
 					
-						<a href="${raceURL}">					
-							<s:property value="nom"/>
-						</a>
-					</td>
-					<td><s:property value="dispo"/></td>
-					<td><s:property value="calculRenduXp()"/></td>
-			
+					<a href="${raceURL}">					
+						<s:property value="nom"/>
+					</a>
+				</td>
+				<td><s:property value="dispo"/></td>
+				<td><s:property value="calculRenduXp()"/></td>	 
 			</tr>
+			
+<!-- 			<tr>  -->
+<%-- 				<td><s:property value="nom"/></td> --%>
+<%-- 				<td><s:property value="dispo"/></td> --%>
+<%-- 				<td><s:property value="calculRenduXp()"/></td>	 --%>
+<!-- 				<td><input type="button" value="voir" onclick="choix(this)"/></td>				 -->
+<!-- 			</tr> -->
+			
 			</s:iterator>	
 	
 		</table>

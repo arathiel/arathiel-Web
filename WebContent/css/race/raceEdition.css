@@ -1,18 +1,26 @@
-@CHARSET "ISO-8859-1";
+@CHARSET "UTF-8";
 
 
 #divGeneral {
-	border: 5px dotted red;	
+}
+
+#recherche {
+	display: block;
+	margin: 15px;
+	padding: 5px;
 }
 
 #selections {
 	display: inline-block;
-	border: 5px double purple;	
+	border: 5px double #79453a;	
+	margin: 5px;
+	margin-bottom: 25px;
+	padding: 5px;
 }
 
 
 #selections div{
-	border: 1px solid yellow;	
+	
 	display:block;
 	height: 50px;
 }
@@ -27,40 +35,39 @@
 }
 
 #selections label{
-	display:	inline-block;
-	border : 	1px solid white;
+	display:	inline-block;	
 	width: 		300px;
 	font-size: 	20px;
 }
 
 #resume {
+	
 	display: 	flex;
-	border: 	1px double purple;	
 }
 
 #identRace {
-	display: 	inline;
-	border: 	1px solid yellow;	
-	width:		500px;
+	display: 		inline;
+	margin-bottom : 25px;
+	width:			500px;
 }
 
 #identRace label {
 	display:	inline-block;
-	border : 	1px solid white;
 	width: 		100px;
 	font-size: 	20px;
 }
 
 #identRace input {
 	width : 	200px;
+	margin-right: 50px;
 }
 
 #bonus {	
-	display:	block;
-	border: 	1px solid yellow;
-	height:		200px;
-	overflow:	auto;
-	font-size: 	20px;	
+	display:		block;
+	height:			200px;
+	overflow:		auto;
+	font-size: 		20px;	
+	margin-top : 	25px;
 }
 
 #bonus div{
@@ -72,4 +79,35 @@
 	display : 	inline;
 	border : 	1px solid white;
 	width: 		100px;
+}
+
+#tableBonus {
+	border : 1px solid #79453a;
+	border-collapse: collapse;
+}
+
+#tableBonus th, td {
+	border : 1px solid #79453a;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+#thNom {
+	width :		400px;	
+}
+
+#thVal {
+	width :		50px;
+}
+
+#thAcad {
+	width :		25px;
+}
+
+input#idRace, input#xpRendue {
+	display:	inline-block;
+	width: 		25px;
+	background-color: gray;
+	margin-right: 25px;
+	
 }

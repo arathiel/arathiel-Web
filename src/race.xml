@@ -13,13 +13,13 @@
 			<result name="creer">/WEB-INF/vue/race/creerRace.jsp</result>
 			<result name="editer">/WEB-INF/vue/race/editerRace.jsp</result>
 			
-			<allowed-methods>creer, modifier, supprimer</allowed-methods>
+			<allowed-methods>creer, modifier, supprimer, rech</allowed-methods>
 		</action>
 	
-		<action name="page*" method="{1}" class="beanAction.races.ActionsRacePages">
- 			
- 			<result>/WEB-INF/vue/race/{1}Race.jsp</result>
- 			
+		<action name="page*" method="{1}" class="beanAction.races.ActionsRacePages">	
+			<result>/WEB-INF/vue/race/{1}Race.jsp</result>	
+ 			<result name="editer">/WEB-INF/vue/race/editerRace.jsp</result>
+ 			 			
  			<allowed-methods>lister, creer, editer</allowed-methods>
  		</action>
  		 		
