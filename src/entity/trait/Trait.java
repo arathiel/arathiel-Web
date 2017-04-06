@@ -2,6 +2,8 @@ package entity.trait;
 
 import java.io.Serializable;
 
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+
 import entity.trait.comportement.Comportement;
 import technic.trait.Comportements;
 
@@ -157,6 +159,7 @@ public class Trait implements Serializable{
 	 * Modifie le libellé
 	 * @param libelle
 	 */
+	@RequiredStringValidator(message = "Le nom doit être renseigné !!")
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}

@@ -29,15 +29,23 @@
 		<br />
 		
 <div class="container">
+
+
+<!-- Messages d'erreur -->
+<s:if test="hasFieldErrors()">
+	<s:fielderror>Les erreurs suivantes se sont produites : </s:fielderror>
+</s:if>
+
+
 	<div class="row">
-		<s:form class="form-horizontal" role="form" theme="simple">
+		<s:form class="form-horizontal" role="form" theme="simple" action="addAdm" method="post">
             <fieldset>
                 <legend>Création de nouveau trait</legend>
                 
                 <!-- Nom du trait -->
                 
                 <div class="form-group">
-  					<label class="col-md-4 control-label" for="nom">Nom :</label>  
+  					<label class="col-md-2 control-label" for="nom">Nom :</label>  
   					<div class="col-md-4">
   						<s:textfield 
   							id				="nom" 
@@ -51,14 +59,14 @@
 				</div>
 						
 				<!-- Les selction du type et du Comportement -->
-				<div id="comp" class="row">
+				<div id="compBox" class="row">
+				<div class="">
     				<!-- Selection du type -->
-    				<label class="col-md-4 control-label" for="type">Comportement :</label>                   
-                    <div class="col-md-3">
+    				<label class="col-md-2 control-label" for="type">Comportement :</label>                   
+                    <div class="col-md-2">
                         <s:select
                         	id			="type"
                         	class		="form-control"
-            				name		="selectType"
             				list		="{'Caractéristique', 'Roleplay', 'Tous'}"	
             				headerKey	="-1" 
             				headerValue	="Choisissez un type"/>
@@ -69,16 +77,20 @@
                         <s:select
                         	id			="comp"
                          	class		="form-control"
-            				name		="selectType"
+            				name		="selectListComp"
+            				listKey		="key"
             				list		="{}"
             				headerKey	="-1" 
-            				headerValue	="Choisissez un comportement"
+            				headerValue	="comportement(s)"
+            				multiple	="true"
             				disabled	="true"/>				
 					</div>
+					</div>
 					
-					<div class="col-md-1">
-    					<a class="btn btn-default" href="#">+</a>
-    				</div>
+					<!-- En cours de travail Permettrait de dupliquer les select afin de choisir plusieurs comportement autrement qu'en select multiple -->
+<!-- 					<div class="col-md-1"> -->
+<!--     					<a id="btnMore" class="btn btn-default" href="#">+</a> -->
+<!--     				</div> -->
 					
 				</div>
    				
@@ -86,11 +98,11 @@
    				
                 <!-- Description du trait -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="thresholdvalue">Descriptions :</label>
+                    <label class="col-md-2 control-label" for="thresholdvalue">Descriptions :</label>
                     <div class="col-md-4">
                         <s:textarea
                         	placeholder	="Description" 
-                         	name		="trait.description.contenu"
+                         	name		="description.contenu"
                         	type		="text" 
                         	class		="form-control input-md"/>
                     </div>
@@ -98,48 +110,51 @@
                 
                 <!-- Choix Bonus/Malus -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="reqType">Malus :</label>
+                    <label class="col-md-2 control-label" for="reqType">Type :</label>
                     <div class="col-md-4">
                         <s:radio
-             				name="malus"
-            				labelposition="inline"
-            				list="{'Bonus', 'Malus'}" 
-            				class="radio-inline"/>                       
+             				name			="malus"
+            				labelposition	="inline"
+            				list			="{'Bonus', 'Malus'}" 
+            				class			="radio-inline"
+            				requiredLabel	="true"/>                       
                     </div>
                 </div>
                 
                 <!-- Choix de la visibilité -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="dataFormat">Visibilité :</label>
+                    <label class="col-md-2 control-label" for="dataFormat">Visibilité :</label>
                     <div class="col-md-4">
                     <s:radio
-            			label="Visibilité"
-            			name="visi"
-            			labelposition="inline"
-            			list="{'MJ', 'Public'}"
-            			class="radio-inline"/>
+            			label			="Visibilité"
+            			name			="visi"
+            			labelposition	="inline"
+            			list			="{'Maître jeu', 'Publique'}"
+            			class			="radio-inline"
+            			requiredLabel	="true"/>
                     </div>
                 </div>
                 
                 <!-- Choix de la disponibilité -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="dataFormat">Disponibilité :</label>
+                    <label class="col-md-2 control-label" for="dataFormat">Disponibilité :</label>
                     <div class="col-md-4">
                         <s:radio
-            				label="Disponibilité"
-            				name="selectDispo"
-            				labelposition="inline"
-            				list="{'Création', 'Toujours'}"
-            				class="radio-inline"/>	
+            				label			="Disponibilité"
+            				name			="dispo"
+            				labelposition	="inline"
+            				list			="{'A la création', 'Toujours'}"
+            				class			="radio-inline"
+            				requiredLabel	="true"/>	
                     </div>
                 </div>
  
                 <!-- Bouton d'action -->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="submitButton"></label>
+                    <label class="col-md-2 control-label" for="submitButton"></label>
                     <div class="col-md-8">
-                        <button name="btnEnr" 	 class="btn btn-success">Enregistrer</button>                       
-                        <button name="btnCancel" class="btn btn-inverse">Annuler	</button>
+                        <s:submit class="btn btn-success" value="Enregistrer"/>                    
+                        <button name="btnCancel" class="btn btn-danger" type="reset">Annuler</button>
                     </div>
                 </div>
             </fieldset>

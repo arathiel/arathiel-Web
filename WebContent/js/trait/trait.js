@@ -97,4 +97,11 @@ $(document).ready(function() {
 	});
 });
 
+// Essai de code pour cloner les sélect afin de permettre plusieurs comportement. Echec actuellement
+//$(document).ready(function (){
+//	  $('#btnMore').click(function (){
+//	        $('.clone').append($('.clone').html())
+//	    })
+//	  
+//	  })
 	

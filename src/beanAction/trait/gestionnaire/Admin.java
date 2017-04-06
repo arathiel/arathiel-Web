@@ -1,14 +1,21 @@
 package beanAction.trait.gestionnaire;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.apache.taglibs.standard.lang.jstl.BooleanLiteral;
+
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
+
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
 import clientServeur.exception.UserException;
+import entity.trait.Description;
 import entity.trait.Trait;
 import entity.trait.comportement.Comportement;
 import technic.trait.Comportements;
@@ -34,16 +41,22 @@ public class Admin extends ApplicationSupport{
 	
 	//Attributs fonctionnels
 	private Map<String, String> map;
-	private Traits 				listTrait;
 	private Trait				trait;
 	private Comportements 		listComp;
-	private Comportement		comp;
 	private int					id;
 	private String				visi;
 	private String				dispo;
 	private String				malus;
+	private ArrayList<String>	selectListComp;
 	
 	private String				type;
+	
+	//Reconstruction de Trait
+	private String 	 	libelle;
+	private boolean	 	typeTr;
+	private boolean	 	visiPublic;
+	private boolean	 	dispoCrea;
+	private Description	descr;
 	
 	/**
 	 * Initialisation des services
@@ -71,6 +84,57 @@ public class Admin extends ApplicationSupport{
 	 */
 	public String frmAdd() {		
 		return MethodReturn.FORMADD;
+	}
+	
+	public String add() {
+		// Initialisation des services
+		this.initConn();
+		
+		//Récupération des informations (le mieux aurait été d'envoyer les string, et laissé la couche LM de service s'en occupper)...
+		
+		// ... création des booléens ...
+		if (malus == "Malus") typeTr = true;
+		else {
+			typeTr = false;
+		}
+
+		if (visi == "Publique") visiPublic = true;
+		else {
+			visiPublic = false;
+		}
+		
+		if (dispo == "A la création") dispoCrea = true;
+		else {
+			dispoCrea = false;
+		}
+		
+		//Création des comportements
+		if(selectListComp != null) {
+			if (!selectListComp.isEmpty()) {
+				for(String id : selectListComp) {
+					Comportement comp;
+					try {
+						comp = service.consulterCompByLib(id);
+						listComp.add(comp);
+					} catch (UserException e) {
+						System.out.println(e.getMessage());
+					}				
+				}
+			}				
+		}
+		
+		//Création du trait
+//		trait = new Trait(trait, visiPublic, dispoCrea, malus, listComp, descr);
+		
+		System.out.println("Nom du trait : "+trait.getLibelle());
+		System.out.println("Liste de comportement : "+selectListComp);
+		System.out.println("malus : "+ malus);
+		System.out.println("visi : "+ visi);
+		System.out.println("dispo : "+ dispo);
+		System.out.println("Description : "+ trait.getContenuDesc());
+		
+		return MethodReturn.ADD;
+		
 	}
 	
 	/**
@@ -216,5 +280,56 @@ public class Admin extends ApplicationSupport{
 	public void setListComp(Comportements listComp) {
 		this.listComp = listComp;
 	}
+
+	@VisitorFieldValidator
+	public Trait getTrait() {
+		return trait;
+	}
+
+
+	public void setTrait(Trait trait) {
+		this.trait = trait;
+	}
+
+
+	public String getVisi() {
+		return visi;
+	}
+
+
+	public void setVisi(String visi) {
+		this.visi = visi;
+	}
+
+
+	public String getDispo() {
+		return dispo;
+	}
+
+	
+	public void setDispo(String dispo) {
+		this.dispo = dispo;
+	}
+	
+
+	public String getMalus() {
+		return malus;
+	}
+
+
+	public void setMalus(String malus) {
+		this.malus = malus;
+	}
+
+	public ArrayList<String> getSelectListComp() {
+		return selectListComp;
+	}
+
+
+	public void setSelectListComp(ArrayList<String> selectListComp) {
+		this.selectListComp = selectListComp;
+	}
+
+
 	
 }
