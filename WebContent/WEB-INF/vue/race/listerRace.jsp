@@ -4,6 +4,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
+	<link rel="stylesheet" href="<s:url namespace="/race" 	action="cssRaceEdit" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/race/choixRace.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.0.min.js"></script>
@@ -18,36 +19,44 @@
 	
 	<h1> Page de Listing des Races</h1>
 	<div id="listeRaceDiv">
-		<table>
+	<span>Cliquez sur le nom d'une race pour accéder à sa page d'édition</span>
+	
+	
+	
+		<table id="tableRaces">
 			<tr>
-				<th>Nom</th>
-				<th>Dispo</th>
-				<th>Xp Rendue</th>
-				<th>Voir</th>
+				<th class="thNom">Nom</th>
+				<th class="thAcad">Dispo</th>
+				<th class="thXp">Xp Rendue</th>
 			</tr>
 			
 			
-			<s:iterator value="listeRace">
-			<tr>
-				<td><s:url namespace="/race" action="pageediter" var="raceURL">
-						<s:param name="nomRace"><s:property value="nom"/></s:param>
-					</s:url>
+			<s:iterator value="listeRace" var="race">
+				<tr>
+					<td><s:url namespace="/race" action="pageediter" var="raceURL">
+							<s:param name="nomRace"><s:property value="nom"/></s:param>
+						</s:url>
+						
+						<a href="${raceURL}">					
+							<s:property value="nom"/>
+						</a>
+					</td>
 					
-					<a href="${raceURL}">					
-						<s:property value="nom"/>
-					</a>
-				</td>
-				<td><s:property value="dispo"/></td>
-				<td><s:property value="calculRenduXp()"/></td>	 
-			</tr>
-			
-<!-- 			<tr>  -->
-<%-- 				<td><s:property value="nom"/></td> --%>
-<%-- 				<td><s:property value="dispo"/></td> --%>
-<%-- 				<td><s:property value="calculRenduXp()"/></td>	 --%>
-<!-- 				<td><input type="button" value="voir" onclick="choix(this)"/></td>				 -->
-<!-- 			</tr> -->
-			
+					<td>
+						<s:if test="%{#race.dispo}">
+							<s:set var="acad">oui</s:set>
+						</s:if>
+						<s:else>
+							<s:set var="acad">non</s:set>
+						</s:else>	
+						<s:property value="#acad"/>
+					</td>				
+						
+							
+					
+<%-- 					<s:property value="dispo"/></td> --%>
+					<td><s:property value="calculRenduXp()"/></td>	 
+				</tr>			
 			</s:iterator>	
 	
 		</table>

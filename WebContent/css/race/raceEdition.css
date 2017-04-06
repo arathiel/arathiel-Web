@@ -4,6 +4,15 @@
 #divGeneral {
 }
 
+a:link, a:visited {
+	text-decoration: none;
+	color: #c9aa79;
+}
+
+a:hover {
+	color : white;
+}	
+
 #recherche {
 	display: block;
 	margin: 15px;
@@ -68,39 +77,32 @@
 	overflow:		auto;
 	font-size: 		20px;	
 	margin-top : 	25px;
+	border :		5px double #79453a;	
 }
 
-#bonus div{
-	border : 	1px solid white;
-	width: 		400px;
-}
 
-#bonus div>* {
-	display : 	inline;
-	border : 	1px solid white;
-	width: 		100px;
-}
-
-#tableBonus {
+#tableBonus, #tableRaces {
 	border : 1px solid #79453a;
 	border-collapse: collapse;
+	margin : 20px;
+	font-size: 	20px;
 }
 
-#tableBonus th, td {
+th, td {
 	border : 1px solid #79453a;
 	border-collapse: collapse;
 	text-align: center;
 }
 
-#thNom {
+.thNom {
 	width :		400px;	
 }
 
-#thVal {
+.thVal, .thXp {
 	width :		50px;
 }
 
-#thAcad {
+.thAcad {
 	width :		25px;
 }
 
