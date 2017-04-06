@@ -27,116 +27,78 @@
 		
 		<h2>Création de trait</h2>
 		<br />
-	
-		<s:form action	="">
-			
-			<s:label 	 for="libelle" value="Nom : " />
-			<s:textfield id="libelle"  name = "trait.nom"/>
-			
-			<s:select
-				id			="type"
-            	label		="Type"
-            	name		="selectType"
-            	list		="{'Caractéristique', 'Roleplay'}"	
-            	headerKey	="None"
-            	emptyOption	="true"
-            	headerValue	="Choisissez type"/>
-            	
-            <s:select
-            	id			="modif"
-            	label		="Modificateur"
-            	name		="selectMod"
-            	list		="{'...'}"	
-            	headerKey	="None"
-            	emptyOption	="true"
-            	headerValue	="Choisissez type"
-            	disabled="true"/>
-            	
-			<s:textarea 
-				label		="titre" 
-				name		="descr"/>
-        	 
-         	<s:radio
-            	label="Effet"
-            	name="selectMalus"
-            	labelposition="inline"
-            	list="{'Bonus', 'Malus'}"/>
-            	
-            <s:radio
-            	label="Disponibilité"
-            	name="selectDispo"
-            	labelposition="inline"
-            	list="{'Création', 'Toujours'}"/>
-            	
-            <s:radio
-            	label="Visibilité"
-            	name="selectVisi"
-            	labelposition="inline"
-            	list="{'MJ', 'Public'}"/>
-
-       		<s:submit value="Enregistrer"/>
-		
-		</s:form>
 		
 <div class="container">
 	<div class="row">
-		<s:form class="form-horizontal" theme="simple">
+		<s:form class="form-horizontal" role="form" theme="simple">
             <fieldset>
-                      
-                <!-- Création de nouveau trait -->
                 <legend>Création de nouveau trait</legend>
                 
                 <!-- Nom du trait -->
+                
                 <div class="form-group">
-                    <s:label class="col-md-4 control-label" for="nom">Nom</s:label>
-                    <div class="col-md-6">
-                        <s:textfield
-                        	id			="nom" 
-                        	name		="trait.libelle"
-                         	type		="text"
-                        	class		="form-control input-md"/>
-                    </div>
-                </div>
-   
-                <!-- Selection du type -->
-                <div class="form-group">
-                    <s:label class="col-md-4 control-label">Type de comportement</s:label>
-                    <div class="col-md-4">
+  					<label class="col-md-4 control-label" for="nom">Nom :</label>  
+  					<div class="col-md-4">
+  						<s:textfield 
+  							id				="nom" 
+  							name			="trait.libelle" 
+  							placeholder		="Nom du trait" 
+  							class			="form-control input-md" 
+  							type			="text"
+  							requiredLabel	="true"/>
+    
+  					</div>
+				</div>
+						
+				<!-- Les selction du type et du Comportement -->
+				<div id="comp" class="row">
+    				<!-- Selection du type -->
+    				<label class="col-md-4 control-label" for="type">Comportement :</label>                   
+                    <div class="col-md-3">
                         <s:select
+                        	id			="type"
                         	class		="form-control"
             				name		="selectType"
-            				list		="{'Caractéristique', 'Roleplay'}"	
-            				headerValue	="Choisissez type"/>
+            				list		="{'Caractéristique', 'Roleplay', 'Tous'}"	
+            				headerKey	="-1" 
+            				headerValue	="Choisissez un type"/>
                     </div>
-                </div>
-                
-                <!-- Selection du Modificateur -->
-                <div class="form-group">
-                    <s:label class="col-md-4 control-label">Modificateur du comportement</s:label>
-                    <div class="col-md-4">
+                    
+    				 <!-- Selection du comportement -->
+                    <div class="col-md-3">
                         <s:select
+                        	id			="comp"
                          	class		="form-control"
             				name		="selectType"
-            				list		="{}"	
-            				headerValue	="Choisissez type"
-            				disabled="true"/>
-                    </div>
-                </div>
-                
+            				list		="{}"
+            				headerKey	="-1" 
+            				headerValue	="Choisissez un comportement"
+            				disabled	="true"/>				
+					</div>
+					
+					<div class="col-md-1">
+    					<a class="btn btn-default" href="#">+</a>
+    				</div>
+					
+				</div>
+   				
+   				<br />
+   				
                 <!-- Description du trait -->
                 <div class="form-group">
-                    <s:label class="col-md-4 control-label" for="thresholdvalue"></s:label>
+                    <label class="col-md-4 control-label" for="thresholdvalue">Descriptions :</label>
                     <div class="col-md-4">
                         <s:textarea
-                         	name="trait.description.contenu"
-                        	type="text" 
-                        	class="form-control input-md"/>
+                        	placeholder	="Description" 
+                         	name		="trait.description.contenu"
+                        	type		="text" 
+                        	class		="form-control input-md"/>
                     </div>
                 </div>
                 
                 <!-- Choix Bonus/Malus -->
                 <div class="form-group">
-                    <s:label class="col-md-4 control-label" for="reqType">Malus</s:label>
+                    <label class="col-md-4 control-label" for="reqType">Malus :</label>
                     <div class="col-md-4">
                         <s:radio
              				name="malus"
@@ -148,7 +110,7 @@
                 
                 <!-- Choix de la visibilité -->
                 <div class="form-group">
-                    <s:label class="col-md-4 control-label" for="dataFormat">Visibilité</s:label>
+                    <label class="col-md-4 control-label" for="dataFormat">Visibilité :</label>
                     <div class="col-md-4">
                     <s:radio
             			label="Visibilité"
@@ -161,7 +123,7 @@
                 
                 <!-- Choix de la disponibilité -->
                 <div class="form-group">
-                    <s:label class="col-md-4 control-label" for="dataFormat">Data Format</s:label>
+                    <label class="col-md-4 control-label" for="dataFormat">Disponibilité :</label>
                     <div class="col-md-4">
                         <s:radio
             				label="Disponibilité"
@@ -174,7 +136,7 @@
  
                 <!-- Bouton d'action -->
                 <div class="form-group">
-                    <s:label class="col-md-4 control-label" for="submitButton"></s:label>
+                    <label class="col-md-4 control-label" for="submitButton"></label>
                     <div class="col-md-8">
                         <button name="btnEnr" 	 class="btn btn-success">Enregistrer</button>                       
                         <button name="btnCancel" class="btn btn-inverse">Annuler	</button>
@@ -191,7 +153,7 @@
 	<script src="<s:url namespace="" 	action="angularjs" />">	</script>
 	
 	<!-- JavaScript -->
-	<script src="<s:url namespace="/trait" 	action="jsConsult" />" > </script>
+	<script src="<s:url namespace="/trait" 	action="jsTrait" />" > </script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 

@@ -69,11 +69,7 @@ public class Consult extends ApplicationSupport{
 	 * @return
 	 */
 	public String list() {
-		this.initConn();
-		listTrait = null;
-
-		//TODO AFFICHER LA LISTE COMPLETE ?
-		
+		System.out.println("Dans la méthode List");
 		return MethodReturn.LIST;
 	}
 	
@@ -113,8 +109,8 @@ public class Consult extends ApplicationSupport{
 		try {
 			trait = service.consulterTraitById(selectId);
 		} catch (UserException e) {
-			//TODO Message d'erreur
-			System.out.println("Erreur");
+			//TODO Message d'erreur si bidouillage de l'URL
+			System.out.println("Ne pas touchez URL merci !!");
 		}
 		
 		// Vérification de l'existence du trait
@@ -146,6 +142,7 @@ public class Consult extends ApplicationSupport{
 		
 		return MethodReturn.DETAIL;
 	}
+	
 	
 	/* ========================================== */ 
 	/*  			COMPORTEMENT				  */
