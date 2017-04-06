@@ -68,26 +68,30 @@
 		<div id="resume">
 			<form accept-charset=utf-8 action="#" onsubmit="return false" >
 				<div id="identRace">
-					<s:textfield  name="idRace" 		label="Id" 	readonly="true"></s:textfield>
+					<s:textfield  name="idRace" 	label="Id" 	readonly="true"></s:textfield>
 					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
 					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
-					<s:checkbox  name="dispo"		label="Disponible:" ></s:checkbox>
+					<label>Disponible : </label>
+					<input type="checkbox"  id="dispo" <s:if test="%{chkAcad=='true'}">checked = "checked"</s:if>/>
+					
+<%-- 					<s:checkbox  name="dispo"		label="Disponible:" theme="simple"></s:checkbox> --%>
 				</div>
 				
-				<div id="bonus">
+				<fieldset id="bonus">
+				<legend>Liste des Bonus de la race</legend>
+
 					<table id="tableBonus">
 						<tr>
-							<th id="thNom">Nom</th>
-							<th id="thVal">Valeur</th>
-							<th id="thAcad">Académique</th>
+							<th class="thNom">Nom</th>
+							<th class="thVal">Valeur</th>
+							<th class="thAcad">Acad.</th>
 						</tr>	
 						
 						<!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->			
 					</table>
-
-				</div>
+				</fieldset>
 				
-				<div id="bouton">
+					<div id="bouton">
 					<button  id="enregistrer">Creer</button>
 					<input   type="reset"  id="reset"/>
 				</div>		
