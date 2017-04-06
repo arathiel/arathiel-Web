@@ -45,8 +45,6 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	private String idRace;
 	private String dispo;
 	private String nomRech;
-	
-
 	private HttpServletRequest request;
 	
 	
@@ -63,28 +61,27 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		
 	}
 	
-	/**
-	 * Methode qui envoie la propriété race de ce bean pour insertion
-	 * 
-	 */
-	public String rech() {
-		init();
-System.out.println("on est dans recherche avec " + nomRech);
-		
-	
-		try {
-			this.race = fService.RechRaceParNom(nomRech);
-			idRace = String.valueOf(race.getId());
-			nomRace = race.getNom();
-			listeBonus = (ArrayList<Bonus>) race.getListeBonus();
-			
-		} catch (UserExceptionRBC e) {
-			e.printStackTrace();
-			return ERROR;			
-		}
-		
-		return "editer";
-	}
+//	/**
+//	 * Methode qui envoie la propriété race de ce bean pour insertion
+//	 * 
+//	 */
+//	public String rech() {
+//		init();
+//System.out.println("on est dans recherche avec " + nomRech);
+//
+//		try {
+//			this.race = fService.RechRaceParNom(nomRech);
+//			idRace = String.valueOf(race.getId());
+//			nomRace = race.getNom();
+//			listeBonus = (ArrayList<Bonus>) race.getListeBonus();
+//			
+//		} catch (UserExceptionRBC e) {
+//			e.printStackTrace();
+//			return ERROR;			
+//		}
+//		
+//		return "editer";
+//	}
 	
 	
 	

@@ -90,13 +90,15 @@
 				
 				</div>
 				
-				<div id="bonus">
+				<fieldset id="bonus">
+				<legend>Liste des Bonus de la race</legend>
+<!-- 				<div id="bonus"> -->
 					<table id="tableBonus">
 <!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->
 						<tr>
-							<th id="thNom">Nom</th>
-							<th id="thVal">Valeur</th>
-							<th id="thAcad">Académique</th>
+							<th class="thNom">Nom</th>
+							<th class="thVal">Valeur</th>
+							<th class="thAcad">Acad.</th>
 						</tr>	
 						
 						<s:iterator value="listeBonus" var="bonus">
@@ -138,7 +140,8 @@
 						</s:iterator>			
 					</table>
 
-				</div>
+<!-- 				</div> -->
+				</fieldset>
 				
 				<div id="bouton">
 					<button id="modifier">Modifier</button>
