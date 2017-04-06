@@ -95,6 +95,6 @@
 	</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
-<script src="<%= request.getContextPath() %>/js/AngularArmurerie.js"></script>
+<script src="<%= request.getContextPath() %>/js/armurerie/AngularArmurerie.js"></script>
 </body>
 </html>
