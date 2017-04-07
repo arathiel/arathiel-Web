@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html lang="fr" ng-app="appArmurerie">
 <head>
-<link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" />
+<link rel="stylesheet" href="<s:url namespace="" 			action="cssArathiel" />" />
+<link rel="stylesheet" href="<s:url namespace="/armurerie" 	action="cssArmurerie" />" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="<s:url namespace="/armurerie" action="rechercheArme.action" />"></script>
 <title>Armurerie</title>
@@ -37,11 +38,12 @@
 						<s:url namespace="/armurerie" action="joueurArmeAffiche" 		var="joueurArmeAffiche"/>
 						<s:url namespace="/armurerie" action="rechercheArmeAffiche" 	var="rechercheArmeAffiche"/>
 						
-						<s:submit value="Création" 		formaction="${creationArmeAffiche}" />
-						<s:submit value="Modification" 	formaction="${modificationArmeAffiche}" />
-						<s:submit value="Suppression" 	formaction="${suppressionArmeAffiche}" />
-						<s:submit value="Joueur" 		formaction="${joueurArmeAffiche}" />
-						<s:submit value="Rechercher" 	formaction="${rechercheArmeAffiche}" 	id="listArme" />	
+						<s:submit theme="simple" value="Création" 		formaction="${creationArmeAffiche}" />
+						<s:submit theme="simple" value="Modification" 	formaction="${modificationArmeAffiche}" />
+						<s:submit theme="simple" value="Suppression" 	formaction="${suppressionArmeAffiche}" />
+						<s:submit theme="simple" value="Joueur" 		formaction="${joueurArmeAffiche}" />
+						<s:submit theme="simple" value="Rechercher" 	formaction="${rechercheArmeAffiche}"/>	
+
 						
 <%-- 					<label><input type="button" name="buttonArme" ng-model="arme.statuts" class="buttonArme" value="creationArme"/>Créer Arme</label>
 						<label><input type="button" name="buttonArme" ng-model="arme.statuts" class="buttonArme" value="modificationArme"/>Modifier Arme</label>
