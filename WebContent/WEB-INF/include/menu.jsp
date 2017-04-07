@@ -44,9 +44,8 @@
    		</li>
    		<li><a href="#">Passion</a>
       		<ul>
-         		<li><a href="#">Choix1</a></li>
-         		<li><a href="#">Choix2</a></li>
-         		<li><a href="#">Choix3</a></li>
+         		<li><s:a namespace="/passion" action="affichePassion" >Ajouter			</s:a></li>
+         		<li><s:a namespace="/passion" action="listePassion">Consulter			</s:a></li>
       		</ul>
    		</li>
    		<li><a href="#">Trait</a>

@@ -51,6 +51,8 @@
 
 	<include file="trait.xml" />
 	<include file="race.xml" />
+	<!-- Anaïs -->
+	<include file="passion.xml" />  
 	<include file="armurerie.xml"/> <!-- olivB -->
 	
 </struts>
