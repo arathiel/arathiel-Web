@@ -39,7 +39,7 @@ public class ActionsPassion extends ApplicationSupport {
 	private String nomPassion;
 	private String passionMagie;
 	private String[] magieMod;
-	
+
 	/*
 	 * Méthode permettant d'initialiser le contexte
 	 * 
@@ -66,7 +66,7 @@ public class ActionsPassion extends ApplicationSupport {
 		return codeRetour;
 	}
 
-	public String ajouter() throws UserExceptionRBC {
+	public String ajouter() {
 		init();
 		System.out.println("Coucou je suis dans ajouter");
 		codeRetour = SUCCESS;
@@ -78,12 +78,12 @@ public class ActionsPassion extends ApplicationSupport {
 		/* Création de l'objet Race, et association avec la passion */
 		System.out.println(selectionRace);
 		System.out.println(selectionRace.isEmpty());
-		
+
 		if (selectionRace != null || selectionRace != "" || !selectionRace.isEmpty() || selectionRace != "0") {
-			//Race race = serviceFacade.RechRaceParNom(selectionRace);
-			// System.out.println(race);
+			// Race race = serviceFacade.RechRaceParNom(selectionRace);
+//			System.out.println(raceP);
 			Race raceP = new Race(selectionRace, true);
-			passion.setRace(race);
+			passion.setRace(raceP);
 		}
 		for (int i = 0; i < magie.length; i++) {
 			if (magie[i] != null) {
@@ -95,12 +95,13 @@ public class ActionsPassion extends ApplicationSupport {
 		}
 		try {
 			serviceFacade.addPassion(passion);
-		} catch (ExceptionService e) {
-			setMessErreur(e.getMessage());
-			codeRetour = "erreur";
+		} catch (UserExceptionRBC | ExceptionService e) {
+			System.out.println(e.getMessage());
+			messErreur= e.getMessage();
+			codeRetour = "probleme";
 		}
 
-		// System.out.println(codeRetour);
+		System.out.println(codeRetour);
 		return codeRetour;
 	}
 
@@ -124,7 +125,7 @@ public class ActionsPassion extends ApplicationSupport {
 	public String detail() {
 		System.out.println("Dans détail");
 		codeRetour = "detail";
-		
+
 		listeBdd();
 		System.out.println(passionId);
 		int id = Integer.parseInt(passionId);
@@ -142,6 +143,7 @@ public class ActionsPassion extends ApplicationSupport {
 
 	/**
 	 * Méthode utilisée pour rechercher en base des passions
+	 * 
 	 * @return
 	 */
 	public String recherche() {
@@ -161,6 +163,7 @@ public class ActionsPassion extends ApplicationSupport {
 
 	/**
 	 * Méthode utilisée pour supprimer une passion
+	 * 
 	 * @return
 	 */
 	public String supprimer() {
@@ -177,7 +180,6 @@ public class ActionsPassion extends ApplicationSupport {
 		return codeRetour;
 	}
 
-	
 	/**
 	 * Méthode utilisée pour modifier une passion en base de données
 	 * 
@@ -185,27 +187,32 @@ public class ActionsPassion extends ApplicationSupport {
 	 */
 	public String modifier() {
 		init();
-//		System.out.println("dans modifier");
-//		System.out.println(passionNom);
-//		System.out.println(passionDescription);
-//		System.out.println(selectionRace);
-//		System.err.println(selectionMagie);
+		// System.out.println("dans modifier");
+		// System.out.println(passionNom);
+		// System.out.println(passionDescription);
+		// System.out.println(selectionRace);
+		// System.err.println(selectionMagie);
 		codeRetour = SUCCESS;
-		//System.out.println(nomPassion);
-		
+		// System.out.println(nomPassion);
+
 		String[] magie = selectionMagie.split(",");
 
 		/* Création de l'objet Passion */
 		passion = new Passion(passionNom, passionDescription);
 		/* Création de l'objet Race, et association avec la passion */
-		// System.out.println(selectionRace);
-		// System.out.println(selectionRace.isEmpty());
+		System.out.println(selectionRace);
+		System.out.println(selectionRace.isEmpty());
 
-		if (selectionRace != null || selectionRace != "" || !selectionRace.isEmpty() || selectionRace != "0") {
-			//Race race = serviceFacade.RechRaceParNom(selectionRace);
-			// System.out.println(race);
+		//Si la race n'est pas sélectionnée selectionRace = ? undefined:undefined ?
+		
+		if (selectionRace != null || 
+				selectionRace != "" || 
+				!selectionRace.isEmpty() || 
+				selectionRace != "0" || 
+				selectionRace != "? undefined:undefined ?") {
 			Race raceP = new Race(selectionRace, true);
-			passion.setRace(race);
+			System.out.println(raceP);
+			passion.setRace(raceP);
 		}
 
 		for (int i = 0; i < magie.length; i++) {
@@ -216,36 +223,39 @@ public class ActionsPassion extends ApplicationSupport {
 				passion.addMagie(mot);
 			}
 		}
-		try {
-			serviceFacade.updatePassion(passion);
-		} catch (ExceptionService e) {
-			messErreur = e.getMessage();
-			codeRetour = "erreur";
-		}
+//		try {
+//			//serviceFacade.updatePassion(passion);
+//		} catch (ExceptionService e) {
+//			messErreur = e.getMessage();
+//			codeRetour = "erreur";
+//		} catch (UserExceptionRBC e) {
+//			messErreur = e.getMessage();
+//			codeRetour = "erreur";
+//		}
 		return codeRetour;
 	}
-	
+
 	/**
-	 * Méthode permettant de remplir les listes pour la sélection de race et des mots de pouvoir 
+	 * Méthode permettant de remplir les listes pour la sélection de race et des
+	 * mots de pouvoir
 	 */
 	private void listeBdd() {
 		listeRace = serviceFacade.getRaceLibre();
 		listeMdpFond = serviceFacade.getMDPFondamentalTrieNom();
 	}
-	
+
 	@Override
-	public void validate(){
+	public void validate() {
 		if (passion.getNom().trim().isEmpty())
 			addFieldError("nomPassion", "Le nom de la passion est obligatoire");
-			if (hasFieldErrors()) {
-			addActionError( "actionError : Vous faites n'importe quoi !!! ");
+		if (hasFieldErrors()) {
+			addActionError("actionError : Vous faites n'importe quoi !!! ");
 			addActionMessage("actionMessage : Veuillez vérifier votre saisie ;)");
-			}
+		}
 	}
-	
-	
-	/*Getter et setter*/
-	
+
+	/* Getter et setter */
+
 	public List<Race> getListeRace() {
 		return listeRace;
 	}
