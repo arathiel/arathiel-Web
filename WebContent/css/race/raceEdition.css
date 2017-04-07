@@ -113,3 +113,7 @@ input#idRace, input#xpRendue {
 	margin-right: 25px;
 	
 }
+
+#message {
+	font-size: 20px;
+}

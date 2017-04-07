@@ -147,11 +147,11 @@
 					<button id="modifier">Modifier</button>
 					<button	id="supprimer">Supprimer</button>
 					<input	type="reset"  id="reset">
-				</div>
-			
+				</div>			
 			</form>
-			
 		</div>
+		
+		<div id="message"><s:property value="message"/></div>
 	</div>
 </body>
 </html>

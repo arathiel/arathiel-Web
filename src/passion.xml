@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<package name="passion" namespace="/passion" extends="struts-default, json-default" >
+				
+		<action name="*Passion" method="{1}" class="beanAction.passion.ActionsPassion">
+ 			<result name="affiche">/WEB-INF/vue/passion/affichePassion.jsp</result>
+ 			<result name="probleme">/WEB-INF/vue/passion/erreur.jsp</result>
+ 			<result name="success">/WEB-INF/vue/accueilAdmin.jsp</result> 
+ 			<result name="input">/WEB-INF/vue/passion/affichePassion.jsp</result> 
+ 			<result name="liste">/WEB-INF/vue/passion/rechercherPassion.jsp</result>
+ 			<result name="detail">/WEB-INF/vue/passion/detailPassion.jsp</result>
+ 			
+			
+			<interceptor-ref name="defaultStack" >
+				<param name="validation.excludeMethods">ajouter, affiche, liste, detail, supprimer, modifier</param>
+			</interceptor-ref>
+ 			
+ 			<allowed-methods>affiche, ajouter, liste, detail, supprimer, modifier</allowed-methods>
+ 		</action>
+ 		
+ 		 		
+ 		 		
+ 		 		
+ 	
+					<!-- ************ CSS ************ -->
+		
+<!-- 		<action name="css"> -->
+<!-- 			<result>css/passion/arathiel.css</result> -->
+<!-- 		</action> -->
+		
+					<!-- ************ JS ************ -->
+		
+		<action name="passionJs">
+			<result>/js/passion/passion.js</result>
+		</action>
+<!-- 		<action name="passionJsRec"> -->
+<!-- 			<result>/js/passion/passionRec.js</result> -->
+<!-- 		</action> -->
+ 	</package>	
+ 	
+	
+ 	<package name="passionjson" namespace="/passionjson" extends="json-default">
+		<action name="*Passion" class="beanAction.passion.ActionsPassion" method="{1}">
+			<result name="recherche" type="json">
+ 			<param name="excludeProperties">lettres, listeRace, listeMdpFond, passion, race, passionNom, passionDescription, 
+	selectionRace, selectionMagie, lettres, messErreur 	</param>
+			</result>
+		<interceptor-ref name="defaultStack" >
+				<param name="validation.excludeMethods">recherche</param>
+			</interceptor-ref>
+			<allowed-methods>
+				recherche
+			</allowed-methods>
+		</action>
+
+	</package>
+	
+ 	
+ 	
+</struts>

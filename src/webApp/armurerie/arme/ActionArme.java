@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import appli.armurerie.ManageArme;
+import beanAction.ApplicationSupport;
 import entity.armurerie.Arme;
 import entity.armurerie.ArmeJoueur;
 import entity.armurerie.Joueur;
 import entity.race_bonus_carac.race.Race;
 import exception.armurerie.ServiceOlivBException;
 import util.armurerie.ExceptionMessageErreurOlivB;
-import webApp.armurerie.AppSupport;
 
 /**
  * Classe d'action du CU Armurerie
@@ -18,7 +18,7 @@ import webApp.armurerie.AppSupport;
  * @author OlivB
  *
  */
-public class ActionArme extends AppSupport{
+public class ActionArme extends ApplicationSupport{
 
 
 	private static final long serialVersionUID = 1L;
@@ -39,26 +39,26 @@ public class ActionArme extends AppSupport{
 
 
 	//===============METHODE VALIDATE=============================================	
-	@Override
-	public void validate() {
-		System.out.println("méthode validate() en cours");
-		if (armeDto.getNom().isEmpty()){
-			addFieldError("armeDto.nom", getText("nom.obligatoire"));
-		}
-		if (tabRaces.length == 0) {
-			addFieldError("tabRaces", getText("race.obligatoire"));
-		}
-		if (armeDto.getEncombrement() < 1) {
-			addFieldError("armeDto.encombrement", getText("encom.obligatoire"));
-		}
-		if (armeDto.getPrix() < 1) {
-			addFieldError("armeDto.prix", getText("prix.obligatoire"));
-		}
-		if (hasFieldErrors()) {
-			addActionMessage("Merci de renseigner tous les champs");
-		}
-
-	}
+//	@Override
+//	public void validate() {
+//		System.out.println("méthode validate() en cours");
+//		if (armeDto.getNom().isEmpty()){
+//			addFieldError("armeDto.nom", getText("nom.obligatoire"));
+//		}
+//		if (tabRaces.length == 0) {
+//			addFieldError("tabRaces", getText("race.obligatoire"));
+//		}
+//		if (armeDto.getEncombrement() < 1) {
+//			addFieldError("armeDto.encombrement", getText("encom.obligatoire"));
+//		}
+//		if (armeDto.getPrix() < 1) {
+//			addFieldError("armeDto.prix", getText("prix.obligatoire"));
+//		}
+//		if (hasFieldErrors()) {
+//			addActionMessage("Merci de renseigner tous les champs");
+//		}
+//
+//	}
 
 	//===============METHODES POUR L'AFFICHAGE DES PAGES DE CREATION, MODIFICATION ET SUPPRESSION==================
 	public String creationAffiche() 	throws ServiceOlivBException {

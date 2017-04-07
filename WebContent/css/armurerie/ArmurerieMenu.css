@@ -1,0 +1,12 @@
+@CHARSET "UTF-8";
+
+h1 {
+	text-align: center;
+}
+s:submit {
+	display: inline;
+}
+.radioArmurerie {
+	margin-left: 30%;
+	font-family: Lucida, sans-serif;
+}

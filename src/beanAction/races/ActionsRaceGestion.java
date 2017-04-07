@@ -7,7 +7,6 @@ import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
-
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
 import clientServeur.exception.UserException;
@@ -18,6 +17,7 @@ import entity.race_bonus_carac.bonus.Bonus;
 import entity.race_bonus_carac.caracteristique.Caracteristique;
 import entity.race_bonus_carac.race.Race;
 import entity.trait.Trait;
+
 
 
 public class ActionsRaceGestion extends ApplicationSupport implements ServletRequestAware {
@@ -31,21 +31,18 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	private static IFacadeService fService;
 	private static IFabriqueBonus fabBonus;
 	
-//	private ArrayList<Race> listeRace = new ArrayList<Race>();
+
 	private ArrayList<Caracteristique> listeCarac= new ArrayList<Caracteristique>();
 	private ArrayList<Competence> listeComp= new ArrayList<Competence>();
 	private ArrayList<Trait> listeTrait= new ArrayList<Trait>();
 	private ArrayList<Bonus> listeBonus = new ArrayList<Bonus>();
 	private Race race;
-//	private String selectCarac;
-//	private String selectTrait;
-//	private String selectComp;
-//	private String chkAcad;
 	private String nomRace;
 	private String idRace;
 	private String dispo;
 	private String nomRech;
 	private HttpServletRequest request;
+	private String message;
 	
 	
 
@@ -58,31 +55,19 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-		
 	}
-	
-//	/**
-//	 * Methode qui envoie la propriété race de ce bean pour insertion
-//	 * 
-//	 */
-//	public String rech() {
-//		init();
-//System.out.println("on est dans recherche avec " + nomRech);
-//
-//		try {
-//			this.race = fService.RechRaceParNom(nomRech);
-//			idRace = String.valueOf(race.getId());
-//			nomRace = race.getNom();
-//			listeBonus = (ArrayList<Bonus>) race.getListeBonus();
-//			
-//		} catch (UserExceptionRBC e) {
-//			e.printStackTrace();
-//			return ERROR;			
-//		}
-//		
-//		return "editer";
-//	}
-	
+
+
+	@Override
+	public void validate(){
+		if((nomRace.trim().length())>40){
+			setMessage("Le nom ne doit pas comporter plus de 40 caractères !!");
+		}
+		
+		if((nomRace.trim()).isEmpty()){
+			setMessage("ATTENTION: Le champ Nom ne doit pas être vide. ");
+		}
+	}
 	
 	
 	/**
@@ -92,16 +77,18 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	public String creer() {
 		init();
 		construireRace();
-System.out.println("on revient dans creer avec " + race.toString());
-		
+
 		try {
 			fService.enregistrerRace(race);
+			setMessage("Cette race à été enregistrée avec succès !");
 		} catch (UserExceptionRBC e) {
-			e.printStackTrace();
-			return ERROR;			
+			setMessage(e.getMessage());
+			
+			System.out.println(e.getMessage());
+			System.out.println(message);
 		}
 		
-		return "creer";
+		return SUCCESS;
 	}
 	
 	
@@ -112,17 +99,16 @@ System.out.println("on revient dans creer avec " + race.toString());
 	public String modifier() {
 		init();
 		construireRace();
-System.out.println("on revient dans modifier avec " + race.toString());
 		
 		try {
 			fService.modifierRace(race);
+			setMessage("Cette race à bien été modifiée !");
 			
 		} catch (UserExceptionRBC e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			setMessage(e.getMessage());
 		}
 		
-		return "editer";
+		return SUCCESS;
 	}
 	
 	/**
@@ -132,15 +118,14 @@ System.out.println("on revient dans modifier avec " + race.toString());
 	public String supprimer() {
 		init();
 		construireRace();
-System.out.println("on revient dans supprimer avec " + race.toString());
 
 		try {
 			fService.supprimerRace(race);
+			setMessage("Cette race à bien été supprimée !");
 		} catch (UserExceptionRBC e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			setMessage(e.getMessage());
 		}
-		return "editer";
+		return SUCCESS;
 	}
 	
 	
@@ -150,18 +135,18 @@ System.out.println("on revient dans supprimer avec " + race.toString());
 	 * 
 	 */
 	public void construireRace(){
-System.out.println("incroyable on arrive dans construire race avec nom= "+this.nomRace+" id= "+this.idRace+" dispo = "+this.dispo);
+
 		Race race = new Race(this.nomRace, false);
 		if ((this.dispo).equals("true")) {race.setDispo(true);}
 		if (this.idRace!="0" && this.idRace!=null){race.setId(Integer.parseInt(idRace));}
 			
 				
 		Map<String, String[]> map = request.getParameterMap();
-System.out.println("request :"+ map.size());
+
 
 		//le nombre de bonus de la map sera le nombre total -3 (id, nom et dispo) et /3 (un bonus contient 3 clefs/valeurs)
 		for (int i=0; i<(map.size()-3)/3; i++){					
-System.out.println("bonus"+i);
+
 			int valeur = 0;
 			boolean acad = false;
 			Bonus bonus = null;
@@ -192,12 +177,10 @@ System.out.println("bonus"+i);
 						if ((map.get(s)[0]).equals("true")){
 							acad = true;
 						}
-System.out.println("académique = "+acad);
 					}
 					
 					if (sub.equals("val")) {								//On récupère la valeur du bonus
 						valeur = Integer.parseInt(map.get(s)[0]);
-System.out.println("valeur du bonus = "+valeur);
 					}
 				}
 			}
@@ -207,14 +190,11 @@ System.out.println("valeur du bonus = "+valeur);
 			if (typeBonus.equals("Comp")) {							//c'est un bonus de competence
 				Competence comp = fService.rechCompParId(Integer.parseInt(idBonussable));
 				bonus = fabBonus.creerBonus(comp, valeur, acad);
-System.out.println("Compétence concernée = "+comp.getNom());
 			}
 			
 			if (typeBonus.equals("Carac")) {						//c'est un bonus de caractéristique
 				Caracteristique carac = fService.rechCaracParId(idBonussable);
 				bonus = fabBonus.creerBonus(carac, valeur);
-System.out.println("Carac concernée = "+carac.getNomCarac());
-				
 			}
 			
 			if (typeBonus.equals("Trait")) {						//c'est un bonus de trait
@@ -227,29 +207,16 @@ System.out.println("Carac concernée = "+carac.getNomCarac());
 				} catch (UserException e) {
 					e.printStackTrace();
 				}
-				
-System.out.println("Trait concerné = "+trait.getLibelle());
 			}
-			
-System.out.println("Bonus créé : "+bonus.toString());
+
 			//On ajoute le bonus à la liste des bonus de la race
 			race.ajouterBonus(bonus);			
 		}
 	
-System.out.println("Race crée : "+race.toString());
 		this.race = race;
 	}
 	
-//	public ArrayList<Race> getListeRace() {
-//		return listeRace;
-//	}
-//
-//
-//	public void setListeRace(ArrayList<Race> listeRace) {
-//		this.listeRace = listeRace;
-//	}
-//
-//
+
 	public ArrayList<Caracteristique> getListeCarac() {
 		return listeCarac;
 	}
@@ -278,46 +245,6 @@ System.out.println("Race crée : "+race.toString());
 	public void setListeTrait(ArrayList<Trait> listeTrait) {
 		this.listeTrait = listeTrait;
 	}
-//
-//
-//	public String getSelectCarac() {
-//		return selectCarac;
-//	}
-//
-//
-//	public void setSelectCarac(String selectCarac) {
-//		this.selectCarac = selectCarac;
-//	}
-//
-//
-//	public String getSelectTrait() {
-//		return selectTrait;
-//	}
-//
-//
-//	public void setSelectTrait(String selectTrait) {
-//		this.selectTrait = selectTrait;
-//	}
-//
-//
-//	public String getSelectComp() {
-//		return selectComp;
-//	}
-//
-//
-//	public void setSelectComp(String selectComp) {
-//		this.selectComp = selectComp;
-//	}
-//
-//
-//	public String getChkAcad() {
-//		return chkAcad;
-//	}
-//
-//
-//	public void setChkAcad(String chkAcad) {
-//		this.chkAcad = chkAcad;
-//	}
 
 
 	public String getNomRace() {
@@ -376,7 +303,12 @@ System.out.println("Race crée : "+race.toString());
 	}
 
 
+	public String getMessage() {
+		return message;
+	}
 
-	
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }

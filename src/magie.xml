@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+		"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+		"http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<package name="magie" namespace="/magie" extends="struts-default, json-default" >
+				
+		<action name="*Magie" method="{1}" class="beanAction.magie.ActionsMagie">
+ 			<result name="affiche">/WEB-INF/vue/magie/afficheFormMagie.jsp</result>
+ 			<result name= "success">/WEB-INF/vue/accueilAdmin.jsp</result> 
+ 			<result name="input">/WEB-INF/vue/magie/afficheMagie.jsp</result> 
+ 			<result name="liste">/WEB-INF/vue/magie/rechercherMagie.jsp</result>
+ 			<result name="detail">/WEB-INF/vue/magie/detailMagie.jsp</result>
+ 			<result name= "erreur">/WEB-INF/vue/magie/erreur.jsp</result>
+			
+			<interceptor-ref name="defaultStack" >
+				<param name="validation.excludeMethods">ajouter, affiche, liste, detail, supprimer, modifier</param>
+			</interceptor-ref>
+ 			
+ 			<allowed-methods>affiche, ajouter, liste, detail, supprimer, modifier</allowed-methods>
+ 		</action>
+ 		
+ 		 		
+ 		 		
+ 		 		
+ 	
+					<!-- ************ CSS ************ -->
+		
+<!-- 		<action name="css"> -->
+<!-- 			<result>css/magie/arathiel.css</result> -->
+<!-- 		</action> -->
+		
+					<!-- ************ JS ************ -->
+		
+		<action name="magieJs">
+			<result>/js/magie/magie.js</result>
+		</action>
+<!-- 		<action name="magieJsRec"> -->
+<!-- 			<result>/js/magie/magieRec.js</result> -->
+<!-- 		</action> -->
+ 	</package>	
+ 	
+	
+ 	<package name="magiejson" namespace="/magiejson" extends="json-default">
+		<action name="*Magie" class="beanAction.magie.ActionsMagie" method="{1}">
+			<result name="recherche" type="json">
+ 			<param name="excludeProperties">lettres, listeRace, listeMdpFond, magie, race, magieNom, magieDescription, 
+	selectionRace, selectionMagie, lettres, messErreur 	</param>
+			</result>
+		<interceptor-ref name="defaultStack" >
+				<param name="validation.excludeMethods">recherche</param>
+			</interceptor-ref>
+			<allowed-methods>
+				recherche
+			</allowed-methods>
+		</action>
+
+	</package>
+	
+ 	
+ 	
+</struts>
