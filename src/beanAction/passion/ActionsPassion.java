@@ -76,12 +76,13 @@ public class ActionsPassion extends ApplicationSupport {
 		/* Création de l'objet Passion */
 		passion = new Passion(passionNom, passionDescription);
 		/* Création de l'objet Race, et association avec la passion */
-		// System.out.println(selectionRace);
-		// System.out.println(selectionRace.isEmpty());
-
-		if (selectionRace != null || selectionRace != "" || !selectionRace.isEmpty()) {
-			Race race = serviceFacade.RechRaceParNom(selectionRace);
+		System.out.println(selectionRace);
+		System.out.println(selectionRace.isEmpty());
+		
+		if (selectionRace != null || selectionRace != "" || !selectionRace.isEmpty() || selectionRace != "0") {
+			//Race race = serviceFacade.RechRaceParNom(selectionRace);
 			// System.out.println(race);
+			Race raceP = new Race(selectionRace, true);
 			passion.setRace(race);
 		}
 		for (int i = 0; i < magie.length; i++) {
@@ -200,9 +201,10 @@ public class ActionsPassion extends ApplicationSupport {
 		// System.out.println(selectionRace);
 		// System.out.println(selectionRace.isEmpty());
 
-		if (selectionRace != null || selectionRace != "" || !selectionRace.isEmpty()) {
-			Race race = new Race(selectionRace, true);
-			System.out.println(race);
+		if (selectionRace != null || selectionRace != "" || !selectionRace.isEmpty() || selectionRace != "0") {
+			//Race race = serviceFacade.RechRaceParNom(selectionRace);
+			// System.out.println(race);
+			Race raceP = new Race(selectionRace, true);
 			passion.setRace(race);
 		}
 
