@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+h3{
+	text-align: center;
+}
+div {
+	display: inline-block;
+	margin-left: 10%;
+}
+table {
+	color: Orange;
+	font-weight: bold;
+	text-decoration: none;
+	font-size: large;
+	border-width: medium;
+	border-color: OrangeRed;
+	font-family: Lucida Sans;
+	border-style: outset;
+	text-align: center;
+}
+
+tr {
+	color: Orange;
+	text-decoration: none;
+	font-size: large;
+	font-family: Lucida Sans;
+	border-width: medium;
+	border-color: Red;
+	border-style: outset;
+	text-align: center;
+}
+
+td{
+	
+	color: Orange;
+	font-size: large;
+	font-family: Lucida Sans;
+	text-align: center;
+	width: 200;
+	padding: 10;
+	border-color: Red;
+	border-width: thin;
+	border-style: ridge;
+	height: 20;
+	table-layout: auto;
+	empty-cells: show;
+	speak-header: always;
+	border-collapse: collapse;
+}

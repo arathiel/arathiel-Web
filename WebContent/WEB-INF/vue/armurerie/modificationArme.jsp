@@ -5,6 +5,7 @@
 <html lang="fr">
 <head>
 <link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" />
+<link rel="stylesheet" href="<s:url namespace="/armurerie" 	action="cssModification" />" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Modification Arme</title>
 </head>
@@ -16,31 +17,34 @@
 	<!-- Include du menu -->
 	<jsp:include page="/WEB-INF/include/menu.jsp"  ></jsp:include>
 	
-	
+	<div>
 	<h3>Liste des Armes :</h3>
-	<s:form id="listeArme" methode="post" action="#">
+	<s:form id="listeArme" methode="post" action="#" theme="simple">
 		<table>
 			<tr>
-				<td>Selection</td>
-				<td>Nom</td>
-				<td>Races</td>
-				<td>Encombrement</td>
-				<td>Prix</td>
+				<th>Selection</th>
+				<th>Nom</th>
+				<th>Races</th>
+				<th>Encombrement</th>
+				<th>Prix</th>
 			</tr>
 			<s:iterator value="armes">
 				<tr>
 					<td><s:radio 		name="" list="{idArme}"/></td>
 					<td><s:property 	value="nom"/></td>
 					<td><s:iterator 	value="races">
-							<s:property value="nomRace"/>
+							<s:property value="nom"/>
 						</s:iterator></td>
 					<td><s:property 	value="encombrement"/></td>
 					<td><s:property 	value="prix"/></td>
 				</tr>
 			</s:iterator>	
 		</table>
-		<input type="submit" valeur="Détail"/>
+		<input type="button" value="Modifier"/>
+
 	</s:form>
+	</div>
+	<div>
 		<h3>modification Arme</h3>
 	<br/>
 	<br/>
@@ -50,11 +54,11 @@
 	<s:if test="hasActionMessages()">
 		<s:actionmessage id="actionmessage" label="actionmessage :" />
 	</s:if>
-	<s:form namespace="/armurerie" 			action="modificationArmeValide" 	method="post">
-		<p>Id : <s:textfield 		name="armeDto.idArme"/></p>
-		<p>Nom : <s:textfield 		name="armeDto.nom"/></p>	
-		<p>Races : <s:checkboxlist 	name="tabRaces" 			list="races" 	accesskey="idRace"/></p>								
-		<p>Encombrement : <select 	name="armeDto.encombrement"	type="number">
+	<s:form namespace="/armurerie" 			action="modificationArmeValide" 	method="post" theme="simple">
+		<p>Id : 			<s:textfield 		name="armeDto.idArme"/></p>
+		<p>Nom : 			<s:textfield 		name="armeDto.nom"/></p>	
+		<p>Races : 			<s:checkboxlist 	name="tabRaces" 			list="nomRaces" 	accesskey="idRace"/></p>								
+		<p>Encombrement : 	<select 			name="armeDto.encombrement"	type="number">
 				<option></option>
 				<option>1</option>
 				<option>2</option>
@@ -62,8 +66,8 @@
 				<option>4</option>
 			</select>
 		</p>							
-		<p>Prix : <s:textfield 		name="armeDto.prix" 	type="number"/></p>
-		<p>Monnaie : <select 		name="armeDto.monnaie" 	class="monnaie">
+		<p>Prix : 		<s:textfield 		name="armeDto.prix" 	type="number"/></p>
+		<p>Monnaie : 	<select 			name="armeDto.monnaie" 	class="monnaie">
 			<option>Cuivre</option>
 			<option>Argent</option>
 			<option>Or</option>
@@ -72,12 +76,13 @@
 		<br/>
 		<br/>
 		
-		<s:url 		namespace="/armurerie" action="modificationArmeValide" 	var="modificationArmeValide"/>
+		<s:url 		namespace="/armurerie" 	action="modificationArmeValide" 	var="modificationArmeValide"/>
 		
-		<s:submit 	value="Vérifier" 	formaction="#"/>	
-		<s:submit 	value="Modifier" 	formaction="${modificationArmeValide}"/>
-		<s:reset 	value="Quitter" 	formaction="#"/>
+		<s:submit 	value="Vérifier" 		formaction="#"/>	
+		<s:submit 	value="Modifier" 		formaction="${modificationArmeValide}"/>
+		<s:reset 	value="Quitter" 		formaction="#"/>
 
 		</s:form>	
+		</div>	
 </body>
 </html>
