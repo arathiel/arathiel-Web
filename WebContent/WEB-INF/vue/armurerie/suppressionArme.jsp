@@ -5,6 +5,7 @@
 <html lang="fr">
 <head>
 <link rel="stylesheet" href="<s:url namespace="" 		action="cssArathiel" />" />
+<link rel="stylesheet" href="<s:url namespace="/armurerie" 	action="cssModification" />" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Suppression Arme</title>
 </head>
@@ -32,7 +33,7 @@
 					<td><s:radio 		name="idArme" 		list="{idArme}"/></td>
 					<td><s:property 	value="nom"/></td>
 					<td><s:iterator 	value="races">
-							<s:property value="nomRace"/>
+							<s:property value="nom"/>
 						</s:iterator></td>
 					<td><s:property 	value="encombrement"/></td>
 					<td><s:property 	value="prix"/></td>
@@ -53,7 +54,7 @@
 	<s:form namespace="/armurerie" 	action="suppressionArmeValide" 	method="post">
 		<p>Id : <s:textfield 		name="armeDto.idArme"/></p>
 		<p>Nom : <s:textfield 		name="armeDto.nom"/></p>	
-		<p>Races : <s:checkboxlist 	name="tabRaces"        			list="races" 	accesskey="idRace"/></p>								
+		<p>Races : <s:checkboxlist 	name="tabRaces"        			list="nomRaces" 	accesskey="idRace"/></p>								
 		<p>Encombrement : <select 	name="armeDto.encombrement"		type="number" >
 				<option></option>
 				<option>1</option>
