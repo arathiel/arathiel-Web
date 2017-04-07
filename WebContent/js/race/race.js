@@ -437,23 +437,24 @@ function envoiAjax(race, listebonus) {
 	datageneric.listeBonus = listebonus;
 	
 	$.ajax({
-	    url        : urlEnvoi,
-//	    dataType   : 'json',
-//	    contentType: 'application/json; charset=UTF-8',
-	    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-	    data       : datageneric,
-	    type       : 'POST',
+	    url        	: urlEnvoi,
+	    dataType	:	'html',
+	    contentType	: 'application/x-www-form-urlencoded; charset=UTF-8',
+	    data       	: datageneric,
+	    type       	: 'POST',
 	    
-	    success 	: function(code_html, statut){ 				
+	    success 	: function(code_html, statut){ 	 
+	    	$('#message').html(code_html);
 	        console.log("success");
 	    },
 	    
 	    error : function(resultat, statut, erreur){
-	    	console.log("error")
+	    	$('#message').html(erreur);
+	    	console.log("error");
     	},
 
     	complete : function(resultat, statut){
-    		console.log("complete")
+    		console.log("complete");
     	}
      });
 	

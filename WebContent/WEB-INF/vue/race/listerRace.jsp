@@ -34,7 +34,7 @@
 			<s:iterator value="listeRace" var="race">
 				<tr>
 					<td><s:url namespace="/race" action="pageediter" var="raceURL">
-							<s:param name="nomRace"><s:property value="nom"/></s:param>
+							<s:param name="nomRace"><s:property value="nom" escapeHtml="false"/></s:param>
 						</s:url>
 						
 						<a href="${raceURL}">					
@@ -51,10 +51,7 @@
 						</s:else>	
 						<s:property value="#acad"/>
 					</td>				
-						
-							
-					
-<%-- 					<s:property value="dispo"/></td> --%>
+
 					<td><s:property value="calculRenduXp()"/></td>	 
 				</tr>			
 			</s:iterator>	

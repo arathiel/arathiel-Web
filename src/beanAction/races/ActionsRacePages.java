@@ -36,6 +36,7 @@ public class ActionsRacePages extends ApplicationSupport{
 	private String nomRace;
 	private String idRace;
 	private Race race;
+	private String message;
 	
 	
 	
@@ -60,7 +61,11 @@ public class ActionsRacePages extends ApplicationSupport{
 	
 	public String lister() {
 		init();		
-		setListeRace(fService.listeToutesRaces());		
+		setListeRace(fService.listeToutesRaces());
+		System.out.println("Races reçues de la base :");
+		for (Race r: listeRace){
+			System.out.println(r.toString());
+		}
 		return SUCCESS;
 	}
 	
@@ -92,6 +97,7 @@ public class ActionsRacePages extends ApplicationSupport{
 			try {
 				setRace(fService.RechRaceParNom(this.nomRace));
 				this.listeBonus = (ArrayList<Bonus>) race.getListeBonus();
+				this.nomRace = race.getNom();
 				this.idRace = String.valueOf(race.getId());
 				this.chkAcad = String.valueOf(race.isDispo());
 				
@@ -99,15 +105,17 @@ public class ActionsRacePages extends ApplicationSupport{
 				for (Bonus b : race.getListeBonus()) {
 					System.out.println(b.getIdBonus()+ " " + b.getValeurBonus());
 				}
+				System.out.println("race recherchée ="+race.getNom());
+				
 			} catch (UserExceptionRBC e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("erreur recherche de race"+e.getMessage());
+				setMessage(e.getMessage());
 			}
 		}
 		
 		
 		System.out.println("données renseignées... envoi à la page editer");
-		return "editer";
+		return SUCCESS;
 	}
 	
 
@@ -229,6 +237,16 @@ public class ActionsRacePages extends ApplicationSupport{
 
 	public void setRace(Race race) {
 		this.race = race;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }
