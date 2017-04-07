@@ -31,10 +31,9 @@
 <div class="container">
 
 
-<!-- Messages d'erreur -->
-<s:if test="hasFieldErrors()">
-	<s:fielderror>Les erreurs suivantes se sont produites : </s:fielderror>
-</s:if>
+<!-- Messages d'erreur pour le libellé -->
+	
+<s:fielderror/>
 
 
 	<div class="row">
@@ -42,8 +41,7 @@
             <fieldset>
                 <legend>Création de nouveau trait</legend>
                 
-                <!-- Nom du trait -->
-                
+                <!-- Nom du trait -->             
                 <div class="form-group">
   					<label class="col-md-2 control-label" for="nom">Nom :</label>  
   					<div class="col-md-4">
@@ -52,8 +50,7 @@
   							name			="trait.libelle" 
   							placeholder		="Nom du trait" 
   							class			="form-control input-md" 
-  							type			="text"
-  							requiredLabel	="true"/>
+  							type			="text"/>
     
   					</div>
 				</div>
@@ -102,7 +99,7 @@
                     <div class="col-md-4">
                         <s:textarea
                         	placeholder	="Description" 
-                         	name		="description.contenu"
+                         	name		="trait.description.contenu"
                         	type		="text" 
                         	class		="form-control input-md"/>
                     </div>
