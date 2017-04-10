@@ -19,10 +19,11 @@
 			</interceptor-ref>	
 			  -->	
 <!-- 			<result name="input">/WEB-INF/vue/armurerie/{1}Arme.jsp</result> -->
- 			<result name="input" type="redirectAction">
+ <!-- 			<result name="input" type="redirectAction">
 				<param name="actionName">creationArmeAffiche</param>
 				<param name="namespace">/armurerie</param>
 			</result>
+			 -->
 			<result name="afficheOK">/WEB-INF/vue/armurerie/{1}Arme.jsp</result>
 			<result name="success">/WEB-INF/vue/armurerie/{1}Arme{2}.jsp</result>			
 		</action>	
