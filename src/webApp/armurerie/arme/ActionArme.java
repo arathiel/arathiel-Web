@@ -36,17 +36,13 @@ public class ActionArme extends ApplicationSupport{
 	private int 			joueurId;
 	private int 			armeId;
 	private String 			etat;
+	private String			messageErreur;
 
 
 	//===============METHODE VALIDATE=============================================	
 	@Override
 	public void validate() {
-			try {
-				afficheRace();
-			} catch (ServiceOlivBException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		afficheRace();
 		if (armeDto.getNom().isEmpty()){
 			addFieldError("armeDto.nom", getText("nom.obligatoire"));
 		}
@@ -87,29 +83,44 @@ public class ActionArme extends ApplicationSupport{
 		return "afficheOK";
 	}
 
-	public String rechercheAffiche()	throws ServiceOlivBException {
+	public String rechercheAffiche() {
 		manArme = new ManageArme();
 		armes = new ArrayList<Arme>();
-		armes = manArme.afficheArmesRace();
+		try {
+			armes = manArme.afficheArmesRace();
+		}
+		catch (ServiceOlivBException e) {
+			messageErreur = e.getMessage();
+			return "erreur";
+		}
 		return "afficheOK";
 	}
 
 	//=================METHODES POUR LA VALIDATION DES FORMULAIRES==================================================
-	public String creationValide() 		throws ServiceOlivBException {
-		if (validationArme(armeDto)) {
+	public String creationValide() 	{
+		try {
+			if (validationArme(armeDto));
+		}
+		catch (ServiceOlivBException e) {
+			messageErreur = e.getMessage();
+			return "erreur";
+		}
+		{
 			getTabRacesSelectedValues();
+
 			manArme = new ManageArme();
 			System.out.println(raceArme);
 			try {
 				manArme.createArme(armeDto, raceArme);
 			}
-			catch (Exception e) {
-				throw new ServiceOlivBException(ExceptionMessageErreurOlivB.DOUBLON_ARME);
+			catch (ServiceOlivBException e) {
+				messageErreur = e.getMessage();
+				return "erreur";
 			}
 		}
 		return SUCCESS;
 	}
-	public String modificationValide() 	throws ServiceOlivBException {
+	public String modificationValide() throws ServiceOlivBException 	{
 		if (validationArme(armeDto)) {
 			getTabRacesSelectedValues();
 			manArme = new ManageArme();
@@ -117,7 +128,8 @@ public class ActionArme extends ApplicationSupport{
 				manArme.modif(armeDto, raceArme);
 			}
 			catch (Exception e) {
-				throw new ServiceOlivBException(ExceptionMessageErreurOlivB.ARME_INEXISTANTE);
+				messageErreur = e.getMessage();
+				return "erreur";
 			}
 		}
 		return SUCCESS;
@@ -195,13 +207,13 @@ public class ActionArme extends ApplicationSupport{
 	}
 
 	//Méthode de recherche liste de races pour la CheckBoxList
-	private List<String> afficheRace() throws ServiceOlivBException 	{
+	private List<String> afficheRace() {
 		manArme = new ManageArme();
 		races = new ArrayList<Race>();
 		try {
 			races = manArme.afficheRaces();
 		} catch (ServiceOlivBException e) {
-			throw new ServiceOlivBException(ExceptionMessageErreurOlivB.NO_LISTE_RACE);
+			messageErreur = e.getMessage();
 		}
 		nomRaces = new ArrayList<String>();
 		for (Race race : races) {
@@ -220,14 +232,17 @@ public class ActionArme extends ApplicationSupport{
 
 
 	// méthode de récupération des valeurs des checkBox de Race
-	public List<String> getTabRacesSelectedValues() throws ServiceOlivBException {
+	public List<String> getTabRacesSelectedValues() {
 		try {
-			return getValue(tabRaces);
+			raceArme = new ArrayList<String>();
+			raceArme =  getValue(tabRaces);
 		}
-		catch (Exception e) {
-			throw new ServiceOlivBException(ExceptionMessageErreurOlivB.RACE_INEXISTANTE);
+		catch (ServiceOlivBException e) {
+			messageErreur = e.getMessage();
 		}
+		return raceArme;
 	}
+
 
 	//méthode de conversion d'un tableau List
 	public List<String> getValue(String[] tabRaces) throws ServiceOlivBException {
@@ -315,6 +330,14 @@ public class ActionArme extends ApplicationSupport{
 
 	public void setJoueurId(int joueurId) {
 		this.joueurId = joueurId;
+	}
+
+	public String getMessageErreur() {
+		return messageErreur;
+	}
+
+	public void setMessageErreur(String messageErreur) {
+		this.messageErreur = messageErreur;
 	}
 
 
