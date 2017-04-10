@@ -217,10 +217,10 @@ public interface IFacadeService {
 		/* ========================================== */
 
 		// ajout
-		public void addPassion(Passion passion) throws ExceptionService;
+		public void addPassion(Passion passion) throws ExceptionService, UserExceptionRBC ;
 
 		// modification
-		public void updatePassion(Passion passion) throws ExceptionService;
+		public void updatePassion(Passion passion) throws ExceptionService, UserExceptionRBC;
 
 		// suppression
 		public void delPassions();

@@ -7,19 +7,13 @@ import java.util.Map;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.taglibs.standard.lang.jstl.BooleanLiteral;
-
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.VisitorFieldValidator;
-
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
 import clientServeur.exception.UserException;
-import entity.trait.Description;
+import clientServeur.trait.EnrichisseurRP;
 import entity.trait.Trait;
 import entity.trait.comportement.Comportement;
 import technic.trait.Comportements;
-import technic.trait.Traits;
 import util.trait.MethodReturn;
 import util.trait.Parameter;
 
@@ -38,25 +32,28 @@ public class Admin extends ApplicationSupport{
 	//Attributs service
 	private InitialContext	initialContext;
 	private IFacadeService	service;
+	private EnrichisseurRP	fabriqueTr;
 	
-	//Attributs fonctionnels
+	//Attributs utilisé par tous	
+	private Trait			trait;
+	private Comportements 	listComp;
+	private int				id;
+	private String			message;
+	
+	//Pour dynamicSelect
+	private String				type;
 	private Map<String, String> map;
-	private Trait				trait;
-	private Comportements 		listComp;
-	private int					id;
+
+	//Récupération depuis frmAddTr
 	private String				visi;
 	private String				dispo;
 	private String				malus;
 	private ArrayList<String>	selectListComp;
 	
-	private String				type;
-	
 	//Reconstruction de Trait
-	private String 	 	libelle;
 	private boolean	 	typeTr;
 	private boolean	 	visiPublic;
 	private boolean	 	dispoCrea;
-	private Description	descr;
 	
 	/**
 	 * Initialisation des services
@@ -67,6 +64,8 @@ public class Admin extends ApplicationSupport{
 		try {
 			initialContext 	= new InitialContext();
 			service 		= (IFacadeService) initialContext.lookup(Parameter.SERVICE_ARATHIEL);
+			fabriqueTr		= (EnrichisseurRP) initialContext.lookup(Parameter.ENRICHISSEUR_ARA);
+			
 		} 
 		catch (NamingException e) {
 			e.printStackTrace();
@@ -85,56 +84,61 @@ public class Admin extends ApplicationSupport{
 	public String frmAdd() {		
 		return MethodReturn.FORMADD;
 	}
+
 	
+	/**
+	 * Méthode d'enregistrement du trait
+	 * @return
+	 */
 	public String add() {
 		// Initialisation des services
 		this.initConn();
-		
-		//Récupération des informations (le mieux aurait été d'envoyer les string, et laissé la couche LM de service s'en occupper)...
-		
-		// ... création des booléens ...
-		if (malus == "Malus") typeTr = true;
+	
+		//Instanciation des booléens / False par défaut
+		if (malus != null) {
+			if (malus.equals("Malus")) typeTr = true;
+		}
 		else {
 			typeTr = false;
 		}
-
-		if (visi == "Publique") visiPublic = true;
+		
+		if (visi != null) {
+			if (visi.equals("Publique")) visiPublic = true;
+		}
 		else {
 			visiPublic = false;
 		}
 		
-		if (dispo == "A la création") dispoCrea = true;
+		if (dispo != null) {
+			if (dispo.equals("A la création")) dispoCrea = true;
+		}
 		else {
 			dispoCrea = false;
 		}
-		
-		//Création des comportements
-		if(selectListComp != null) {
-			if (!selectListComp.isEmpty()) {
-				for(String id : selectListComp) {
-					Comportement comp;
-					try {
-						comp = service.consulterCompByLib(id);
-						listComp.add(comp);
-					} catch (UserException e) {
-						System.out.println(e.getMessage());
-					}				
+	
+		// Vérification du libellé (seule chose obligatoire) J'ai réalisé une fabrique, mais je ne m'en sers pas, car bcp de contrôle, et j'avais peur de ne pouvoir finir l'ECF...
+		if(trait.getLibelle() != null) {
+			if (!trait.getLibelle().isEmpty()) {
+				
+				Trait traitEnr = new Trait(trait.getLibelle(), visiPublic, dispoCrea, typeTr, getComp(selectListComp), trait.getDescription());
+				
+				try {
+					service.ajouterTrait(traitEnr);
+				} catch (UserException e) {
+					System.out.println("Problème d'enregistrement : "+e.getMessage());
 				}
-			}				
+			}
+			else {
+				//TODO a remonter
+				System.out.println("Erreur libellé vide");
+			}
+		}
+		else {
+			//TODO a remonter
+			System.out.println("Erreur libellé null");
 		}
 		
-		//Création du trait
-//		trait = new Trait(trait, visiPublic, dispoCrea, malus, listComp, descr);
-		
-		System.out.println("Nom du trait : "+trait.getLibelle());
-		System.out.println("Liste de comportement : "+selectListComp);
-		System.out.println("malus : "+ malus);
-		System.out.println("visi : "+ visi);
-		System.out.println("dispo : "+ dispo);
-		System.out.println("Description : "+ trait.getContenuDesc());
-		
-		return MethodReturn.ADD;
-		
+		return MethodReturn.ADD;	
 	}
 	
 	/**
@@ -165,12 +169,11 @@ public class Admin extends ApplicationSupport{
 	 * @return
 	 */
 	public String dynamicSelect() {
-		System.out.println("Dans méthode dynamicSelect");
 		// Initialisation des services
 		this.initConn();
 		
 		//Initialisation de la variable
-		map		 = new LinkedHashMap<String, String>();		
+		map	= new LinkedHashMap<String, String>();		
 		
 		//Vérification de la valeur du type choisi et en l'insert dans un objet MAP (Format JSON pour le traité côté client)
 		if(type != null) {
@@ -225,50 +228,44 @@ public class Admin extends ApplicationSupport{
 		return MethodReturn.LIST;
 	}
 	
-	
-	
-	//Getters & Setters (J'ai pas mis toute la javaDoc DSL)
-	
 	/**
-	 * Retourne l'ID
+	 * Récupère la liste des comportement dans la base depuis une liste de ID rensigné (pas bcp de contrôle)
+	 * @param listId
 	 * @return
 	 */
-	public int getId() {
-		return id;
+	private Comportements getComp(ArrayList<String> listId) {
+		//Initialisation de la connection
+		this.initConn();
+
+		//Instanciation d'une liste de comportement
+		Comportements listCompOut = new Comportements();
+				
+		if(listId != null) {	
+			for(String id : listId) {
+				try {
+					Comportement comp = service.consulterCompById(Integer.parseInt(id));
+					listCompOut.add(comp);
+				} catch (NumberFormatException | UserException e) {
+					System.out.println("Méthode getComp : "+e.getMessage());
+				}
+			}
+		}
+		else {
+			listCompOut = null;
+		}
+		return listCompOut;		
 	}
 
-	/**
-	 * Modifie l'ID
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+	
+	//Getters & Setters (J'ai pas mis la javaDoc car ça évoluait bcp. DSL)
 
-	/**
-	 * Retourne le type du select
-	 * @return
-	 */
-	public String getType() {
-		return type;
-	}
-
-	/**
-	 * Modifie le type du select
-	 * @param type
-	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-
-	public Map<String, String> getMap() {
-		return map;
+	public Trait getTrait() {
+		return trait;
 	}
 
 
-	public void setMap(Map<String, String> map) {
-		this.map = map;
+	public void setTrait(Trait trait) {
+		this.trait = trait;
 	}
 
 
@@ -281,14 +278,44 @@ public class Admin extends ApplicationSupport{
 		this.listComp = listComp;
 	}
 
-	@VisitorFieldValidator
-	public Trait getTrait() {
-		return trait;
+
+	public int getId() {
+		return id;
 	}
 
 
-	public void setTrait(Trait trait) {
-		this.trait = trait;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public Map<String, String> getMap() {
+		return map;
+	}
+
+
+	public void setMap(Map<String, String> map) {
+		this.map = map;
 	}
 
 
@@ -306,11 +333,11 @@ public class Admin extends ApplicationSupport{
 		return dispo;
 	}
 
-	
+
 	public void setDispo(String dispo) {
 		this.dispo = dispo;
 	}
-	
+
 
 	public String getMalus() {
 		return malus;
@@ -321,6 +348,7 @@ public class Admin extends ApplicationSupport{
 		this.malus = malus;
 	}
 
+
 	public ArrayList<String> getSelectListComp() {
 		return selectListComp;
 	}
@@ -330,6 +358,4 @@ public class Admin extends ApplicationSupport{
 		this.selectListComp = selectListComp;
 	}
 
-
-	
 }

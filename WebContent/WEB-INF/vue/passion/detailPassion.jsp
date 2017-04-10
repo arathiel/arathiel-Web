@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Détail d'une passion</title>
 </head>
-<body ng-app="">
+<body ng-app="passionApp">
 	<!-- HEADER -->
 	<!-- Menu en haut à droite et bannière -->
 	<jsp:include page="../../include/header.jsp" />
@@ -35,29 +35,29 @@
 		<br><br>
 		</s:iterator>
 
-
+<div ng-controller = "passionModif">
 <div ng-switch="choix">
 	<div ng-switch-when="modif">
-	<s:form namespace="/passion"  method="post" acceptcharset ="UTF-8">
+	<s:form namespace="/passion"  method="post" acceptcharset ="UTF-8" ng-submit="valide()">
  		<s:textfield name="passionNom" value="%{passion.nom}" readonly= "true" label="Nom : "/>
  		<s:textarea name="passionDescription" 	value="%{passion.description}"	label="Description" />
  
- 		<s:select name="selectionRace" list="listeRace" 
-		  listKey="nom"         listValue='nom' 
-			  headerKey="0"        headerValue="Affecter une race" 
-			  	  label="Race " ng-model="saisie.selectionRace" />
+ 		<s:select name="selectionRace" list="listeRace"  multiple ="false" size="1"
+		  		  listKey="nom"        listValue="nom" 
+			  	  headerKey="0"        headerValue="Affecter une race" 
+			  	  label="Race " 	   ng-model="saisie.selectionRace" />
 		<br><br>
 		<s:select name="selectionMagie" list="listeMdpFond"
 				  multiple ="true" 		size="3"
  				  listKey="libelle"  		listValue="libelle"
- 			  	  headerKey="0"			headerValue="Sélectionnez la magie " 
+ 			  	 	selected="0" headerKey="0"		headerValue="Sélectionnez la magie " 
 			  	  label="Mots de pouvoir fondamentaux " ng-model="saisie.selectionMagie" required="" /> 
 			  	  <br><br>
-
 
 <s:url namespace="/passion" action="modifierPassion" var="modif" />
 <s:submit value="Modifier" 		formaction="${modif}" />
 </s:form> 
+</div>
 	</div>
 	<div ng-switch-when = "suppr">
 	<s:form namespace="/passion"  method="post" acceptcharset ="UTF-8">

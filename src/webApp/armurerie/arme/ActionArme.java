@@ -39,26 +39,31 @@ public class ActionArme extends ApplicationSupport{
 
 
 	//===============METHODE VALIDATE=============================================	
-//	@Override
-//	public void validate() {
-//		System.out.println("méthode validate() en cours");
-//		if (armeDto.getNom().isEmpty()){
-//			addFieldError("armeDto.nom", getText("nom.obligatoire"));
-//		}
-//		if (tabRaces.length == 0) {
-//			addFieldError("tabRaces", getText("race.obligatoire"));
-//		}
-//		if (armeDto.getEncombrement() < 1) {
-//			addFieldError("armeDto.encombrement", getText("encom.obligatoire"));
-//		}
-//		if (armeDto.getPrix() < 1) {
-//			addFieldError("armeDto.prix", getText("prix.obligatoire"));
-//		}
-//		if (hasFieldErrors()) {
-//			addActionMessage("Merci de renseigner tous les champs");
-//		}
-//
-//	}
+	@Override
+	public void validate() {
+			try {
+				afficheRace();
+			} catch (ServiceOlivBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		if (armeDto.getNom().isEmpty()){
+			addFieldError("armeDto.nom", getText("nom.obligatoire"));
+		}
+		if (tabRaces.length == 0) {
+			addFieldError("tabRaces", getText("race.obligatoire"));
+		}
+		if (armeDto.getEncombrement() < 1) {
+			addFieldError("armeDto.encombrement", getText("encom.obligatoire"));
+		}
+		if (armeDto.getPrix() < 1) {
+			addFieldError("armeDto.prix", getText("prix.obligatoire"));
+		}
+		if (hasFieldErrors()) {
+			addActionError( "Des champs de saisie sont vides");
+			addActionMessage("Merci de renseigner tous les champs");
+		}
+	}
 
 	//===============METHODES POUR L'AFFICHAGE DES PAGES DE CREATION, MODIFICATION ET SUPPRESSION==================
 	public String creationAffiche() 	throws ServiceOlivBException {
@@ -121,12 +126,7 @@ public class ActionArme extends ApplicationSupport{
 		if (validationArme(armeDto)) {
 			getTabRacesSelectedValues();
 			manArme = new ManageArme();
-			try {
-				manArme.suppr(armeDto);
-			}
-			catch (Exception e) {
-				throw new ServiceOlivBException(ExceptionMessageErreurOlivB.ARME_INEXISTANTE);
-			}
+			manArme.suppr(armeDto);
 		}
 		return SUCCESS;
 	}
@@ -195,10 +195,14 @@ public class ActionArme extends ApplicationSupport{
 	}
 
 	//Méthode de recherche liste de races pour la CheckBoxList
-	private List<String> afficheRace() 		throws ServiceOlivBException {
+	private List<String> afficheRace() throws ServiceOlivBException 	{
 		manArme = new ManageArme();
 		races = new ArrayList<Race>();
-		races = manArme.afficheRaces();
+		try {
+			races = manArme.afficheRaces();
+		} catch (ServiceOlivBException e) {
+			throw new ServiceOlivBException(ExceptionMessageErreurOlivB.NO_LISTE_RACE);
+		}
 		nomRaces = new ArrayList<String>();
 		for (Race race : races) {
 			nomRaces.add(race.getNom());	

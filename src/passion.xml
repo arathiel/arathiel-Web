@@ -8,11 +8,12 @@
 				
 		<action name="*Passion" method="{1}" class="beanAction.passion.ActionsPassion">
  			<result name="affiche">/WEB-INF/vue/passion/affichePassion.jsp</result>
- 			<result name= "success">/WEB-INF/vue/accueilAdmin.jsp</result> 
+ 			<result name="probleme">/WEB-INF/vue/passion/erreur.jsp</result>
+ 			<result name="success">/WEB-INF/vue/accueilAdmin.jsp</result> 
  			<result name="input">/WEB-INF/vue/passion/affichePassion.jsp</result> 
  			<result name="liste">/WEB-INF/vue/passion/rechercherPassion.jsp</result>
  			<result name="detail">/WEB-INF/vue/passion/detailPassion.jsp</result>
- 			<result name= "erreur">/WEB-INF/vue/passion/erreur.jsp</result>
+ 			
 			
 			<interceptor-ref name="defaultStack" >
 				<param name="validation.excludeMethods">ajouter, affiche, liste, detail, supprimer, modifier</param>
