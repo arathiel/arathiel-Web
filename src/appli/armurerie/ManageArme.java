@@ -25,6 +25,7 @@ public class ManageArme {
 	private IFacadeService 	serviceArme;
 	private IForge 			forgeArme;
 	private IArme 			arme;
+	private Arme			armeRech;
 
 	
 
@@ -58,7 +59,6 @@ public class ManageArme {
 	public void createArme(Arme armeDto, List<String> raceArme) throws ServiceOlivBException {
 		init();
 		arme = forgeArme.creerArme(armeDto.getNom(), armeDto.getEncombrement(), armeDto.getPrix(), armeDto.getMonnaie());
-		System.out.println("**************************************************************");
 		serviceArme.createArme(arme, raceArme);	
 	}
 
@@ -67,6 +67,11 @@ public class ManageArme {
 		arme = forgeArme.creerArme(armeDto.getIdArme(), armeDto.getNom(), armeDto.getEncombrement(), armeDto.getPrix(), armeDto.getMonnaie());
 		serviceArme.modifArme(arme, raceArme);
 
+	}
+	public Arme rechArme(int idArme) {
+		init();
+		armeRech =  serviceArme.rechArme(idArme);
+		return armeRech;
 	}
 
 	public void suppr(Arme armeDto) throws ServiceOlivBException {
