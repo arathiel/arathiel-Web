@@ -2,6 +2,8 @@ package beanAction.races;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +58,13 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		}
 	}
 
-
+	/**
+	 * Methode de validation du champ nomRace
+	 * 
+	 * ce champ ne doit pas être vide, ne doit pas comporter plus de 40 caractères
+	 * et ne pas comporter de caractères non autorisés
+	 * 
+	 */
 	@Override
 	public void validate(){
 		if((nomRace.trim().length())>40){
@@ -66,6 +74,13 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 		
 		if((nomRace.trim()).isEmpty()){
 			setMessage("ATTENTION: Le champ Nom ne doit pas être vide. ");
+			addFieldError("nomRace", message);
+		}
+		
+		boolean b = Pattern.matches("[[a-z] ' \\- () éèêëâàäïîôûüç]*", nomRace.trim().toLowerCase());
+		
+		if (b==false){
+			setMessage("ATTENTION: Le nom ne peut comporter que des lettres et les caractères suivants: - () \' ");
 			addFieldError("nomRace", message);
 		}
 	}

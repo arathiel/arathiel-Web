@@ -62,22 +62,15 @@ public class ActionsRacePages extends ApplicationSupport{
 	public String lister() {
 		init();		
 		setListeRace(fService.listeToutesRaces());
-		System.out.println("Races reçues de la base :");
-		for (Race r: listeRace){
-			System.out.println(r.toString());
-		}
 		return SUCCESS;
 	}
 	
 	
 	public String creer() {
 		init();
-	
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
-		
-		
 		return SUCCESS;
 	}
 	
@@ -85,7 +78,6 @@ public class ActionsRacePages extends ApplicationSupport{
 	
 	public String editer() {
 		init();
-		
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
