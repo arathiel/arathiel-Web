@@ -85,14 +85,7 @@ public class ActionArme extends ApplicationSupport{
 
 	public String rechercheAffiche() {
 		manArme = new ManageArme();
-		armes = new ArrayList<Arme>();
-		try {
-			armes = manArme.afficheArmesRace();
-		}
-		catch (ServiceOlivBException e) {
-			messageErreur = e.getMessage();
-			return "erreur";
-		}
+		armeDto = manArme.rechArme(armeDto.getIdArme());
 		return "afficheOK";
 	}
 
