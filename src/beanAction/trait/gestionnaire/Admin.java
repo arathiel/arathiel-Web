@@ -126,7 +126,7 @@ public class Admin extends ApplicationSupport{
 					service.ajouterTrait(traitEnr);
 				} catch (UserException e) {
 					System.out.println("Problème d'enregistrement : "+e.getMessage());
-				}
+	 			}
 			}
 			else {
 				//TODO a remonter
