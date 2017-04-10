@@ -42,7 +42,11 @@ public class ActionArme extends ApplicationSupport{
 	//===============METHODE VALIDATE=============================================	
 	@Override
 	public void validate() {
-		afficheRace();
+		System.out.println("méthode validate() en cours");
+		try {
+			afficheRace();
+		
+		
 		if (armeDto.getNom().isEmpty()){
 			addFieldError("armeDto.nom", getText("nom.obligatoire"));
 		}
@@ -59,6 +63,11 @@ public class ActionArme extends ApplicationSupport{
 			addActionError( "Des champs de saisie sont vides");
 			addActionMessage("Merci de renseigner tous les champs");
 		}
+		} catch (ServiceOlivBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	//===============METHODES POUR L'AFFICHAGE DES PAGES DE CREATION, MODIFICATION ET SUPPRESSION==================
@@ -76,44 +85,36 @@ public class ActionArme extends ApplicationSupport{
 		afficheRace();
 		return "afficheOK";
 	}
-
+	
 	public String joueurAffiche() 		throws ServiceOlivBException {
 		afficheListeArme();
 		afficheListeJoueur();
 		return "afficheOK";
 	}
 
-	public String rechercheAffiche() {
+	public String rechercheAffiche()	throws ServiceOlivBException {
 		manArme = new ManageArme();
-		armeDto = manArme.rechArme(armeDto.getIdArme());
+		armes = new ArrayList<Arme>();
+		armes = manArme.afficheArmesRace();
 		return "afficheOK";
 	}
 
 	//=================METHODES POUR LA VALIDATION DES FORMULAIRES==================================================
-	public String creationValide() 	{
-		try {
-			if (validationArme(armeDto));
-		}
-		catch (ServiceOlivBException e) {
-			messageErreur = e.getMessage();
-			return "erreur";
-		}
-		{
+	public String creationValide() 		throws ServiceOlivBException {
+		System.out.println("méthode creationValide() OK");
+		if (validationArme(armeDto)) {
 			getTabRacesSelectedValues();
-
 			manArme = new ManageArme();
-			System.out.println(raceArme);
 			try {
 				manArme.createArme(armeDto, raceArme);
 			}
-			catch (ServiceOlivBException e) {
-				messageErreur = e.getMessage();
-				return "erreur";
+			catch (Exception e) {
+				throw new ServiceOlivBException(ExceptionMessageErreurOlivB.DOUBLON_ARME);
 			}
 		}
 		return SUCCESS;
 	}
-	public String modificationValide() throws ServiceOlivBException 	{
+	public String modificationValide() 	throws ServiceOlivBException {
 		if (validationArme(armeDto)) {
 			getTabRacesSelectedValues();
 			manArme = new ManageArme();
@@ -121,8 +122,7 @@ public class ActionArme extends ApplicationSupport{
 				manArme.modif(armeDto, raceArme);
 			}
 			catch (Exception e) {
-				messageErreur = e.getMessage();
-				return "erreur";
+				throw new ServiceOlivBException(ExceptionMessageErreurOlivB.ARME_INEXISTANTE);
 			}
 		}
 		return SUCCESS;
@@ -131,16 +131,21 @@ public class ActionArme extends ApplicationSupport{
 		if (validationArme(armeDto)) {
 			getTabRacesSelectedValues();
 			manArme = new ManageArme();
-			manArme.suppr(armeDto);
+			try {
+				manArme.suppr(armeDto);
+			}
+			catch (Exception e) {
+				throw new ServiceOlivBException(ExceptionMessageErreurOlivB.ARME_INEXISTANTE);
+			}
 		}
 		return SUCCESS;
 	}
-
+	
 	public String joueurValide() throws ServiceOlivBException {
 		manArme = new ManageArme();
 		manArme.ajouteArmeJoueur(armeJoueurDto, joueurId, armeId, etat);
 		return SUCCESS;
-
+		
 	}
 	public String rechercheValide() {
 		//TODO
@@ -183,14 +188,6 @@ public class ActionArme extends ApplicationSupport{
 		this.etat = etat;
 	}
 
-	public List<String> getNomRaces() {
-		return nomRaces;
-	}
-
-	public void setNomRaces(List<String> nomRaces) {
-		this.nomRaces = nomRaces;
-	}
-
 	//Méthode de recherche liste des Armes pour affichage dans les jsp modificationArme et suppressionArme
 	private List<Arme> afficheListeArme() 	throws ServiceOlivBException {
 		manArme = new ManageArme();
@@ -200,22 +197,14 @@ public class ActionArme extends ApplicationSupport{
 	}
 
 	//Méthode de recherche liste de races pour la CheckBoxList
-	private List<String> afficheRace() {
+	private List<Race> afficheRace() 		throws ServiceOlivBException {
 		manArme = new ManageArme();
 		races = new ArrayList<Race>();
-		try {
-			races = manArme.afficheRaces();
-		} catch (ServiceOlivBException e) {
-			messageErreur = e.getMessage();
-		}
-		nomRaces = new ArrayList<String>();
-		for (Race race : races) {
-			nomRaces.add(race.getNom());	
-		}
-		return nomRaces;
+		races = manArme.afficheRaces();
+		return races;
 
 	}
-
+	
 	private List<Joueur> afficheListeJoueur() throws ServiceOlivBException {
 		manArme = new ManageArme();
 		joueurs = new ArrayList<Joueur>();
@@ -225,17 +214,14 @@ public class ActionArme extends ApplicationSupport{
 
 
 	// méthode de récupération des valeurs des checkBox de Race
-	public List<String> getTabRacesSelectedValues() {
+	public List<String> getTabRacesSelectedValues() throws ServiceOlivBException {
 		try {
-			raceArme = new ArrayList<String>();
-			raceArme =  getValue(tabRaces);
+			return getValue(tabRaces);
 		}
-		catch (ServiceOlivBException e) {
-			messageErreur = e.getMessage();
+		catch (Exception e) {
+			throw new ServiceOlivBException(ExceptionMessageErreurOlivB.RACE_INEXISTANTE);
 		}
-		return raceArme;
 	}
-
 
 	//méthode de conversion d'un tableau List
 	public List<String> getValue(String[] tabRaces) throws ServiceOlivBException {
@@ -243,6 +229,7 @@ public class ActionArme extends ApplicationSupport{
 		raceArme = new ArrayList<String>();
 		try {
 			for (String value : tabRaces) {
+				System.out.println(value);
 				raceArme.add(value);
 			}
 		}
@@ -325,6 +312,14 @@ public class ActionArme extends ApplicationSupport{
 		this.joueurId = joueurId;
 	}
 
+	public List<String> getNomRaces() {
+		return nomRaces;
+	}
+
+	public void setNomRaces(List<String> nomRaces) {
+		this.nomRaces = nomRaces;
+	}
+
 	public String getMessageErreur() {
 		return messageErreur;
 	}
@@ -332,6 +327,5 @@ public class ActionArme extends ApplicationSupport{
 	public void setMessageErreur(String messageErreur) {
 		this.messageErreur = messageErreur;
 	}
-
 
 }
