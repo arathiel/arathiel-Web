@@ -30,16 +30,20 @@
 		</action>	
 
 		
-		<action name="rechercheArme">
-			<result>/js/rechercheArme.js</result>
-		</action>
-		
 		<action name="cssArmurerie">
 			<result>/css/armurerie/ArmurerieMenu.css</result>
 		</action>
 		
 		<action name="cssModification">
 			<result>/css/armurerie/ArmurerieModification.css</result>
+		</action>
+		
+				<action name="angular">
+			<result>/js/angular.js</result>
+		</action>
+		
+		<action name="angularArmurerie">
+			<result>/js/AngularArmurerie.js</result>
 		</action>
 		
 	</package>
