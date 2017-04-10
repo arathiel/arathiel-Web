@@ -9,10 +9,10 @@ app.controller('CtrlArmurerie', function($scope) {
     		statuts : 'default'
     };
 });
-/**
- * 
-app.controller('CtrlArme', function($scope) {
-	$scope.arme = {
-			statuts : 'default'
-	};
-}); */
+
+var app = angular.module('listerArme', []);
+
+app.controller('CtrlList', function($scope) {
+	
+});
+
