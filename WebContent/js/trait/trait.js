@@ -50,15 +50,16 @@ trait.controller('listCtrl', function($scope, $http, $httpParamSerializer) {
 trait.controller('detailCtrl', function($scope) {
 	
 	$scope.btnModifier = function() {
-		$('#listComp').remove();
-		$('.update').prop('disabled', false);
+		alert("Dans le contrl");
+//		$('#listComp').remove();
+//		$('.disable').prop('disabled', false);
 	}
 	
 });// Fin detailCtrl
 
 
 /**
- * Controleur pour select dynamique une fois la page chargée
+ * Controleur pour select dynamique de la page de création une fois la page chargée
  * Ne pouvant utiliser facilement Struts2 et angular, j'ai choisi d'utiliser votre méthode
  */
 $(document).ready(function() {
@@ -97,6 +98,23 @@ $(document).ready(function() {
 	});
 });
 
+
+/**
+ * Message d'alerte avant suppression
+ * 
+ * @returns boolean
+ */
+	function deleteConfirm() {
+		var ok = confirm("Êtes-vous sûr de vouloir supprimer ce trait ?");
+	
+		//Retourne vrai si OK cliqué
+		if (ok) return true;	
+
+		//Sinon retourne false
+		return false;
+	}
+
+	
 // Essai de code pour cloner les sélect afin de permettre plusieurs comportement. Echec actuellement
 //$(document).ready(function (){
 //	  $('#btnMore').click(function (){

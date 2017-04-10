@@ -10,7 +10,6 @@ import javax.naming.NamingException;
 import beanAction.ApplicationSupport;
 import clientServeur.IFacadeService;
 import clientServeur.exception.UserException;
-import clientServeur.trait.EnrichisseurRP;
 import entity.trait.Trait;
 import entity.trait.comportement.Comportement;
 import technic.trait.Comportements;
@@ -32,7 +31,6 @@ public class Admin extends ApplicationSupport{
 	//Attributs service
 	private InitialContext	initialContext;
 	private IFacadeService	service;
-	private EnrichisseurRP	fabriqueTr;
 	
 	//Attributs utilisé par tous	
 	private Trait			trait;
@@ -64,7 +62,6 @@ public class Admin extends ApplicationSupport{
 		try {
 			initialContext 	= new InitialContext();
 			service 		= (IFacadeService) initialContext.lookup(Parameter.SERVICE_ARATHIEL);
-			fabriqueTr		= (EnrichisseurRP) initialContext.lookup(Parameter.ENRICHISSEUR_ARA);
 			
 		} 
 		catch (NamingException e) {
@@ -72,6 +69,16 @@ public class Admin extends ApplicationSupport{
 		}
 	}
 	
+	/**
+	 * Méthode de vérification des champs deu des formulaires
+	 */
+	@Override
+	public void validate() {
+		if (trait.getLibelle().isEmpty()) 			addFieldError("trait.libelle", getText("libelle.vide"));
+		if (trait.getLibelle().length() >24)		addFieldError("trait.libelle", getText("libelle.long"));
+		if (trait.getContenuDesc().length() >249)	addFieldError("trait.libelle", getText("libelle.long"));
+		
+		}
 	
 	/* ========================================== */ 
 	/*  				TRAIT					  */
@@ -93,6 +100,9 @@ public class Admin extends ApplicationSupport{
 	public String add() {
 		// Initialisation des services
 		this.initConn();
+		
+		// Initialisation du message
+		message = null;
 	
 		//Instanciation des booléens / False par défaut
 		if (malus != null) {
@@ -117,29 +127,126 @@ public class Admin extends ApplicationSupport{
 		}
 	
 		// Vérification du libellé (seule chose obligatoire) J'ai réalisé une fabrique, mais je ne m'en sers pas, car bcp de contrôle, et j'avais peur de ne pouvoir finir l'ECF...
-		if(trait.getLibelle() != null) {
-			if (!trait.getLibelle().isEmpty()) {
+
+		Trait traitEnr = new Trait(trait.getLibelle(), visiPublic, dispoCrea, typeTr, getComp(selectListComp), trait.getDescription());
 				
-				Trait traitEnr = new Trait(trait.getLibelle(), visiPublic, dispoCrea, typeTr, getComp(selectListComp), trait.getDescription());
-				
-				try {
-					service.ajouterTrait(traitEnr);
-				} catch (UserException e) {
-					System.out.println("Problème d'enregistrement : "+e.getMessage());
-	 			}
-			}
-			else {
-				//TODO a remonter
-				System.out.println("Erreur libellé vide");
-			}
-		}
-		else {
-			//TODO a remonter
-			System.out.println("Erreur libellé null");
-		}
+			try {
+				service.ajouterTrait(traitEnr);
+				message = getText("addTrait.success");
+			} catch (UserException e) {
+				message = e.getMessage();
+	 		}
 		
 		return MethodReturn.ADD;	
 	}
+	
+	
+	/**
+	 * Méthode pour l'affichage du formulaire d'ajout de trait
+	 * @return
+	 */
+	public String frmUpdate() {
+		// Initialisation de la connexion au service
+		this.initConn();
+		
+		System.out.println("Dans méthode frmUpdate");
+
+		//Initialisation des variables
+		visi		= null;
+		dispo		= null;
+		malus		= null;
+		listComp	= new Comportements();
+		message		= null;
+
+		// Recherche du trait via libellé		
+		try {
+			trait = service.consulterTraitByLib(trait.getLibelle());
+			// S'il existe on traite certaines de ses informations pour les afficher dans frmUpDateTrait
+
+			//Les booléens
+			if (trait.isVisiPublic())	visi = "Publique";
+			else {
+				visi = "Maître du jeu";
+			}
+
+			if (trait.isDispoCrea())	dispo = "A la création";
+			else {
+				dispo = "Toujours";
+			}
+
+			if (trait.isMalus())		malus = "Malus";
+			else {
+				malus = "Bonus";
+			}
+
+			//La liste de comportement
+			if (trait.getListComp() != null){
+				if (!trait.getListComp().isEmpty()) listComp = trait.getListComp();
+			}
+						
+		} catch (UserException e) {
+			message = e.getMessage();
+		}
+	
+		return MethodReturn.FORMUPD;
+	}
+	
+	/**
+	 * Modifie le trait
+	 * @return
+	 */
+	public String update() {
+		// Initialisation de la connexion au service
+		this.initConn();
+	
+		// Initialisation du message
+		message = null;
+
+		//Instanciation des booléens / False par défaut
+		if (malus != null) {
+			if (malus.equals("Malus")) typeTr = true;
+		}
+		else {
+			typeTr = false;
+		}
+
+		if (visi != null) {
+			if (visi.equals("Publique")) visiPublic = true;
+		}
+		else {
+			visiPublic = false;
+		}
+
+		if (dispo != null) {
+			if (dispo.equals("A la création")) dispoCrea = true;
+		}
+		else {
+			dispoCrea = false;
+		}
+		
+		//Récupération du trait par son ID
+		Trait traitEnr;
+		try {
+			traitEnr = service.consulterTraitById(id);
+			
+			//Mis à jour des éléments
+			traitEnr.setLibelle(trait.getLibelle());
+			traitEnr.setDescription(trait.getDescription());
+			traitEnr.setDispoCrea(dispoCrea);
+			traitEnr.setMalus(typeTr);
+			traitEnr.setVisiPublic(visiPublic);
+			traitEnr.setListComp(getComp(selectListComp));
+			
+			service.modiferTrait(traitEnr);
+			
+			message = getText("updateTrait.sucess");
+		} catch (UserException e) {
+			message = e.getMessage();
+		}
+
+		return MethodReturn.UPDATE;
+	}
+	
 	
 	/**
 	 * Suppression d'un trait
@@ -149,17 +256,21 @@ public class Admin extends ApplicationSupport{
 		// Initialisation des services
 		this.initConn();
 		
+		// Initialisation du message
+		message = null;
+		
 		//Suppression du trait (si utilisé dans un bonus, lève une exception)
 		try {
 			service.supprimerTrait(getId());
+			message = getText("delTrait.success");
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			message = e.getMessage();
 		}
 
 		return MethodReturn.DELETE;		
 	}
 	
-		
+	
 	/* ========================================== */ 
 	/*  			COMPORTEMENT				  */
 	/* ========================================== */

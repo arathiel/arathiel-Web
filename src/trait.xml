@@ -15,14 +15,24 @@
 
 		<!-- Administration Trait ================================= -->
 		<action name="*Adm" class="beanAction.trait.gestionnaire.Admin" method="{1}">
-			<result name="formAdd"> /WEB-INF/vue/trait/admin/frmAddTrait.jsp  </result>		
-			<result name="input"  > /WEB-INF/vue/trait/admin/frmAddTrait.jsp  </result>			
-			<result name="add"	  > /WEB-INF/vue/trait/admin/frmAddTrait.jsp  </result>
-			<result name="delete" > /WEB-INF/vue/trait/admin/frmListTrait.jsp </result>
+			<interceptor-ref name="defaultStack" > 
+			   <param name="validation.excludeMethods">frmAdd, frmUpdate, delete</param>
+		    </interceptor-ref> 
+		    
+		    <result name="input"	 > /WEB-INF/vue/trait/admin/frmAddTrait.jsp		</result>
+		
+			<result name="formAdd"	 > /WEB-INF/vue/trait/admin/frmAddTrait.jsp  	</result>
+			<result name="formUpDate"> /WEB-INF/vue/trait/admin/frmUpDateTrait.jsp  </result>
+						
+			<result name="add"	  	 > /WEB-INF/vue/trait/admin/frmAddTrait.jsp  	</result>
+			<result name="update" 	 > /WEB-INF/vue/trait/consult/frmListTrait.jsp  </result>
+			<result name="delete" 	 > /WEB-INF/vue/trait/consult/frmListTrait.jsp  </result>
 					
 			<allowed-methods>
 				frmAdd,
+				frmUpdate,
 				add,
+				update,
 				delete
 			</allowed-methods>			
 		</action>	

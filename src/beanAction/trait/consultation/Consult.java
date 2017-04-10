@@ -65,11 +65,10 @@ public class Consult extends ApplicationSupport{
 	/* ========================================== */
 	
 	/**
-	 * Récupère la liste de trait disponible de la BDD Pour la page frmListTrait
+	 * Affiche la page frmListTrait
 	 * @return
 	 */
 	public String list() {
-		System.out.println("Dans la méthode List");
 		return MethodReturn.LIST;
 	}
 	
@@ -124,7 +123,7 @@ public class Consult extends ApplicationSupport{
 				visi = "Maître du jeu";
 			}
 			
-			if (trait.isDispoCrea())	dispo = "Création";
+			if (trait.isDispoCrea())	dispo = "A la création";
 			else {
 				dispo = "Toujours";
 			}

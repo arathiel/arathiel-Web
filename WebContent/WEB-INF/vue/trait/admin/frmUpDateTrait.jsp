@@ -8,7 +8,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Arathiel - Modification de Trait</title>
+	<title>Arathiel - Création de Trait</title>
 	
 	<!-- CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,10 +23,6 @@
 	<!-- Include du menu -->
 	<jsp:include page="/WEB-INF/include/menu.jsp"  ></jsp:include>
 		
-		
-	<h2>Création de trait</h2>
-	<br />
-		
 <div class="container">
 
 <!-- Zone d'affichage du message -->
@@ -38,18 +34,33 @@
   				<s:property value="%{message}"/>
   			</strong>
 		</div>
-	</s:if>
-	
-	<s:if test="hasFieldErrors()">
-		<s:fielderror/>
-	</s:if>
+	</s:if>	
 	
 	<br />
 
 	<div class="row">
-		<s:form class="form-horizontal" role="form" theme="simple" action="addAdm" method="post">
+		<s:form 
+			class		="form-horizontal" 
+			role		="form" 
+			theme		="simple"
+			namespace	="/trait" 
+			action		="updateAdm" 
+			method		="post">
+			
             <fieldset>
-                <legend>Création de nouveau trait</legend>
+                <!-- Zone d'affichage du message -->
+				<br />	
+				<s:if test="%{message != null}">
+					<div class="alert alert-info">
+  						<strong>
+  							<s:property value="%{message}"/>
+  						</strong>
+					</div>
+				</s:if>		
+				<br />
+			
+				<h2>Modification de trait</h2>
+				<br />
                 
                 <!-- Nom du trait -->             
                 <div class="form-group">
@@ -86,11 +97,11 @@
                          	class		="form-control"
             				name		="selectListComp"
             				listKey		="key"
-            				list		="{}"
+            				list		="listComp"
+            				listValue	="libelle"
             				headerKey	="-1" 
             				headerValue	="comportement(s)"
-            				multiple	="true"
-            				disabled	="true"/>				
+            				multiple	="true"/>				
 					</div>
 				</div>
    				
@@ -116,8 +127,7 @@
              				name			="malus"
             				labelposition	="inline"
             				list			="{'Bonus', 'Malus'}" 
-            				class			="radio-inline"
-            				requiredLabel	="true"/>                       
+            				class			="radio-inline"/>                       
                     </div>
                 </div>
                 
@@ -130,8 +140,7 @@
             			name			="visi"
             			labelposition	="inline"
             			list			="{'Maître jeu', 'Publique'}"
-            			class			="radio-inline"
-            			requiredLabel	="true"/>
+            			class			="radio-inline"/>
                     </div>
                 </div>
                 
@@ -144,8 +153,7 @@
             				name			="dispo"
             				labelposition	="inline"
             				list			="{'A la création', 'Toujours'}"
-            				class			="radio-inline"
-            				requiredLabel	="true"/>	
+            				class			="radio-inline"/>	
                     </div>
                 </div>
  
@@ -155,6 +163,8 @@
                     <div class="col-md-8">
                         <s:submit class="btn btn-success" value="Enregistrer"/>                    
                         <button name="btnCancel" class="btn btn-danger" type="reset">Annuler</button>
+                        
+                       <s:hidden name="id" value="%{trait.id}"/>
                     </div>
                 </div>
             </fieldset>
