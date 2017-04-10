@@ -90,12 +90,6 @@ public class ActionsRacePages extends ApplicationSupport{
 				this.idRace = String.valueOf(race.getId());
 				this.chkAcad = String.valueOf(race.isDispo());
 				
-				
-				for (Bonus b : race.getListeBonus()) {
-					System.out.println(b.getIdBonus()+ " " + b.getValeurBonus());
-				}
-
-				
 			} catch (UserExceptionRBC e) {
 				setMessage(e.getMessage());
 			}
