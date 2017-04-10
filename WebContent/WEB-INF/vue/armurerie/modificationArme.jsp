@@ -40,7 +40,7 @@
 						</s:iterator></td>
 					<td><s:property 	value="encombrement"/></td>
 					<td><s:property 	value="prix"/></td>
-					<td><a href="" ng-click="afficherDetailArme()"/></td>
+					<td><a href="" ng-click="CtrlList()"/></td>
 				</tr>
 			</s:iterator>	
 		</table>
