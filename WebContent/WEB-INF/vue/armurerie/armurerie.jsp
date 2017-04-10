@@ -4,10 +4,11 @@
 <!DOCTYPE html>
 <html lang="fr" ng-app="appArmurerie">
 <head>
-<link rel="stylesheet" href="<s:url namespace="" 			action="cssArathiel" />" />
-<link rel="stylesheet" href="<s:url namespace="/armurerie" 	action="cssArmurerie" />" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="<s:url namespace="/armurerie" action="rechercheArme.action" />"></script>
+<link rel="stylesheet" href="<s:url namespace="" 						action="cssArathiel" />" />
+<link rel="stylesheet" href="<s:url namespace="/armurerie" 				action="cssArmurerie" />" />
+<meta http-equiv="Content-Type" 	content="text/html; charset=UTF-8">
+<script src="<s:url					namespace="/armurerie" 				action="angular.action" />"></script>
+<script src="<s:url 				namespace="/armurerie" 				action="angularArmurerie.action" />"></script>
 <title>Armurerie</title>
 </head>
 <body>
