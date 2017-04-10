@@ -72,11 +72,11 @@
 		<br/>
 		<br/>
 		
-		<s:url namespace="/armurerie" action="suppressionArmeValide" 		var="suppressionArmeValide"/>
-		
-		<s:submit 	value="Vérifier" 		formaction="#"/>	
+		<s:url		namespace="/armurerie" action="suppressionArmeValide" 		var="suppressionArmeValide"/>
+		<s:url 		namespace="/armurerie" 	action="accueil" 					var="quitter"/>
+			
 		<s:submit 	value="Supprimer" 		formaction="${suppressionArmeValide}"/>
-		<s:reset 	value="Quitter" 		formaction="#"/>
+		<s:reset 	value="Quitter" 		formaction="${quitter}"/>
 
 		</s:form>
 </body>
