@@ -17,6 +17,23 @@
 	
 	<h1> Affichage de la passion: <s:property value="%{passion.nom}"/> </h1>
 	
+	<s:if test="hasFieldErrors()">
+		<ul>
+			<s:fielderror>Les erreurs suivantes se sont produites : </s:fielderror>
+		</ul>
+		<hr />
+	</s:if>
+
+	<s:if test="hasActionErrors()">
+		<s:actionerror id="actionerror" label="actionerror : " />
+		<hr />
+	</s:if>
+
+	<s:if test="hasActionMessages()">
+		<s:actionmessage id="actionmessage" label="actionmessage :" />
+		<hr />
+	</s:if>
+	
 <form>
 		<input type="radio"  ng-model="choix"  value="modif"/>Modifier
 		<input type="radio"  ng-model="choix"  value="suppr"/>Supprimer
@@ -35,10 +52,12 @@
 		<br><br>
 		</s:iterator>
 
+
+
 <div ng-controller = "passionModif">
 <div ng-switch="choix">
 	<div ng-switch-when="modif">
-	<s:form namespace="/passion"  method="post" acceptcharset ="UTF-8" ng-submit="valide()">
+	<s:form acceptcharset ="UTF-8" ng-submit="valide()">
  		<s:textfield name="passionNom" value="%{passion.nom}" readonly= "true" label="Nom : "/>
  		<s:textarea name="passionDescription" 	value="%{passion.description}"	label="Description" />
  
@@ -50,14 +69,13 @@
 		<s:select name="selectionMagie" list="listeMdpFond"
 				  multiple ="true" 		size="3"
  				  listKey="libelle"  		listValue="libelle"
- 			  	 	selected="0" headerKey="0"		headerValue="Sélectionnez la magie " 
+ 			  	  selected="0" headerKey="0"		headerValue="Sélectionnez la magie " 
 			  	  label="Mots de pouvoir fondamentaux " ng-model="saisie.selectionMagie" required="" /> 
 			  	  <br><br>
 
 <s:url namespace="/passion" action="modifierPassion" var="modif" />
-<s:submit value="Modifier" 		formaction="${modif}" />
+<s:submit value="Modifier"  		formaction="${modif}" />
 </s:form> 
-</div>
 	</div>
 	<div ng-switch-when = "suppr">
 	<s:form namespace="/passion"  method="post" acceptcharset ="UTF-8">
@@ -65,9 +83,9 @@
 		<s:url namespace="/passion" action="supprimerPassion" var="suppr" />
 		<s:submit value="Supprimer" 		formaction="${suppr}" />
 	</s:form> 
-	</div>
 </div>
-
+</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular-messages.min.js"></script>
 <script type="" src="<s:url namespace="/passion" 	action="passionJs" />"></script>

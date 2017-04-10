@@ -4,9 +4,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular-messages.min.js"></script>
-<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
+	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
+	<link rel="stylesheet" href="<s:url namespace="/passion" action="cssPassion" />" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Rechercher une passion</title>
 </head>
@@ -44,12 +43,11 @@
 	</tbody>
 </table>
 </div>
-
-	<p ng-if="erreur == 999" ng-bind="reponse"></p> 
 	
 	<br /><br />
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular-messages.min.js"></script>
 <script type="" src="<s:url namespace="/passion" 	action="passionJs" />"></script>
 </body>
 </html>

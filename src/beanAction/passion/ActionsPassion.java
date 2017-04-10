@@ -11,6 +11,8 @@ import clientServeur.race_bonus_carac.userException.UserExceptionRBC;
 import entity.magie.MDPFondamental;
 import entity.passion.Passion;
 import entity.race_bonus_carac.race.Race;
+import util.passionMagie.MessRetour;
+import util.passionMagie.Param;
 
 public class ActionsPassion extends ApplicationSupport {
 
@@ -48,20 +50,20 @@ public class ActionsPassion extends ApplicationSupport {
 		InitialContext ctx;
 		try {
 			ctx = new InitialContext();
-			serviceFacade = (IFacadeService) ctx.lookup("ejb:/arathiel-EJB/FacadeService!clientServeur.IFacadeService");
+			serviceFacade = (IFacadeService) ctx.lookup(Param.SERVICE);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public String execute() {
-		return SUCCESS;
-	}
-
+	/**
+	 * Permet d'afficher le formulaire de saisie d'une nouvelle passion
+	 * Renseigne la liste des races disponibles (non affectées à une passion) et des mots de pouvoir fondamentaux
+	 * @return
+	 */
 	public String affiche() {
 		init();
-		codeRetour = "affiche";
+		codeRetour = MessRetour.AFFICHE;
 		listeBdd();
 		return codeRetour;
 	}
@@ -69,7 +71,7 @@ public class ActionsPassion extends ApplicationSupport {
 	public String ajouter() {
 		init();
 		System.out.println("Coucou je suis dans ajouter");
-		codeRetour = SUCCESS;
+		codeRetour = INPUT;
 
 		String[] magie = selectionMagie.split(",");
 
@@ -77,13 +79,11 @@ public class ActionsPassion extends ApplicationSupport {
 		passion = new Passion(passionNom, passionDescription);
 		/* Création de l'objet Race, et association avec la passion */
 		System.out.println(selectionRace);
-		System.out.println(selectionRace.isEmpty());
-
-		if (selectionRace != null || selectionRace != "" || !selectionRace.isEmpty() || selectionRace != "0") {
-			// Race race = serviceFacade.RechRaceParNom(selectionRace);
-//			System.out.println(raceP);
+			/*Si la race sélectionnée contient null cela signifie qu'elle n'a pas été selectionnée*/
+		if (!selectionRace.contains("null")) {
 			Race raceP = new Race(selectionRace, true);
 			passion.setRace(raceP);
+//			System.out.println("Je suis une passion avec la race: " + raceP);
 		}
 		for (int i = 0; i < magie.length; i++) {
 			if (magie[i] != null) {
@@ -93,12 +93,17 @@ public class ActionsPassion extends ApplicationSupport {
 				passion.addMagie(mot);
 			}
 		}
+		
+		/*Méthode permettant l'utilisation d'un EJB Message*/
+//		Worker ws = new Worker();
+//		ws.envoyer("La passion " + passion + " être ajoutée");
 		try {
 			serviceFacade.addPassion(passion);
+			messErreur = "La passion a bien été insérée";
 		} catch (UserExceptionRBC | ExceptionService e) {
 			System.out.println(e.getMessage());
 			messErreur= e.getMessage();
-			codeRetour = "probleme";
+			codeRetour = ERROR;
 		}
 
 		System.out.println(codeRetour);
@@ -112,7 +117,7 @@ public class ActionsPassion extends ApplicationSupport {
 	 */
 	public String liste() {
 		System.out.println("dans liste");
-		codeRetour = "liste";
+		codeRetour = MessRetour.LISTE;
 		return codeRetour;
 	}
 
@@ -124,7 +129,7 @@ public class ActionsPassion extends ApplicationSupport {
 	 */
 	public String detail() {
 		System.out.println("Dans détail");
-		codeRetour = "detail";
+		codeRetour = MessRetour.DETAIL;
 
 		listeBdd();
 		System.out.println(passionId);
@@ -135,7 +140,7 @@ public class ActionsPassion extends ApplicationSupport {
 			System.out.println(passion.getMagies());
 		} catch (ExceptionService /* | UserExceptionRBC */ e) {
 			messErreur = e.getMessage();
-			codeRetour = "erreur";
+			codeRetour = ERROR;
 			return codeRetour;
 		}
 		return codeRetour;
@@ -157,7 +162,7 @@ public class ActionsPassion extends ApplicationSupport {
 		listePassions = serviceFacade.getPassionsByLettres(lettres);
 
 		System.out.println("La listePassion est : " + listePassions);
-		codeRetour = "recherche";
+		codeRetour = MessRetour.RECHERCHE;
 		return codeRetour;
 	}
 
@@ -175,7 +180,7 @@ public class ActionsPassion extends ApplicationSupport {
 			serviceFacade.delPassion(passionNom);
 		} catch (ExceptionService e) {
 			messErreur = e.getMessage();
-			codeRetour = "erreur";
+			codeRetour = ERROR;
 		}
 		return codeRetour;
 	}
@@ -187,51 +192,35 @@ public class ActionsPassion extends ApplicationSupport {
 	 */
 	public String modifier() {
 		init();
-		// System.out.println("dans modifier");
-		// System.out.println(passionNom);
-		// System.out.println(passionDescription);
-		// System.out.println(selectionRace);
-		// System.err.println(selectionMagie);
 		codeRetour = SUCCESS;
-		// System.out.println(nomPassion);
 
 		String[] magie = selectionMagie.split(",");
 
 		/* Création de l'objet Passion */
 		passion = new Passion(passionNom, passionDescription);
-		/* Création de l'objet Race, et association avec la passion */
-		System.out.println(selectionRace);
-		System.out.println(selectionRace.isEmpty());
-
-		//Si la race n'est pas sélectionnée selectionRace = ? undefined:undefined ?
 		
-		if (selectionRace != null || 
-				selectionRace != "" || 
-				!selectionRace.isEmpty() || 
-				selectionRace != "0" || 
-				selectionRace != "? undefined:undefined ?") {
+		if (!selectionRace.contains("null")) {
+			/* Création de l'objet Race, et association avec la passion */
 			Race raceP = new Race(selectionRace, true);
-			System.out.println(raceP);
 			passion.setRace(raceP);
+			System.out.println("Je suis une passion avec la race: " + raceP);
 		}
 
 		for (int i = 0; i < magie.length; i++) {
 			if (magie[i] != null) {
-				// System.out.println(magie[i]);
 				MDPFondamental mot = new MDPFondamental(magie[i]);
-				// System.out.println(mot);
 				passion.addMagie(mot);
 			}
 		}
-//		try {
-//			//serviceFacade.updatePassion(passion);
-//		} catch (ExceptionService e) {
-//			messErreur = e.getMessage();
-//			codeRetour = "erreur";
-//		} catch (UserExceptionRBC e) {
-//			messErreur = e.getMessage();
-//			codeRetour = "erreur";
-//		}
+		try {
+			serviceFacade.updatePassion(passion);
+		} catch (ExceptionService e) {
+			messErreur = e.getMessage();
+			codeRetour = ERROR;
+		} catch (UserExceptionRBC e) {
+			messErreur = e.getMessage();
+			codeRetour = ERROR;
+		}
 		return codeRetour;
 	}
 
@@ -244,13 +233,18 @@ public class ActionsPassion extends ApplicationSupport {
 		listeMdpFond = serviceFacade.getMDPFondamentalTrieNom();
 	}
 
+	/**
+	 * Méthode permettant de valider les données du formulaire
+	 */
 	@Override
 	public void validate() {
-		if (passion.getNom().trim().isEmpty())
-			addFieldError("nomPassion", "Le nom de la passion est obligatoire");
+		System.out.println("dans validate");
+		if (passionDescription.trim().isEmpty()){
+			System.out.println("Erreur!!! ");
+			addFieldError("description", "La description de la passion est obligatoire");
+		}
 		if (hasFieldErrors()) {
-			addActionError("actionError : Vous faites n'importe quoi !!! ");
-			addActionMessage("actionMessage : Veuillez vérifier votre saisie ;)");
+			addActionMessage("Veuillez vérifier votre saisie ;)");
 		}
 	}
 

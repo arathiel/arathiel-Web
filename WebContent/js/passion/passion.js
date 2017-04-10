@@ -11,19 +11,22 @@ app.controller('passionCtrl', function ($scope, $http, $httpParamSerializer) {
 	$scope.valide = function () {
 		var test = angular.isUndefined($scope.saisie.selectionRace);
 		if(test === true){
-			$scope.saisie.selectionRace = "0";
+			$scope.saisie.selectionRace = "null";
+		}
+		if($scope.saisie.selectionRace.length === 0){
+			$scope.saisie.selectionRace = "null";
 		}
 		$scope.reponse = "";
 		console.log($httpParamSerializer($scope.saisie));
-		$http.post("http://localhost:8080/arathiel-Web/passion/ajouterPassion.action", $httpParamSerializer($scope.saisie),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		$http.post("http://localhost:8080/arathiel-Web/passionjson/ajouterPassion.action", $httpParamSerializer($scope.saisie),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 			.then(function (response) {
 
 				$scope.erreur = response.status;
-				$scope.reponse = response.data;
+				$scope.reponse = response.data.messErreur;
 
 			}, function (response) {
 	            $scope.erreur = response.status;
-	            $scope.reponse = "oupps probleme de retour";
+	            $scope.reponse = response.status;
 
 });
 	}
@@ -56,35 +59,17 @@ app.controller('passionRecherche', function($scope, $http, $httpParamSerializer)
 }); 
 
 
-app.controller('passionModif', function ($scope, $http, $httpParamSerializer) {
+app.controller('passionModif', function ($scope) {
 	console.log('dans passion modif');
-	$scope.saisie = {'passionNom':'', 'passionDescription':'', 'selectionRace':'', 'selectionMagie' : ''};
-	$scope.reponse = "";
-	var test = angular.isUndefined($scope.saisie.selectionRace);
-	console.log(test);
-	if(test === true){
-		$scope.saisie.selectionRace = "0";
-	}
 	$scope.valide = function () {
 		var test = angular.isUndefined($scope.saisie.selectionRace);
-		console.log(test);
 		if(test === true){
-			$scope.saisie.selectionRace = "0";
+			$scope.saisie.selectionRace = "null";
 		}
-		$scope.reponse = "";
-		console.log($httpParamSerializer($scope.saisie));
-//		$http.post("http://localhost:8080/arathiel-Web/passion/modifierPassion.action", $httpParamSerializer($scope.saisie),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-//			.then(function (response) {
-//
-//				$scope.erreur = response.status;
-//				$scope.reponse = response.data;
-//
-//			}, function (response) {
-//	            $scope.erreur = response.status;
-//	            $scope.reponse = "oupps probleme de retour";
-//
-//});
-	}
-	});
+		if($scope.saisie.selectionRace.length === 0){
+			$scope.saisie.selectionRace = "null";
+		}
+	}}
+);
 
 
