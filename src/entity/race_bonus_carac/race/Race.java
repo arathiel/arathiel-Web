@@ -101,7 +101,6 @@ public class Race implements IPackable, Serializable {
 		int renduXp = this.getCoutXp();
 		
 		for (Bonus b: this.getListeBonus()){
-			System.out.println(b.getCoutXp());
 			renduXp = renduXp - b.getCoutXp();
 		}
 		return renduXp;
