@@ -43,7 +43,7 @@ function caracPlus(){
 	if (idCarac != "0") {
 		var idCaracBonus = "Car"+idCarac;
 		var divBonusExistant = document.getElementById(idCaracBonus);			//on teste si une ligne du tableau bonus avec cette carac existe déjà...
-		console.log(divBonusExistant);
+
 		
 		if (divBonusExistant==null){											//si absent on la créee...
 			var divBonus = document.querySelector('#tableBonus');
@@ -70,7 +70,6 @@ function caracPlus(){
 /**
  * Methode pour diminuer la valeur d'un bonus de caracteristique
  * 
- * @returns
  */
 function caracMoins(){
 	
@@ -81,7 +80,7 @@ function caracMoins(){
 	if (idCarac != "0") {	
 		var idCaracBonus = "Car"+idCarac;
 		var divBonusExistant = document.getElementById(idCaracBonus);		//on teste si une ligne du tableau bonus avec cette carac existe déjà...
-		console.log(divBonusExistant);
+
 		
 		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur					
 			var valBonus = divBonusExistant.getElementsByTagName('td')[1];
@@ -102,7 +101,7 @@ function caracMoins(){
 /**
  * Methode pour augmenter la valeur d'un bonus de trait
  * 
- * @returns
+ *
  */
 function traitPlus(){
 	var select = document.querySelector('#selectTrait');
@@ -112,7 +111,7 @@ function traitPlus(){
 	if (idTrait != "0") {
 		var idTraitBonus = "Tra"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);			//on teste si un div avec ce trait existe déjà...
-		console.log(divBonusExistant);
+
 		
 		if (divBonusExistant==null){											//si absent on la créee...
 			var divBonus = document.querySelector('#tableBonus');
@@ -138,7 +137,7 @@ function traitPlus(){
 /**
  * Methode pour diminuer la valeur d'un bonus de trait
  * 
- * @returns
+ *
  */
 function traitMoins(){
 	
@@ -149,7 +148,7 @@ function traitMoins(){
 	if (idTrait != "0") {
 		var idTraitBonus = "Tra"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);		//on teste si un div avec ce trait existe déjà...
-		console.log(divBonusExistant);
+
 		
 		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur																		//s'il existe on récupère sa valeur
 			var valBonus = divBonusExistant.getElementsByTagName('td')[1];
@@ -169,7 +168,7 @@ function traitMoins(){
 /**
  * Methode pour augmenter la valeur d'un bonus de competence
  * 
- * @returns
+ * 
  */
 function compPlus(){
 	var select = document.querySelector('#selectComp');
@@ -180,7 +179,7 @@ function compPlus(){
 		
 		var idCompBonus = "Com"+idComp;
 		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
-		console.log(divBonusExistant);
+
 		
 		if (divBonusExistant==null){											//si absent on la créee...
 			var divBonus = document.querySelector('#tableBonus');
@@ -212,7 +211,7 @@ function compPlus(){
 /**
  * Methode pour diminuer la valeur d'un bonus de competence
  * 
- * @returns
+ *
  */
 function compMoins(){
 	
@@ -223,7 +222,6 @@ function compMoins(){
 
 	if (idComp != "0") {	
 		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
-		console.log(divBonusExistant);
 		
 		if (divBonusExistant!=null){										//si elle existe on recupère sa valeur																		//s'il existe on récupère sa valeur
 			var valBonus = divBonusExistant.getElementsByTagName('td')[1];
@@ -274,7 +272,6 @@ function supprimer() {
  */
 function traitementData() {
 	//Recupération des données brutes del arace (id, nom et disponibilité)
-	console.log("recupRace");
 	var idRaceElt = document.getElementById("idRace");
 	var idRace = 0;
 	if (idRaceElt.value != "") {
@@ -294,7 +291,6 @@ function traitementData() {
 			for (i=1; i<rowBonus.length; i++){	//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
 			console.log(rowBonus[i]);
 			var dataBonus = rowBonus[i].children;
-			console.log('dataBonus = '+dataBonus.length);
 			var idBonus = rowBonus[i].getAttribute('id');
 			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
 			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
@@ -310,64 +306,10 @@ function traitementData() {
 			}	
 			
 			listeBonus.push(newBonus);
-			console.log(listeBonus.length);
-			console.log(bonus);			
 		}
 	}
 	envoiAjax(race, listeBonus);
 }
-
-
-///** 
-// * Methode qui recupère les données de base des races (nom + id)
-// * 
-// */
-//function recupData() {
-//	console.log("recupData");
-//	var idRaceElt = document.getElementById("idRace");
-//	var idRace = 0;
-//	if (idRaceElt.value != "") {
-//		idRace = parseInt(idRaceElt.value);
-//	}	
-//	
-//	var race = { 	"idRace":		idRace,
-//					"nomRace" : 	document.getElementById("nomRace").value,					
-//					"dispo" : 		document.getElementById("dispo").checked	
-//	};
-//	return race;
-//}
-//
-///** 
-// * Methode qui recupère les données des bonus
-// * 
-// */
-//function recupBonus() {
-//	var rowBonus = new Array;
-//	var listeBonus = new Array;
-//	rowBonus = document.getElementsByTagName('tr');
-//
-//	
-//	if (rowBonus != null){
-//			for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
-//			var dataBonus = rowBonus[i].children;
-//			var idBonus = rowBonus[i].getAttribute('id');
-//			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
-//			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
-//			
-//			var newBonus = {	"idBonus" : idBonus,
-//								"valeurBonus" : valeur,
-//								"acad":	"false"	};
-//			
-//			if (acad != undefined) {
-//				var chk	= acad.children[0];				
-//				newBonus.acad = chk.checked;
-//			}	
-//			
-//			listeBonus.push(newBonus);
-//		}
-//	}
-//	return listeBonus;	
-//}
 
 
 /** 
@@ -382,8 +324,6 @@ function reset() {
 	var nb= row.length;
 	
 	for (i=nb-1; i>0; i--){
-		console.log(i);
-		console.log(row[i]);
 		row[i].parentNode.removeChild(row[i]);
 	}	
 	
@@ -410,12 +350,10 @@ function envoiAjax(race, listebonus) {
 	    
 	    success 	: function(code_html, statut){ 	 
 	    	$('#message').html(code_html);
-	        console.log("success");
 	    },
 	    
 	    error : function(resultat, statut, erreur){
 	    	$('#message').html(erreur);
-	    	console.log("error");
     	},
 
     	complete : function(resultat, statut){

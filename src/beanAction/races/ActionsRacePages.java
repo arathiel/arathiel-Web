@@ -92,7 +92,7 @@ public class ActionsRacePages extends ApplicationSupport{
 
 		if (this.nomRace != null) {
 			try {
-				setRace(fService.RechRaceParNom(this.nomRace));
+				setRace(fService.rechRaceParNom(this.nomRace));
 				this.listeBonus = (ArrayList<Bonus>) race.getListeBonus();
 				this.nomRace = race.getNom();
 				this.idRace = String.valueOf(race.getId());
