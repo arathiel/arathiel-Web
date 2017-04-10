@@ -19,7 +19,6 @@ import entity.race_bonus_carac.race.Race;
 import entity.trait.Trait;
 
 
-
 public class ActionsRaceGestion extends ApplicationSupport implements ServletRequestAware {
 
 	/**
@@ -61,11 +60,13 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 	@Override
 	public void validate(){
 		if((nomRace.trim().length())>40){
-			setMessage("Le nom ne doit pas comporter plus de 40 caractères !!");
+			setMessage("ATTENTION: Le nom ne doit pas comporter plus de 40 caractères.");
+			addFieldError("nomRace", message);
 		}
 		
 		if((nomRace.trim()).isEmpty()){
 			setMessage("ATTENTION: Le champ Nom ne doit pas être vide. ");
+			addFieldError("nomRace", message);
 		}
 	}
 	
@@ -83,9 +84,6 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 			setMessage("Cette race à été enregistrée avec succès !");
 		} catch (UserExceptionRBC e) {
 			setMessage(e.getMessage());
-			
-			System.out.println(e.getMessage());
-			System.out.println(message);
 		}
 		
 		return SUCCESS;
@@ -156,7 +154,6 @@ public class ActionsRaceGestion extends ApplicationSupport implements ServletReq
 			for (String s : map.keySet()){						//On parcours la map par ses clefs
 				
 				if (s.startsWith("listeBonus["+i+"]")) {					//on teste si la clef concerne le bonus en cours
-//System.out.println("Key = "+ s + " Valeur = "+map.get(s)[0]);
 					
 					String sub = (s.substring(14, 17));						//Teste les caractères de la clef qui correspondent à id, valeur ou académique
 					

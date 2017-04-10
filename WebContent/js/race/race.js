@@ -8,7 +8,6 @@ window.onload = initAll;
 var urlEnvoi = "";
 
 function initAll() {
-	console.log("Coucou bande de noobs"+document.getElementById('dispo').checked);
 	document.querySelector('#caracPlus').onclick = caracPlus;	
 	document.querySelector('#caracMoins').onclick = caracMoins;
 	document.querySelector('#traitPlus').onclick = traitPlus;	
@@ -41,9 +40,6 @@ function caracPlus(){
 	var idCarac = select.options[select.selectedIndex].value;
 	var nomCarac = select.options[select.selectedIndex].innerHTML;
 
-	console.log(idCarac);
-	console.log(nomCarac);
-	
 	if (idCarac != "0") {
 		var idCaracBonus = "Car"+idCarac;
 		var divBonusExistant = document.getElementById(idCaracBonus);			//on teste si une ligne du tableau bonus avec cette carac existe déjà...
@@ -82,9 +78,6 @@ function caracMoins(){
 	var idCarac = select.options[select.selectedIndex].value;
 	var nomCarac = select.options[select.selectedIndex].innerHTML;
 
-	console.log(idCarac);
-	console.log(nomCarac);
-	
 	if (idCarac != "0") {	
 		var idCaracBonus = "Car"+idCarac;
 		var divBonusExistant = document.getElementById(idCaracBonus);		//on teste si une ligne du tableau bonus avec cette carac existe déjà...
@@ -116,9 +109,6 @@ function traitPlus(){
 	var idTrait = select.options[select.selectedIndex].value;
 	var nomTrait = select.options[select.selectedIndex].innerHTML;
 
-	console.log(idTrait);
-	console.log(nomTrait);
-	
 	if (idTrait != "0") {
 		var idTraitBonus = "Tra"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);			//on teste si un div avec ce trait existe déjà...
@@ -156,9 +146,6 @@ function traitMoins(){
 	var idTrait = select.options[select.selectedIndex].value;
 	var nomTrait = select.options[select.selectedIndex].innerHTML;
 
-	console.log(idTrait);
-	console.log(nomTrait);
-	
 	if (idTrait != "0") {
 		var idTraitBonus = "Tra"+idTrait;
 		var divBonusExistant = document.getElementById(idTraitBonus);		//on teste si un div avec ce trait existe déjà...
@@ -189,9 +176,6 @@ function compPlus(){
 	var idComp = select.options[select.selectedIndex].value;
 	var nomComp = select.options[select.selectedIndex].innerHTML;
 
-	console.log(idComp);
-	console.log(nomComp);
-	
 	if (idComp != "0") {
 		
 		var idCompBonus = "Com"+idComp;
@@ -236,10 +220,7 @@ function compMoins(){
 	var idComp = select.options[select.selectedIndex].value;
 	var nomComp = select.options[select.selectedIndex].innerHTML;
 	var idCompBonus = "Com"+idComp;
-	
-	console.log(idComp);
-	console.log(nomComp);
-	
+
 	if (idComp != "0") {	
 		var divBonusExistant = document.getElementById(idCompBonus);		//on teste si un div avec cette competence existe déjà...
 		console.log(divBonusExistant);
@@ -264,7 +245,6 @@ function compMoins(){
  * 
  */
 function enregistrer() {
-	console.log("enregistrer");
 	urlEnvoi = "../race/creerRace";
 	traitementData();
 }
@@ -274,7 +254,6 @@ function enregistrer() {
  * 
  */
 function modifier() {
-	console.log("modifier");
 	urlEnvoi = "../race/modifierRace";
 	traitementData();
 }
@@ -284,7 +263,6 @@ function modifier() {
  * 
  */
 function supprimer() {
-	console.log("supprimer");
 	urlEnvoi = "../race/supprimerRace";
 	traitementData();
 }
@@ -301,7 +279,6 @@ function traitementData() {
 	var idRace = 0;
 	if (idRaceElt.value != "") {
 		idRace = parseInt(idRaceElt.value);
-		console.log("parse id"+idRace);
 	}	
 	
 	var race = { 	"idRace":		idRace,
@@ -312,8 +289,6 @@ function traitementData() {
 	//Récupération des bonus
 	var listeBonus = new Array;
 	var rowBonus = $('#tableBonus > tbody > tr');
-	console.log('rowBonus ='+rowBonus.length);
-	console.log(rowBonus);
 	
 	if (rowBonus != null){
 			for (i=1; i<rowBonus.length; i++){	//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
@@ -339,67 +314,60 @@ function traitementData() {
 			console.log(bonus);			
 		}
 	}
-	console.log("race dipso = "+race.dispo);
-	console.log("nb de bonus = "+listeBonus.length);
-	console.log("url d'envoi = "+urlEnvoi );
 	envoiAjax(race, listeBonus);
 }
 
 
-/** 
- * Methode qui recupère les données de base des races (nom + id)
- * 
- */
-function recupData() {
-	console.log("recupData");
-	var idRaceElt = document.getElementById("idRace");
-	var idRace = 0;
-	if (idRaceElt.value != "") {
-		idRace = parseInt(idRaceElt.value);
-		console.log("parse id"+idRace);
-	}	
-	
-	var race = { 	"idRace":		idRace,
-					"nomRace" : 	document.getElementById("nomRace").value,					
-					"dispo" : 		document.getElementById("dispo").checked	
-	};
-	return race;
-}
-
-/** 
- * Methode qui recupère les données des bonus
- * 
- */
-function recupBonus() {
-	var rowBonus = new Array;
-	var listeBonus = new Array;
-	rowBonus = document.getElementsByTagName('tr');
-
-	
-	if (rowBonus != null){
-			for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
-			var dataBonus = rowBonus[i].children;
-			var idBonus = rowBonus[i].getAttribute('id');
-			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
-			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
-			
-			var newBonus = {	"idBonus" : idBonus,
-								"valeurBonus" : valeur,
-								"acad":	"false"	};
-			
-			if (acad != undefined) {
-				var chk	= acad.children[0];				
-				console.log(idBonus+"  "+valeur+"  "+chk.checked);
-				newBonus.acad = chk.checked;
-			}	
-			
-			listeBonus.push(newBonus);
-			console.log(listeBonus.length);
-			console.log(bonus);			
-		}
-	}
-	return listeBonus;	
-}
+///** 
+// * Methode qui recupère les données de base des races (nom + id)
+// * 
+// */
+//function recupData() {
+//	console.log("recupData");
+//	var idRaceElt = document.getElementById("idRace");
+//	var idRace = 0;
+//	if (idRaceElt.value != "") {
+//		idRace = parseInt(idRaceElt.value);
+//	}	
+//	
+//	var race = { 	"idRace":		idRace,
+//					"nomRace" : 	document.getElementById("nomRace").value,					
+//					"dispo" : 		document.getElementById("dispo").checked	
+//	};
+//	return race;
+//}
+//
+///** 
+// * Methode qui recupère les données des bonus
+// * 
+// */
+//function recupBonus() {
+//	var rowBonus = new Array;
+//	var listeBonus = new Array;
+//	rowBonus = document.getElementsByTagName('tr');
+//
+//	
+//	if (rowBonus != null){
+//			for (i=1; i<rowBonus.length; i++){					//On parcours le tableau des bonus à partir du deuxième poste (le première contient les headers)
+//			var dataBonus = rowBonus[i].children;
+//			var idBonus = rowBonus[i].getAttribute('id');
+//			var valeur = dataBonus[1].innerHTML;			//la valeur du bonus est dans la 2eme cellule de la ligne
+//			var acad = dataBonus[2];						//la checkbox est eventuellement l'enfant de la 3ème dellule de la ligne
+//			
+//			var newBonus = {	"idBonus" : idBonus,
+//								"valeurBonus" : valeur,
+//								"acad":	"false"	};
+//			
+//			if (acad != undefined) {
+//				var chk	= acad.children[0];				
+//				newBonus.acad = chk.checked;
+//			}	
+//			
+//			listeBonus.push(newBonus);
+//		}
+//	}
+//	return listeBonus;	
+//}
 
 
 /** 
@@ -412,7 +380,6 @@ function reset() {
 	var id  = document.getElementById('idRace');
 	var chk= document.getElementById('dispo');
 	var nb= row.length;
-	console.log(row.length);
 	
 	for (i=nb-1; i>0; i--){
 		console.log(i);
@@ -420,9 +387,7 @@ function reset() {
 		row[i].parentNode.removeChild(row[i]);
 	}	
 	
-	console.log(nom.value);
 	nom.value="";
-	console.log("nom modifié="+nom.value);
 	id.value="";
 	chk.checked = false;
 }
@@ -438,7 +403,7 @@ function envoiAjax(race, listebonus) {
 	
 	$.ajax({
 	    url        	: urlEnvoi,
-	    dataType	:	'html',
+	    dataType	: 'html',
 	    contentType	: 'application/x-www-form-urlencoded; charset=UTF-8',
 	    data       	: datageneric,
 	    type       	: 'POST',

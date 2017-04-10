@@ -90,9 +90,6 @@ public class ActionsRacePages extends ApplicationSupport{
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
 
-		System.out.println("Nom reçu en param : "+this.nomRace);
-	
-		
 		if (this.nomRace != null) {
 			try {
 				setRace(fService.RechRaceParNom(this.nomRace));
@@ -105,16 +102,13 @@ public class ActionsRacePages extends ApplicationSupport{
 				for (Bonus b : race.getListeBonus()) {
 					System.out.println(b.getIdBonus()+ " " + b.getValeurBonus());
 				}
-				System.out.println("race recherchée ="+race.getNom());
+
 				
 			} catch (UserExceptionRBC e) {
-				System.out.println("erreur recherche de race"+e.getMessage());
 				setMessage(e.getMessage());
 			}
 		}
 		
-		
-		System.out.println("données renseignées... envoi à la page editer");
 		return SUCCESS;
 	}
 	
