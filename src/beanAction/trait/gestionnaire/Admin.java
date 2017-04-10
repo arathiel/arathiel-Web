@@ -80,6 +80,17 @@ public class Admin extends ApplicationSupport{
 		
 		}
 	
+	/**
+	 * Vide les objets pour l'ajout
+	 */
+	public void vider() {
+		trait 	 = null;
+		malus	 = null;
+		visi	 = null;
+		dispo	 = null;
+		listComp = null;
+	}
+	
 	/* ========================================== */ 
 	/*  				TRAIT					  */
 	/* ========================================== */
@@ -136,6 +147,9 @@ public class Admin extends ApplicationSupport{
 			} catch (UserException e) {
 				message = e.getMessage();
 	 		}
+			
+		// On remet à zéro pour vider les champs
+		this.vider();
 		
 		return MethodReturn.ADD;	
 	}
@@ -366,6 +380,7 @@ public class Admin extends ApplicationSupport{
 		}
 		return listCompOut;		
 	}
+	
 
 	
 	//Getters & Setters (J'ai pas mis la javaDoc car ça évoluait bcp. DSL)
