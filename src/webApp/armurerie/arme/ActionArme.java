@@ -36,29 +36,39 @@ public class ActionArme extends ApplicationSupport{
 	private int 			joueurId;
 	private int 			armeId;
 	private String 			etat;
+	private String			messageErreur;
 
 
 	//===============METHODE VALIDATE=============================================	
-//	@Override
-//	public void validate() {
-//		System.out.println("méthode validate() en cours");
-//		if (armeDto.getNom().isEmpty()){
-//			addFieldError("armeDto.nom", getText("nom.obligatoire"));
-//		}
-//		if (tabRaces.length == 0) {
-//			addFieldError("tabRaces", getText("race.obligatoire"));
-//		}
-//		if (armeDto.getEncombrement() < 1) {
-//			addFieldError("armeDto.encombrement", getText("encom.obligatoire"));
-//		}
-//		if (armeDto.getPrix() < 1) {
-//			addFieldError("armeDto.prix", getText("prix.obligatoire"));
-//		}
-//		if (hasFieldErrors()) {
-//			addActionMessage("Merci de renseigner tous les champs");
-//		}
-//
-//	}
+	@Override
+	public void validate() {
+		System.out.println("méthode validate() en cours");
+		try {
+			afficheRace();
+		
+		
+		if (armeDto.getNom().isEmpty()){
+			addFieldError("armeDto.nom", getText("nom.obligatoire"));
+		}
+		if (tabRaces.length == 0) {
+			addFieldError("tabRaces", getText("race.obligatoire"));
+		}
+		if (armeDto.getEncombrement() < 1) {
+			addFieldError("armeDto.encombrement", getText("encom.obligatoire"));
+		}
+		if (armeDto.getPrix() < 1) {
+			addFieldError("armeDto.prix", getText("prix.obligatoire"));
+		}
+		if (hasFieldErrors()) {
+			addActionError( "Des champs de saisie sont vides");
+			addActionMessage("Merci de renseigner tous les champs");
+		}
+		} catch (ServiceOlivBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
 
 	//===============METHODES POUR L'AFFICHAGE DES PAGES DE CREATION, MODIFICATION ET SUPPRESSION==================
 	public String creationAffiche() 	throws ServiceOlivBException {
@@ -75,7 +85,7 @@ public class ActionArme extends ApplicationSupport{
 		afficheRace();
 		return "afficheOK";
 	}
-
+	
 	public String joueurAffiche() 		throws ServiceOlivBException {
 		afficheListeArme();
 		afficheListeJoueur();
@@ -91,10 +101,10 @@ public class ActionArme extends ApplicationSupport{
 
 	//=================METHODES POUR LA VALIDATION DES FORMULAIRES==================================================
 	public String creationValide() 		throws ServiceOlivBException {
+		System.out.println("méthode creationValide() OK");
 		if (validationArme(armeDto)) {
 			getTabRacesSelectedValues();
 			manArme = new ManageArme();
-			System.out.println(raceArme);
 			try {
 				manArme.createArme(armeDto, raceArme);
 			}
@@ -130,12 +140,12 @@ public class ActionArme extends ApplicationSupport{
 		}
 		return SUCCESS;
 	}
-
+	
 	public String joueurValide() throws ServiceOlivBException {
 		manArme = new ManageArme();
 		manArme.ajouteArmeJoueur(armeJoueurDto, joueurId, armeId, etat);
 		return SUCCESS;
-
+		
 	}
 	public String rechercheValide() {
 		//TODO
@@ -178,14 +188,6 @@ public class ActionArme extends ApplicationSupport{
 		this.etat = etat;
 	}
 
-	public List<String> getNomRaces() {
-		return nomRaces;
-	}
-
-	public void setNomRaces(List<String> nomRaces) {
-		this.nomRaces = nomRaces;
-	}
-
 	//Méthode de recherche liste des Armes pour affichage dans les jsp modificationArme et suppressionArme
 	private List<Arme> afficheListeArme() 	throws ServiceOlivBException {
 		manArme = new ManageArme();
@@ -195,18 +197,14 @@ public class ActionArme extends ApplicationSupport{
 	}
 
 	//Méthode de recherche liste de races pour la CheckBoxList
-	private List<String> afficheRace() 		throws ServiceOlivBException {
+	private List<Race> afficheRace() 		throws ServiceOlivBException {
 		manArme = new ManageArme();
 		races = new ArrayList<Race>();
 		races = manArme.afficheRaces();
-		nomRaces = new ArrayList<String>();
-		for (Race race : races) {
-			nomRaces.add(race.getNom());	
-		}
-		return nomRaces;
+		return races;
 
 	}
-
+	
 	private List<Joueur> afficheListeJoueur() throws ServiceOlivBException {
 		manArme = new ManageArme();
 		joueurs = new ArrayList<Joueur>();
@@ -231,6 +229,7 @@ public class ActionArme extends ApplicationSupport{
 		raceArme = new ArrayList<String>();
 		try {
 			for (String value : tabRaces) {
+				System.out.println(value);
 				raceArme.add(value);
 			}
 		}
@@ -313,5 +312,20 @@ public class ActionArme extends ApplicationSupport{
 		this.joueurId = joueurId;
 	}
 
+	public List<String> getNomRaces() {
+		return nomRaces;
+	}
+
+	public void setNomRaces(List<String> nomRaces) {
+		this.nomRaces = nomRaces;
+	}
+
+	public String getMessageErreur() {
+		return messageErreur;
+	}
+
+	public void setMessageErreur(String messageErreur) {
+		this.messageErreur = messageErreur;
+	}
 
 }

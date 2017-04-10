@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+
+body 
+{ 
+color: #c9aa79;
+ font-family : Lucida, sans-serif; 
+}
+
+
+.form{
+	
+	display: block;
+	margin-left: 35%;
+    margin-right: 50%;
+    margin-top: 75px;
+	width: 400px;
+	height: 350px;
+	padding: 30px;
+	background-color: rgba(255,255,255,0.2);
+	border-width:1px;
+	border-color: black;
+	border-style: solid;
+
+}
+
+.ng-active{
+	color: red;
+	font-family : Lucida, sans-serif; 
+	font-size : 9px;
+}
+
+input{
+	width: 200px;
+    padding: 4px;
+    vertical-align: top;
+    border: 1px solid gray;
+}
+
+label{
+	display: inline-block;
+    width: 150px;
+    margin-right: 30px;
+
+    vertical-align: top;
+    text-align: left;
+}

@@ -81,9 +81,9 @@
 		<div id="resume">
 			<form accept-charset=utf-8 action="#" onsubmit="return false">
 				<div id="identRace">	
-					<s:textfield name="idRace" 		label="Id" 	readonly="true"></s:textfield>
-					<s:textfield name="nomRace" 	label="Nom"></s:textfield>
-					<s:textfield name="xpRendue" 	label="Xp Rendue" readonly="true"></s:textfield>
+					<s:textfield name="idRace" 		label="Id" 			readonly="true"></s:textfield>
+					<s:textfield name="nomRace" 	label="Nom"			required="true"></s:textfield>
+					<s:textfield name="xpRendue" 	label="Xp Rendue" 	readonly="true"></s:textfield>
 					
 					<label>Disponible : </label>
 					<input type="checkbox"  id="dispo" <s:if test="%{chkAcad=='true'}">checked = "checked"</s:if>/>
@@ -92,7 +92,6 @@
 				
 				<fieldset id="bonus">
 				<legend>Liste des Bonus de la race</legend>
-<!-- 				<div id="bonus"> -->
 					<table id="tableBonus">
 <!-- 		dans ce tableau seront créés des bonus à la volée chacun remplissant une ligne   -->
 						<tr>
@@ -140,7 +139,6 @@
 						</s:iterator>			
 					</table>
 
-<!-- 				</div> -->
 				</fieldset>
 				
 				<div id="bouton">
@@ -150,7 +148,6 @@
 				</div>			
 			</form>
 		</div>
-		
 		<div id="message"><s:property value="message"/></div>
 	</div>
 </body>

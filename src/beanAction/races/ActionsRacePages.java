@@ -62,22 +62,15 @@ public class ActionsRacePages extends ApplicationSupport{
 	public String lister() {
 		init();		
 		setListeRace(fService.listeToutesRaces());
-		System.out.println("Races reçues de la base :");
-		for (Race r: listeRace){
-			System.out.println(r.toString());
-		}
 		return SUCCESS;
 	}
 	
 	
 	public String creer() {
 		init();
-	
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
-		
-		
 		return SUCCESS;
 	}
 	
@@ -85,36 +78,23 @@ public class ActionsRacePages extends ApplicationSupport{
 	
 	public String editer() {
 		init();
-		
 		setListeCarac(fService.listeCarac());
 		setListeTrait(fService.consulterListTrait());
 		setListeComp(fService.listeToutesComp());
 
-		System.out.println("Nom reçu en param : "+this.nomRace);
-	
-		
 		if (this.nomRace != null) {
 			try {
-				setRace(fService.RechRaceParNom(this.nomRace));
+				setRace(fService.rechRaceParNom(this.nomRace));
 				this.listeBonus = (ArrayList<Bonus>) race.getListeBonus();
 				this.nomRace = race.getNom();
 				this.idRace = String.valueOf(race.getId());
 				this.chkAcad = String.valueOf(race.isDispo());
 				
-				
-				for (Bonus b : race.getListeBonus()) {
-					System.out.println(b.getIdBonus()+ " " + b.getValeurBonus());
-				}
-				System.out.println("race recherchée ="+race.getNom());
-				
 			} catch (UserExceptionRBC e) {
-				System.out.println("erreur recherche de race"+e.getMessage());
 				setMessage(e.getMessage());
 			}
 		}
 		
-		
-		System.out.println("données renseignées... envoi à la page editer");
 		return SUCCESS;
 	}
 	

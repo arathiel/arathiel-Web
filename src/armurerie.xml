@@ -19,18 +19,16 @@
 			</interceptor-ref>	
 			  -->	
 <!-- 			<result name="input">/WEB-INF/vue/armurerie/{1}Arme.jsp</result> -->
- 			<result name="input" type="redirectAction">
+ <!-- 			<result name="input" type="redirectAction">
 				<param name="actionName">creationArmeAffiche</param>
 				<param name="namespace">/armurerie</param>
 			</result>
+			 -->
 			<result name="afficheOK">/WEB-INF/vue/armurerie/{1}Arme.jsp</result>
-			<result name="success">/WEB-INF/vue/armurerie/{1}Arme{2}.jsp</result>			
+			<result name="success">/WEB-INF/vue/armurerie/{1}Arme{2}.jsp</result>
+			<result name="erreur">/WEB-INF/vue/armurerie/messageErreur.jsp</result>			
 		</action>	
 
-		
-		<action name="rechercheArme">
-			<result>/js/rechercheArme.js</result>
-		</action>
 		
 		<action name="cssArmurerie">
 			<result>/css/armurerie/ArmurerieMenu.css</result>
@@ -38,6 +36,14 @@
 		
 		<action name="cssModification">
 			<result>/css/armurerie/ArmurerieModification.css</result>
+		</action>
+		
+				<action name="angular">
+			<result>/js/angular.js</result>
+		</action>
+		
+		<action name="angularArmurerie">
+			<result>/js/AngularArmurerie.js</result>
 		</action>
 		
 	</package>

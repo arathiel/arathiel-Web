@@ -4,19 +4,17 @@
 		"http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-	<package name="passion" namespace="/passion" extends="struts-default, json-default" >
-				
+	<package name="passion" namespace="/passion" extends="struts-default" >
+		
+		
 		<action name="*Passion" method="{1}" class="beanAction.passion.ActionsPassion">
  			<result name="affiche">/WEB-INF/vue/passion/affichePassion.jsp</result>
- 			<result name="probleme">/WEB-INF/vue/passion/erreur.jsp</result>
+ 			<result name="input">{{messErreur}}</result>
  			<result name="success">/WEB-INF/vue/accueilAdmin.jsp</result> 
- 			<result name="input">/WEB-INF/vue/passion/affichePassion.jsp</result> 
  			<result name="liste">/WEB-INF/vue/passion/rechercherPassion.jsp</result>
  			<result name="detail">/WEB-INF/vue/passion/detailPassion.jsp</result>
- 			
-			
 			<interceptor-ref name="defaultStack" >
-				<param name="validation.excludeMethods">ajouter, affiche, liste, detail, supprimer, modifier</param>
+				<param name="validation.excludeMethods">ajouter, modifier, affiche, liste, detail, supprimer</param>
 			</interceptor-ref>
  			
  			<allowed-methods>affiche, ajouter, liste, detail, supprimer, modifier</allowed-methods>
@@ -28,18 +26,15 @@
  	
 					<!-- ************ CSS ************ -->
 		
-<!-- 		<action name="css"> -->
-<!-- 			<result>css/passion/arathiel.css</result> -->
-<!-- 		</action> -->
+		<action name="cssPassion">
+			<result>/css/passion/passion.css</result>
+		</action>
 		
 					<!-- ************ JS ************ -->
 		
 		<action name="passionJs">
 			<result>/js/passion/passion.js</result>
 		</action>
-<!-- 		<action name="passionJsRec"> -->
-<!-- 			<result>/js/passion/passionRec.js</result> -->
-<!-- 		</action> -->
  	</package>	
  	
 	
@@ -47,16 +42,24 @@
 		<action name="*Passion" class="beanAction.passion.ActionsPassion" method="{1}">
 			<result name="recherche" type="json">
  			<param name="excludeProperties">lettres, listeRace, listeMdpFond, passion, race, passionNom, passionDescription, 
-	selectionRace, selectionMagie, lettres, messErreur 	</param>
+	selectionRace, selectionMagie, lettres</param>
+			</result>
+			<result name="error" type="json">
+			<param name="excludeProperties">listePassions, listeRace, listeMdpFond, passion, race, passionNom, passionDescription, 
+				selectionRace, selectionMagie, lettres</param>
+<!-- 				<param name="status">999</param> -->
+			</result>
+			<result name="input" type="json">
+				<param name="excludeProperties">listePassions, listeRace, listeMdpFond, passion, race, passionNom, passionDescription, 
+				selectionRace, selectionMagie, lettres</param>
 			</result>
 		<interceptor-ref name="defaultStack" >
-				<param name="validation.excludeMethods">recherche</param>
+				<param name="validation.excludeMethods">recherche, ajouter</param>
 			</interceptor-ref>
 			<allowed-methods>
-				recherche
+				recherche, ajouter
 			</allowed-methods>
 		</action>
-
 	</package>
 	
  	
