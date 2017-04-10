@@ -56,18 +56,18 @@ public class ManageArme {
 		catch (NamingException e) {
 			e.printStackTrace(); 
 			}
-	try {         
-		context = new InitialContext();
-		QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup(ArmurerieParam.destinationName); 
-		connection  = connectionFactory.createQueueConnection(ArmurerieParam.JMS_USERNAME, ArmurerieParam.JMS_PASSWORD); 
-		session 	= connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-		Queue queue = (Queue) context.lookup(ArmurerieParam.JMS_QUEUE_JNDI);
-		sender 	= session.createSender(queue);
-		connection.start();
-	} 
-	catch (Exception exc) {
-		exc.printStackTrace();
-	}
+//	try {         
+//		context = new InitialContext();
+//		QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup(ArmurerieParam.destinationName); 
+//		connection  = connectionFactory.createQueueConnection(ArmurerieParam.JMS_USERNAME, ArmurerieParam.JMS_PASSWORD); 
+//		session 	= connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
+//		Queue queue = (Queue) context.lookup(ArmurerieParam.JMS_QUEUE_JNDI);
+//		sender 	= session.createSender(queue);
+//		connection.start();
+//	} 
+//	catch (Exception exc) {
+//		exc.printStackTrace();
+//	}
 }
 
 //=================méthodes d'appel vers la couche service pour affichage==========================
@@ -86,8 +86,8 @@ public void createArme(Arme armeDto, List<String> raceArme) throws ServiceOlivBE
 	init();
 	arme = forgeArme.creerArme(armeDto.getNom(), armeDto.getEncombrement(), armeDto.getPrix(), armeDto.getMonnaie());
 	serviceArme.createArme(arme, raceArme);	
-	message = "Trop fort, une nouvelle arme !!!";
-	envoyerEJBMessage(message);			
+//	message = "Trop fort, une nouvelle arme !!!";
+//	envoyerEJBMessage(message);			
 }
 
 
@@ -96,8 +96,8 @@ public void modif(Arme armeDto, List<String> raceArme) throws ServiceOlivBExcept
 	init();
 	arme = forgeArme.creerArme(armeDto.getIdArme(), armeDto.getNom(), armeDto.getEncombrement(), armeDto.getPrix(), armeDto.getMonnaie());
 	serviceArme.modifArme(arme, raceArme);
-	message = "Trop fort, une arme modifiée!!!";
-	envoyerEJBMessage(message);	
+//	message = "Trop fort, une arme modifiée!!!";
+//	envoyerEJBMessage(message);	
 
 	
 }
@@ -106,8 +106,8 @@ public void suppr(Arme armeDto) throws ServiceOlivBException, JMSException {
 	init();
 	arme = forgeArme.creerArme(armeDto.getIdArme(), armeDto.getNom(), armeDto.getEncombrement(), armeDto.getPrix(), armeDto.getMonnaie());
 	serviceArme.supprArme(arme);
-	message = "Pourquoi supprimer une arme !!!";
-	envoyerEJBMessage(message);	
+//	message = "Pourquoi supprimer une arme !!!";
+//	envoyerEJBMessage(message);	
 }
 
 public List<Arme> afficheArmesRace() throws ServiceOlivBException {
@@ -127,21 +127,21 @@ public void ajouteArmeJoueur(ArmeJoueur armeJoueurDto, int joueurId, int armeId,
 }
 
 //méthode d'envoie message EJB Message
-private void envoyerEJBMessage(String message) throws JMSException {
-	TextMessage txtMessage;
-	try {
-		txtMessage = session.createTextMessage();
-		txtMessage.setText(message);
-		sender.send(txtMessage);
-		
-	} catch (JMSException e) {
-		e.printStackTrace();
-	}
-	
-	sender.close();
-	session.close();
-	connection.close();		
-}
+//private void envoyerEJBMessage(String message) throws JMSException {
+//	TextMessage txtMessage;
+//	try {
+//		txtMessage = session.createTextMessage();
+//		txtMessage.setText(message);
+//		sender.send(txtMessage);
+//		
+//	} catch (JMSException e) {
+//		e.printStackTrace();
+//	}
+//	
+//	sender.close();
+//	session.close();
+//	connection.close();		
+//}
 
 public String getMessage() {
 	return message;
