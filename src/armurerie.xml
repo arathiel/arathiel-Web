@@ -25,7 +25,8 @@
 			</result>
 			 -->
 			<result name="afficheOK">/WEB-INF/vue/armurerie/{1}Arme.jsp</result>
-			<result name="success">/WEB-INF/vue/armurerie/{1}Arme{2}.jsp</result>			
+			<result name="success">/WEB-INF/vue/armurerie/{1}Arme{2}.jsp</result>
+			<result name="erreur">/WEB-INF/vue/armurerie/messageErreur.jsp</result>			
 		</action>	
 
 		
