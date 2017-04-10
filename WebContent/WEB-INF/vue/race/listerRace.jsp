@@ -6,7 +6,6 @@
 	<link rel="stylesheet" href="<s:url namespace="" action="cssArathiel" />" />
 	<link rel="stylesheet" href="<s:url namespace="/race" 	action="cssRaceEdit" />" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/race/choixRace.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.0.min.js"></script>
 	<title>Page de listing des races</title>
 </head>
