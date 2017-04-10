@@ -29,18 +29,17 @@
 				<th>Races</th>
 				<th>Encombrement</th>
 				<th>Prix</th>
-				<th>Afficher</th>
 			</tr>
 			<s:iterator value="armes">
 				<tr>
-					<td><s:radio 		name="" list="{idArme}"/></td>
+					<td><s:radio 		name="" 		list="{idArme}" ng-model="saisie.idArme" ng-focus="CtrlList()"/></td>
 					<td><s:property 	value="nom"/></td>
 					<td><s:iterator 	value="races">
 							<s:property value="nom"/>
-						</s:iterator></td>
+						</s:iterator>
+					</td>
 					<td><s:property 	value="encombrement"/></td>
 					<td><s:property 	value="prix"/></td>
-					<td><a href="" ng-click="CtrlList()"/></td>
 				</tr>
 			</s:iterator>	
 		</table>
