@@ -26,6 +26,7 @@ public class ManageArme {
 	private IForge 			forgeArme;
 	private IArme 			arme;
 
+	
 
 	public ManageArme() {
 		super();
