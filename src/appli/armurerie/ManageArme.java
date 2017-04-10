@@ -35,9 +35,9 @@ public class ManageArme {
 	private IArme 					arme;
 	private Arme					armeRech;
 	private String 					message;
-	private static QueueConnection	connection 	= null;
-	private static QueueSession 	session 	= null;
-	private static QueueSender     	sender		= null;
+//	private static QueueConnection	connection 	= null;
+//	private static QueueSession 	session 	= null;
+//	private static QueueSender     	sender		= null;
 
 	
 
