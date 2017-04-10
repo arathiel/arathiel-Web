@@ -48,10 +48,6 @@ public class ManageArme {
 	//Méthode d'initialisation du contexte
 	public void init() {
 		Context context;
-		final String destinationName = "/ConnectionFactory";
-		final String JMS_QUEUE_JNDI	 = "/jboss/exported/jms/queue/TestDdevilQueue"; 
-		final String JMS_USERNAME	 = "jmsuser";       
-		final String JMS_PASSWORD	 = "jmsuser@123";
 		try {
 			context 	= new InitialContext();
 			serviceArme = (IFacadeService) 	context.lookup(ArmurerieParam.FACADE_SERVICE);
@@ -62,10 +58,10 @@ public class ManageArme {
 			}
 	try {         
 		context = new InitialContext();
-		QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup(destinationName); 
-		connection  = connectionFactory.createQueueConnection(JMS_USERNAME, JMS_PASSWORD); 
+		QueueConnectionFactory connectionFactory = (QueueConnectionFactory) context.lookup(ArmurerieParam.destinationName); 
+		connection  = connectionFactory.createQueueConnection(ArmurerieParam.JMS_USERNAME, ArmurerieParam.JMS_PASSWORD); 
 		session 	= connection.createQueueSession(false, Session.AUTO_ACKNOWLEDGE);
-		Queue queue = (Queue) context.lookup(JMS_QUEUE_JNDI);
+		Queue queue = (Queue) context.lookup(ArmurerieParam.JMS_QUEUE_JNDI);
 		sender 	= session.createSender(queue);
 		connection.start();
 	} 
